@@ -62,7 +62,6 @@
 
         .app-container { display: flex; flex: 1; position: relative; }
 
-        /* Sidebar Styling */
         .sidebar {
             width: var(--sidebar-width); background: var(--bg-secondary); border-left: 1px solid var(--border); padding: 20px 10px; display: none; flex-direction: column; gap: 8px; z-index: 900;
         }
@@ -109,22 +108,23 @@
         .stat-card i { font-size: 2.2rem; color: var(--accent); margin-bottom: 10px; }
         .stat-card h3 { font-size: 1.8rem; }
 
-        /* Progress Bar */
         .progress-bar-container { width: 100%; background: var(--bg-primary); border-radius: 8px; overflow: hidden; margin-top: 15px; height: 10px; border: 1px solid var(--border); }
         .progress-bar { height: 100%; background: var(--success); width: 0%; transition: width 0.5s ease; }
 
-        /* Toast Notifications */
         #toast-container { position: fixed; bottom: 20px; left: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
         [dir="ltr"] #toast-container { left: auto; right: 20px; }
         .toast { background: var(--bg-secondary); color: var(--text-main); padding: 12px 20px; border-radius: 8px; border-left: 4px solid var(--accent); box-shadow: 0 5px 15px rgba(0,0,0,0.3); animation: fadeSlideUp 0.3s; display: flex; align-items: center; gap: 10px; }
         .toast.success { border-left-color: var(--success); }
         .toast.error { border-left-color: var(--danger); }
 
-        /* Chat Section */
         .chat-box { height: 350px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 8px; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
         .chat-msg { background: var(--bg-secondary); padding: 10px 14px; border-radius: 8px; max-width: 80%; border: 1px solid var(--border); }
         .chat-msg.mine { align-self: flex-end; background: rgba(99, 102, 241, 0.15); border-color: var(--accent); }
         .chat-msg .author { font-size: 0.75rem; color: var(--accent); margin-bottom: 3px; font-weight: bold; }
+
+        /* Lesson Details view */
+        .lesson-item { background: var(--bg-primary); border: 1px solid var(--border); padding: 15px; border-radius: 10px; margin-bottom: 10px; }
+        .lesson-item h4 { color: var(--accent); margin-bottom: 5px; }
 
         @media (max-width: 900px) {
             .menu-toggle { display: block; }
@@ -158,7 +158,6 @@
     <div class="app-container">
         <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
 
-        <!-- القائمة الجانبية المحدثة -->
         <aside class="sidebar" id="admin-sidebar">
             <h3 data-i18n="adminPanel">القائمة الرئيسية</h3>
             <div class="sidebar-item admin-only hidden active" onclick="switchTab('tab-dashboard')"><i class="fa-solid fa-chart-pie"></i> <span data-i18n="dashboard">الإحصائيات</span></div>
@@ -216,7 +215,7 @@
                 </form>
             </section>
 
-            <!-- لوحة التحكم والإحصائيات -->
+            <!-- لوحة التحكم -->
             <section id="tab-dashboard" class="card admin-tab tab-content hidden">
                 <h2 data-i18n="dashboard">نظرة عامة وإحصائيات المنصة</h2>
                 <div class="stats-grid">
@@ -289,7 +288,6 @@
                     <button class="btn admin-only hidden" onclick="toggleForm('course-add-form')" data-i18n="addCourse"><i class="fa-solid fa-plus"></i> إضافة كورس جديد</button>
                 </div>
                 <div id="course-add-form" class="hidden" style="margin-top:15px; background: var(--bg-primary); padding: 15px; border-radius: 8px;">
-                    <input type="hidden" id="edit-course-id">
                     <input type="text" id="course-title" placeholder="عنوان الكورس..." style="margin-bottom:10px;">
                     <textarea id="course-desc" placeholder="وصف الكورس والتفاصيل..." style="margin-bottom:10px; height: 80px;"></textarea>
                     <button class="btn" onclick="saveCourse()" data-i18n="save">حفظ الكورس</button>
@@ -299,6 +297,27 @@
                     <input type="text" id="search-courses" placeholder="ابحث عن كورس..." onkeyup="renderCourses()">
                 </div>
                 <div id="courses-list" style="margin-top:20px; display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:20px;"></div>
+            </section>
+
+            <!-- تفاصيل الكورس والشروحات الداخلية -->
+            <section id="tab-course-details" class="card tab-content hidden">
+                <button class="btn btn-secondary btn-sm" onclick="switchTab('tab-courses')" style="margin-bottom: 15px;"><i class="fa-solid fa-arrow-right"></i> العودة للكورسات</button>
+                <h2 id="detail-course-title">عنوان الكورس</h2>
+                <p id="detail-course-desc" style="color: var(--text-sub); margin: 5px 0 20px 0;"></p>
+                
+                <div class="admin-only hidden" style="background: var(--bg-primary); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                    <h3>إضافة شرح أو درس جديد داخل الكورس</h3>
+                    <div class="form-group" style="margin-top:10px;">
+                        <input type="text" id="lesson-title" placeholder="عنوان الدرس (مثال: إنشاء مشروع Node.js)">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="lesson-content" placeholder="محتوى الشرح، الأكواد البرمجية، أو رابط الفيديو..." style="height: 100px;"></textarea>
+                    </div>
+                    <button class="btn btn-success" onclick="saveLesson()"><i class="fa-solid fa-plus"></i> إضافة الشرح للكورس</button>
+                </div>
+
+                <h3 style="margin-bottom: 15px;">محتوى وشروحات الكورس:</h3>
+                <div id="lessons-list"></div>
             </section>
 
             <!-- بنك الأسئلة -->
@@ -362,15 +381,32 @@
         let currentLang = 'ar';
         let currentUser = null;
         let isRegisterMode = false;
+        let currentActiveCourseId = null;
 
-        const DB_KEY = 'KXY_Academy_Advanced_Data';
+        const DB_KEY = 'KXY_Academy_Advanced_Data_v2';
         let defaultData = {
             users: [
                 { id: 1, name: 'Ahmed', email: 'ahmed@admin', pass: '1523259999688855552', country: 'مصر', isAdmin: true, status: 'Active' }
             ],
             courses: [
-                { id: 1, title: 'تطوير بوتات Discord باستخدام Node.js', desc: 'تعلم البرمجة والاستضافة الكاملة لبوتات ديسكورد.', progress: 40 },
-                { id: 2, title: 'أساسيات لغة JavaScript وتطوير الويب', desc: 'تعرف على أساسيات جافاسكريبت لبناء تطبيقات تفاعلية.', progress: 15 }
+                { 
+                    id: 1, 
+                    title: 'تطوير بوتات Discord باستخدام Node.js', 
+                    desc: 'تعلم البرمجة والاستضافة الكاملة لبوتات ديسكورد.', 
+                    progress: 40,
+                    lessons: [
+                        { id: 101, title: 'مقدمة عن المتطلبات وتثبيت Node.js', content: 'في هذا الدرس سنقوم بتثبيت البيئة البرمجية وجهوزية المحرر لبرمجة البوت.' }
+                    ]
+                },
+                { 
+                    id: 2, 
+                    title: 'أساسيات لغة JavaScript وتطوير الويب', 
+                    desc: 'تعرف على أساسيات جافاسكريبت لبناء تطبيقات تفاعلية.', 
+                    progress: 15,
+                    lessons: [
+                        { id: 102, title: 'المتغيرات وأنواع البيانات', content: 'شرح تفصيلي لأنواع البيانات وكيفية إعلان المتغيرات باستخدام let و const.' }
+                    ]
+                }
             ],
             questions: [
                 { id: 1, text: 'كيف تقوم بربط بوت ديسكورد بقاعدة بيانات خارجية؟' }
@@ -394,7 +430,6 @@
             currentUser = db.users.find(u => u.id === userId);
         }
 
-        // نظام الإشعارات (Toast)
         function showToast(text, type = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -522,7 +557,6 @@
             document.getElementById(formId).classList.toggle('hidden');
         }
 
-        // إدارة الأعضاء مع البحث
         function adminAddUser(e) {
             e.preventDefault();
             const name = document.getElementById('add-name').value;
@@ -562,14 +596,12 @@
         function toggleBan(id) { const u = db.users.find(user => user.id === id); if (u) { u.status = u.status === 'Active' ? 'Banned' : 'Active'; saveDB(); renderAll(); showToast('تم تغيير حالة الحظر'); } }
         function deleteUser(id) { db.users = db.users.filter(u => u.id !== id); saveDB(); renderAll(); showToast('تم حذف العضو'); }
 
-        // الكورسات
+        // الكورسات والشروحات الداخلية
         function saveCourse() {
             const title = document.getElementById('course-title').value;
             const desc = document.getElementById('course-desc').value;
-            const editId = document.getElementById('edit-course-id').value;
             if (title) {
-                if(editId) { const c = db.courses.find(c => c.id == editId); if(c) { c.title = title; c.desc = desc; } }
-                else { db.courses.push({ id: Date.now(), title, desc, progress: 0 }); }
+                db.courses.push({ id: Date.now(), title, desc, progress: 0, lessons: [] });
                 saveDB(); renderAll();
                 document.getElementById('course-title').value = ''; document.getElementById('course-desc').value = '';
                 document.getElementById('course-add-form').classList.add('hidden');
@@ -577,6 +609,69 @@
             }
         }
         function deleteCourse(id) { db.courses = db.courses.filter(c => c.id !== id); saveDB(); renderAll(); showToast('تم حذف الكورس'); }
+
+        function openCourseDetails(courseId) {
+            currentActiveCourseId = courseId;
+            const course = db.courses.find(c => c.id === courseId);
+            if (!course) return;
+
+            document.getElementById('detail-course-title').innerText = course.title;
+            document.getElementById('detail-course-desc').innerText = course.desc || '';
+            renderLessons();
+            switchTab('tab-course-details');
+        }
+
+        function saveLesson() {
+            const title = document.getElementById('lesson-title').value;
+            const content = document.getElementById('lesson-content').value;
+            if (!title) return showToast('يرجى كتابة عنوان الدرس', 'error');
+
+            const course = db.courses.find(c => c.id === currentActiveCourseId);
+            if (course) {
+                if (!course.lessons) course.lessons = [];
+                course.lessons.push({ id: Date.now(), title, content });
+                saveDB();
+                document.getElementById('lesson-title').value = '';
+                document.getElementById('lesson-content').value = '';
+                renderLessons();
+                showToast('تمت إضافة الشرح بنجاح!');
+            }
+        }
+
+        function deleteLesson(lessonId) {
+            const course = db.courses.find(c => c.id === currentActiveCourseId);
+            if (course) {
+                course.lessons = course.lessons.filter(l => l.id !== lessonId);
+                saveDB();
+                renderLessons();
+                showToast('تم حذف الشرح');
+            }
+        }
+
+        function renderLessons() {
+            const container = document.getElementById('lessons-list');
+            const course = db.courses.find(c => c.id === currentActiveCourseId);
+            container.innerHTML = '';
+
+            if (!course || !course.lessons || course.lessons.length === 0) {
+                container.innerHTML = `<p style="color: var(--text-sub);">لا توجد شروحات مضافة لهذا الكورس حتى الآن.</p>`;
+                return;
+            }
+
+            course.lessons.forEach((l, index) => {
+                container.innerHTML += `
+                    <div class="lesson-item">
+                        <h4>الدرس ${index + 1}: ${l.title}</h4>
+                        <p style="color: var(--text-sub); white-space: pre-line; margin-top: 8px;">${l.content || 'بدون تفاصيل إضافية'}</p>
+                        ${currentUser?.isAdmin ? `
+                            <div style="margin-top: 10px; text-align: left;">
+                                <button class="btn btn-danger btn-sm" onclick="deleteLesson(${l.id})"><i class="fa-solid fa-trash"></i> حذف الشرح</button>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+        }
 
         function updateProgress(id) {
             const c = db.courses.find(course => course.id === id);
@@ -599,10 +694,11 @@
                         <p style="color: var(--text-sub); text-align: center; font-size: 0.85rem; flex: 1;">${c.desc || ''}</p>
                         <div class="progress-bar-container"><div class="progress-bar" style="width: ${c.progress || 0}%;"></div></div>
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-top:15px; gap:10px;">
+                            <button class="btn btn-sm" style="flex:1;" onclick="openCourseDetails(${c.id})"><i class="fa-solid fa-book-open-reader"></i> عرض المحتوى</button>
                             ${currentUser?.isAdmin ? `
                                 <button class="btn btn-danger btn-sm" onclick="deleteCourse(${c.id})"><i class="fa-solid fa-trash"></i></button>
                             ` : `
-                                <button class="btn btn-sm" style="flex:1;" onclick="updateProgress(${c.id})">إكمال درس</button>
+                                <button class="btn btn-success btn-sm" onclick="updateProgress(${c.id})" title="إنجاز درس"><i class="fa-solid fa-check"></i></button>
                             `}
                         </div>
                     </div>
@@ -652,7 +748,6 @@
             });
         }
 
-        // الدردشة المجتمعية
         function sendChatMessage(e) {
             e.preventDefault();
             const input = document.getElementById('chat-input');
