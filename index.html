@@ -3,30 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KXY Academy - منصة تعليم البرمجة المتطورة</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>KXY Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --bg-card: rgba(30, 41, 59, 0.8);
-            --text-main: #f8fafc;
-            --text-sub: #94a3b8;
+            --bg-primary: #090d16;
+            --bg-secondary: #111827;
+            --bg-card: rgba(17, 24, 39, 0.75);
+            --text-main: #f3f4f6;
+            --text-sub: #9ca3af;
             --accent: #6366f1;
             --accent-hover: #4f46e5;
             --danger: #ef4444;
             --success: #10b981;
             --warning: #f59e0b;
-            --border: #334155;
-            --sidebar-width: 260px;
+            --border: #1f2937;
+            --sidebar-width: 270px;
         }
 
         [data-theme="light"] {
-            --bg-primary: #f1f5f9;
+            --bg-primary: #f8fafc;
             --bg-secondary: #ffffff;
-            --bg-card: rgba(255, 255, 255, 0.9);
+            --bg-card: rgba(255, 255, 255, 0.85);
             --text-main: #0f172a;
             --text-sub: #64748b;
             --accent: #4f46e5;
@@ -34,97 +34,112 @@
             --border: #e2e8f0;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', 'Inter', sans-serif; transition: background 0.3s, color 0.3s, border-color 0.3s; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; transition: background 0.3s, color 0.3s, border-color 0.3s; }
 
         body {
             background-color: var(--bg-primary); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column;
-            background-image: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 25%),
-                              radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.12) 0%, transparent 25%);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.12) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(139, 92, 246, 0.08) 0px, transparent 50%);
+            background-attachment: fixed;
         }
 
         header {
             background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000;
+            backdrop-filter: blur(10px);
         }
 
-        .logo { font-size: 1.5rem; font-weight: 900; color: var(--accent); display: flex; align-items: center; gap: 10px; }
+        .logo { font-size: 1.6rem; font-weight: 900; color: var(--accent); display: flex; align-items: center; gap: 12px; letter-spacing: 0.5px; }
         .nav-controls { display: flex; gap: 10px; align-items: center; }
         
         .btn {
-            background: var(--accent); color: #fff; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; display: inline-flex; align-items: center; gap: 8px; transition: transform 0.2s, background 0.3s;
+            background: var(--accent); color: #fff; border: none; padding: 8px 16px; border-radius: 10px; cursor: pointer; font-weight: bold; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
         }
-        .btn:hover { background: var(--accent-hover); transform: translateY(-2px); }
+        .btn:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(99, 102, 241, 0.3); }
         .btn:active { transform: translateY(0); }
-        .btn-danger { background: var(--danger); }
+        .btn-danger { background: var(--danger); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2); }
         .btn-warning { background: var(--warning); color: #fff; }
-        .btn-secondary { background: var(--border); color: var(--text-main); }
-        .btn-success { background: var(--success); }
-        .btn-sm { padding: 5px 10px; font-size: 0.85rem; }
+        .btn-secondary { background: var(--border); color: var(--text-main); box-shadow: none; }
+        .btn-success { background: var(--success); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2); }
+        .btn-discord { background: #5865F2; color: #fff; text-decoration: none; }
+        .btn-discord:hover { background: #4752C4; color: #fff; }
+        .btn-sm { padding: 5px 10px; font-size: 0.85rem; border-radius: 6px; }
 
         .app-container { display: flex; flex: 1; position: relative; }
 
         .sidebar {
-            width: var(--sidebar-width); background: var(--bg-secondary); border-left: 1px solid var(--border); padding: 20px 10px; display: none; flex-direction: column; gap: 8px; z-index: 900;
+            width: var(--sidebar-width); background: var(--bg-secondary); border-left: 1px solid var(--border); padding: 20px 12px; display: none; flex-direction: column; gap: 6px; z-index: 900;
         }
         [dir="ltr"] .sidebar { border-left: none; border-right: 1px solid var(--border); }
         
-        .sidebar h3 { padding: 10px; font-size: 0.85rem; color: var(--text-sub); text-transform: uppercase; }
+        .sidebar h3 { padding: 10px; font-size: 0.8rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 1px; }
         .sidebar-item {
-            padding: 12px 15px; border-radius: 8px; color: var(--text-main); text-decoration: none; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: all 0.3s ease;
+            padding: 12px 16px; border-radius: 10px; color: var(--text-main); text-decoration: none; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: all 0.25s ease; font-weight: 600;
         }
-        .sidebar-item:hover, .sidebar-item.active { background: var(--accent); color: #fff; transform: translateX(5px); }
-        [dir="ltr"] .sidebar-item:hover, [dir="ltr"] .sidebar-item.active { transform: translateX(-5px); }
+        .sidebar-item:hover, .sidebar-item.active { background: var(--accent); color: #fff; transform: translateX(4px); box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25); }
+        [dir="ltr"] .sidebar-item:hover, [dir="ltr"] .sidebar-item.active { transform: translateX(-4px); }
 
         .menu-toggle { display: none; background: transparent; color: var(--text-main); border: none; font-size: 1.5rem; cursor: pointer; }
-        .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 800; }
+        .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 800; backdrop-filter: blur(4px); }
 
         main { flex: 1; padding: 30px; max-width: 1250px; margin: 0 auto; width: 100%; overflow: hidden; }
 
-        .card { background: var(--bg-card); backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+        .card { background: var(--bg-card); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
 
         .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; color: var(--text-sub); font-size: 0.9rem; }
-        input, select, textarea { width: 100%; padding: 10px 14px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 8px; color: var(--text-main); outline: none; transition: border-color 0.3s, box-shadow 0.3s; }
-        input:focus, select:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2); }
+        label { display: block; margin-bottom: 6px; color: var(--text-sub); font-size: 0.9rem; font-weight: 600; }
+        input, select, textarea { width: 100%; padding: 11px 15px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); outline: none; transition: all 0.3s; font-size: 0.95rem; }
+        input:focus, select:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25); }
 
         table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { padding: 12px; text-align: right; border-bottom: 1px solid var(--border); }
+        th, td { padding: 14px; text-align: right; border-bottom: 1px solid var(--border); }
         [dir="ltr"] th, [dir="ltr"] td { text-align: left; }
-        th { color: var(--text-sub); font-size: 0.9rem; }
+        th { color: var(--text-sub); font-size: 0.9rem; font-weight: 700; }
 
-        .badge { padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
-        .badge-active { background: rgba(16, 185, 129, 0.2); color: var(--success); }
-        .badge-banned { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
-        .badge-admin { background: rgba(99, 102, 241, 0.2); color: var(--accent); }
+        .badge { padding: 5px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: bold; }
+        .badge-active { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+        .badge-banned { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+        .badge-admin { background: rgba(99, 102, 241, 0.15); color: var(--accent); }
 
         .hidden { display: none !important; }
         .flex-row { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
         .flex-row > div { flex: 1; min-width: 200px; }
 
-        @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-enter { animation: fadeSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-enter { animation: fadeSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 20px; }
-        .stat-card { background: var(--bg-primary); padding: 20px; border-radius: 12px; border: 1px solid var(--border); text-align: center; }
-        .stat-card i { font-size: 2.2rem; color: var(--accent); margin-bottom: 10px; }
-        .stat-card h3 { font-size: 1.8rem; }
+        .stat-card { background: var(--bg-primary); padding: 22px; border-radius: 14px; border: 1px solid var(--border); text-align: center; }
+        .stat-card i { font-size: 2.2rem; color: var(--accent); margin-bottom: 12px; }
+        .stat-card h3 { font-size: 1.8rem; font-weight: 900; }
 
         .progress-bar-container { width: 100%; background: var(--bg-primary); border-radius: 8px; overflow: hidden; margin-top: 15px; height: 10px; border: 1px solid var(--border); }
         .progress-bar { height: 100%; background: var(--success); width: 0%; transition: width 0.5s ease; }
 
-        #toast-container { position: fixed; bottom: 20px; left: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
-        [dir="ltr"] #toast-container { left: auto; right: 20px; }
-        .toast { background: var(--bg-secondary); color: var(--text-main); padding: 12px 20px; border-radius: 8px; border-left: 4px solid var(--accent); box-shadow: 0 5px 15px rgba(0,0,0,0.3); animation: fadeSlideUp 0.3s; display: flex; align-items: center; gap: 10px; }
+        #toast-container { position: fixed; bottom: 25px; left: 25px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+        [dir="ltr"] #toast-container { left: auto; right: 25px; }
+        .toast { background: var(--bg-secondary); color: var(--text-main); padding: 14px 22px; border-radius: 12px; border-left: 4px solid var(--accent); box-shadow: 0 8px 25px rgba(0,0,0,0.3); animation: fadeSlideUp 0.3s; display: flex; align-items: center; gap: 12px; font-weight: 600; }
         .toast.success { border-left-color: var(--success); }
         .toast.error { border-left-color: var(--danger); }
 
-        .chat-box { height: 350px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 8px; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
-        .chat-msg { background: var(--bg-secondary); padding: 10px 14px; border-radius: 8px; max-width: 80%; border: 1px solid var(--border); }
+        .chat-box { height: 350px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 12px; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; }
+        .chat-msg { background: var(--bg-secondary); padding: 12px 16px; border-radius: 10px; max-width: 80%; border: 1px solid var(--border); }
         .chat-msg.mine { align-self: flex-end; background: rgba(99, 102, 241, 0.15); border-color: var(--accent); }
-        .chat-msg .author { font-size: 0.75rem; color: var(--accent); margin-bottom: 3px; font-weight: bold; }
+        .chat-msg .author { font-size: 0.75rem; color: var(--accent); margin-bottom: 4px; font-weight: bold; }
 
-        /* Lesson Details view */
-        .lesson-item { background: var(--bg-primary); border: 1px solid var(--border); padding: 15px; border-radius: 10px; margin-bottom: 10px; }
-        .lesson-item h4 { color: var(--accent); margin-bottom: 5px; }
+        .lesson-item { background: var(--bg-primary); border: 1px solid var(--border); padding: 18px; border-radius: 12px; margin-bottom: 12px; }
+        .lesson-item h4 { color: var(--accent); margin-bottom: 8px; font-size: 1.1rem; }
+
+        /* Quiz Box */
+        .quiz-card { background: var(--bg-primary); border: 1px solid var(--border); padding: 24px; border-radius: 14px; margin-top: 15px; }
+        .quiz-option { display: block; width: 100%; padding: 12px 18px; margin-top: 10px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); text-align: right; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+        [dir="ltr"] .quiz-option { text-align: left; }
+        .quiz-option:hover { background: rgba(99, 102, 241, 0.15); border-color: var(--accent); }
+
+        /* Mini Games */
+        .game-box { background: var(--bg-primary); border: 1px solid var(--border); padding: 20px; border-radius: 14px; text-align: center; margin-top: 15px; }
+        .code-snippet { font-family: 'Fira Code', monospace; background: var(--bg-secondary); padding: 15px; border-radius: 8px; border: 1px solid var(--border); color: #34d399; font-size: 1.1rem; margin: 15px 0; letter-spacing: 1px; }
 
         @media (max-width: 900px) {
             .menu-toggle { display: block; }
@@ -163,10 +178,17 @@
             <div class="sidebar-item admin-only hidden active" onclick="switchTab('tab-dashboard')"><i class="fa-solid fa-chart-pie"></i> <span data-i18n="dashboard">الإحصائيات</span></div>
             <div class="sidebar-item admin-only hidden" onclick="switchTab('tab-users')"><i class="fa-solid fa-users"></i> <span data-i18n="manageUsers">إدارة الأعضاء</span></div>
             <div class="sidebar-item" onclick="switchTab('tab-courses')"><i class="fa-solid fa-book-open"></i> <span data-i18n="manageCourses">الكورسات والدروس</span></div>
-            <div class="sidebar-item" onclick="switchTab('tab-questions')"><i class="fa-solid fa-circle-question"></i> <span data-i18n="manageQuestions">بنك الأسئلة</span></div>
+            <div class="sidebar-item" onclick="switchTab('tab-questions')"><i class="fa-solid fa-circle-question"></i> <span data-i18n="manageQuestions">بنك الأسئلة والاختبارات</span></div>
+            <div class="sidebar-item" onclick="switchTab('tab-games')"><i class="fa-solid fa-gamepad"></i> <span data-i18n="codingGames">ألعاب البرمجة الترفيهية</span></div>
             <div class="sidebar-item" onclick="switchTab('tab-levels')"><i class="fa-solid fa-award"></i> <span data-i18n="manageLevels">المستويات والشهادات</span></div>
             <div class="sidebar-item" onclick="switchTab('tab-chat')"><i class="fa-solid fa-comments"></i> <span data-i18n="communityChat">مجتمع النقاش</span></div>
             <div class="sidebar-item" onclick="switchTab('tab-profile')"><i class="fa-solid fa-user-gear"></i> <span data-i18n="profile">إعدادات الحساب</span></div>
+            
+            <div style="margin-top: auto; padding-top: 15px; border-top: 1px solid var(--border);">
+                <a href="https://discord.gg/YBq46vyzkM" target="_blank" class="sidebar-item btn-discord" style="justify-content: center; color: #fff;">
+                    <i class="fa-brands fa-discord"></i> سيرفر الدعم الفني
+                </a>
+            </div>
         </aside>
 
         <main>
@@ -245,7 +267,7 @@
             <!-- إدارة الأعضاء -->
             <section id="tab-users" class="admin-tab card tab-content hidden">
                 <h2 data-i18n="userManagement">إدارة الأعضاء والصلاحيات</h2><br>
-                <div style="background: var(--bg-primary); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <div style="background: var(--bg-primary); padding: 15px; border-radius: 12px; margin-bottom: 20px;">
                     <h3 data-i18n="addNewUser" style="margin-bottom: 10px;">إضافة عضو جديد</h3>
                     <form onsubmit="adminAddUser(event)" class="flex-row">
                         <div><input type="text" id="add-name" placeholder="الاسم" required></div>
@@ -287,7 +309,7 @@
                     <h2 data-i18n="manageCourses">الكورسات المتاحة</h2>
                     <button class="btn admin-only hidden" onclick="toggleForm('course-add-form')" data-i18n="addCourse"><i class="fa-solid fa-plus"></i> إضافة كورس جديد</button>
                 </div>
-                <div id="course-add-form" class="hidden" style="margin-top:15px; background: var(--bg-primary); padding: 15px; border-radius: 8px;">
+                <div id="course-add-form" class="hidden" style="margin-top:15px; background: var(--bg-primary); padding: 18px; border-radius: 12px;">
                     <input type="text" id="course-title" placeholder="عنوان الكورس..." style="margin-bottom:10px;">
                     <textarea id="course-desc" placeholder="وصف الكورس والتفاصيل..." style="margin-bottom:10px; height: 80px;"></textarea>
                     <button class="btn" onclick="saveCourse()" data-i18n="save">حفظ الكورس</button>
@@ -305,7 +327,7 @@
                 <h2 id="detail-course-title">عنوان الكورس</h2>
                 <p id="detail-course-desc" style="color: var(--text-sub); margin: 5px 0 20px 0;"></p>
                 
-                <div class="admin-only hidden" style="background: var(--bg-primary); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                <div class="admin-only hidden" style="background: var(--bg-primary); padding: 18px; border-radius: 12px; margin-bottom: 20px;">
                     <h3>إضافة شرح أو درس جديد داخل الكورس</h3>
                     <div class="form-group" style="margin-top:10px;">
                         <input type="text" id="lesson-title" placeholder="عنوان الدرس (مثال: إنشاء مشروع Node.js)">
@@ -320,18 +342,51 @@
                 <div id="lessons-list"></div>
             </section>
 
-            <!-- بنك الأسئلة -->
+            <!-- بنك الأسئلة التفاعلي (غير المكرر - سؤال بسؤال) -->
             <section id="tab-questions" class="card tab-content hidden">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <h2 data-i18n="manageQuestions">بنك الأسئلة والاستفسارات</h2>
-                    <button class="btn admin-only hidden" onclick="toggleForm('question-add-form')" data-i18n="addQuestion"><i class="fa-solid fa-plus"></i> إضافة سؤال</button>
+                    <h2 data-i18n="manageQuestions">بنك الأسئلة والاختبارات الذكية</h2>
+                    <button class="btn admin-only hidden" onclick="toggleForm('question-add-form')" data-i18n="addQuestion"><i class="fa-solid fa-plus"></i> إضافة سؤال جديد</button>
                 </div>
-                <div id="question-add-form" class="hidden" style="margin-top:15px; background: var(--bg-primary); padding: 15px; border-radius: 8px;">
-                    <input type="text" id="q-text" placeholder="اكتب السؤال أو الاختبار هنا..." style="margin-bottom:10px;">
+                
+                <div id="question-add-form" class="hidden" style="margin-top:15px; background: var(--bg-primary); padding: 18px; border-radius: 12px;">
+                    <div class="form-group"><input type="text" id="q-text" placeholder="نص السؤال البرمجي..."></div>
+                    <div class="form-group"><input type="text" id="q-opt1" placeholder="الخيار الأول"></div>
+                    <div class="form-group"><input type="text" id="q-opt2" placeholder="الخيار الثاني"></div>
+                    <div class="form-group"><input type="text" id="q-opt3" placeholder="الخيار الثالث"></div>
+                    <div class="form-group">
+                        <label>رقم الإجابة الصحيحة (1 أو 2 أو 3)</label>
+                        <input type="number" id="q-correct" min="1" max="3" value="1">
+                    </div>
                     <button class="btn" onclick="saveQuestion()" data-i18n="save">حفظ السؤال</button>
                     <button class="btn btn-secondary" onclick="toggleForm('question-add-form')">إلغاء</button>
                 </div>
-                <ul id="questions-list" style="margin-top:15px; list-style:none; padding:0;"></ul>
+
+                <!-- شاشة الاختبار التفاعلي -->
+                <div id="quiz-container" class="quiz-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <span id="quiz-progress" style="font-weight: bold; color: var(--accent);">السؤال 1 من 3</span>
+                        <button class="btn btn-secondary btn-sm" onclick="restartQuiz()"><i class="fa-solid fa-rotate-right"></i> إعادة الاختبار</button>
+                    </div>
+                    <h3 id="quiz-question-title" style="margin-bottom: 15px; font-size: 1.2rem;">جاري تحميل السؤال...</h3>
+                    <div id="quiz-options-list"></div>
+                </div>
+            </section>
+
+            <!-- ألعاب البرمجة الترفيهية -->
+            <section id="tab-games" class="card tab-content hidden">
+                <h2 data-i18n="codingGames">ألعاب البرمجة والسرعة الترفيهية</h2>
+                <p style="color: var(--text-sub); margin-top: 5px;">اختبر مهاراتك البرمجية وسرعتك في كتابة الأكواد بأسلوب مسلي!</p>
+                
+                <div class="game-box">
+                    <h3>⚡ تحدي سرعة طباعة كود البرمجة</h3>
+                    <p style="color: var(--text-sub); margin: 10px 0;">انسخ الكود التالي واكتبه بدقة في الأسفل:</p>
+                    <div class="code-snippet" id="target-code">console.log("Welcome to KXY Academy!");</div>
+                    <div class="form-group" style="max-width: 500px; margin: 0 auto;">
+                        <input type="text" id="user-code-input" placeholder="اكتب الكود هنا بالضبط..." onkeyup="checkGameInput(event)">
+                    </div>
+                    <p id="game-feedback" style="margin-top: 15px; font-weight: bold; color: var(--success);"></p>
+                </div>
             </section>
 
             <!-- المستويات والشهادات -->
@@ -340,7 +395,7 @@
                     <h2 data-i18n="manageLevels">المستويات والشهادات المهنية</h2>
                     <button class="btn admin-only hidden" onclick="toggleForm('level-add-form')"><i class="fa-solid fa-plus"></i> إضافة مستوى</button>
                 </div>
-                <div id="level-add-form" class="hidden" style="margin-top:15px; background: var(--bg-primary); padding: 15px; border-radius: 8px;">
+                <div id="level-add-form" class="hidden" style="margin-top:15px; background: var(--bg-primary); padding: 18px; border-radius: 12px;">
                     <input type="text" id="level-name" placeholder="اسم المستوى (مثال: مطور ويب متقدم)" style="margin-bottom:10px;">
                     <input type="text" id="level-cert" placeholder="اسم الشهادة المستحقة" style="margin-bottom:10px;">
                     <button class="btn" onclick="saveLevel()" data-i18n="save">حفظ المستوى</button>
@@ -374,16 +429,18 @@
         });
 
         const i18n = {
-            ar: { adminPanel: "القائمة الرئيسية", manageUsers: "إدارة الأعضاء", manageCourses: "الكورسات والدروس", manageQuestions: "بنك الأسئلة", manageLevels: "المستويات والشهادات", communityChat: "مجتمع النقاش", dashboard: "الإحصائيات", profile: "إعدادات الحساب", login: "تسجيل الدخول", register: "إنشاء حساب", switchToRegister: "إنشاء حساب جديد", switchToLogin: "لديك حساب بالفعل؟", name: "الاسم", email: "البريد الإلكتروني", password: "كلمة المرور", country: "الدولة", userManagement: "إدارة الأعضاء والصلاحيات", addNewUser: "إضافة عضو جديد", role: "الصلاحية", status: "الحالة", actions: "الإجراءات", addCourse: "إضافة كورس", addQuestion: "إضافة سؤال", newPass: "كلمة المرور الجديدة", save: "حفظ", totalUsers: "إجمالي الأعضاء", totalCourses: "الكورسات", totalQuestions: "الأسئلة", totalMessages: "الرسائل" },
-            en: { adminPanel: "Main Menu", manageUsers: "Users", manageCourses: "Courses", manageQuestions: "Questions", manageLevels: "Levels", communityChat: "Community", dashboard: "Dashboard", profile: "Profile", login: "Login", register: "Register", switchToRegister: "Create Account", switchToLogin: "Already have an account?", name: "Name", email: "Email", password: "Password", country: "Country", userManagement: "Users Management", addNewUser: "Add User", role: "Role", status: "Status", actions: "Actions", addCourse: "Add Course", addQuestion: "Add Question", newPass: "New Password", save: "Save", totalUsers: "Total Users", totalCourses: "Courses", totalQuestions: "Questions", totalMessages: "Messages" }
+            ar: { adminPanel: "القائمة الرئيسية", manageUsers: "إدارة الأعضاء", manageCourses: "الكورسات والدروس", manageQuestions: "بنك الأسئلة والاختبارات", codingGames: "ألعاب البرمجة", manageLevels: "المستويات والشهادات", communityChat: "مجتمع النقاش", dashboard: "الإحصائيات", profile: "إعدادات الحساب", login: "تسجيل الدخول", register: "إنشاء حساب", switchToRegister: "إنشاء حساب جديد", switchToLogin: "لديك حساب بالفعل؟", name: "الاسم", email: "البريد الإلكتروني", password: "كلمة المرور", country: "الدولة", userManagement: "إدارة الأعضاء والصلاحيات", addNewUser: "إضافة عضو جديد", role: "الصلاحية", status: "الحالة", actions: "الإجراءات", addCourse: "إضافة كورس", addQuestion: "إضافة سؤال", newPass: "كلمة المرور الجديدة", save: "حفظ", totalUsers: "إجمالي الأعضاء", totalCourses: "الكورسات", totalQuestions: "الأسئلة", totalMessages: "الرسائل" },
+            en: { adminPanel: "Main Menu", manageUsers: "Users", manageCourses: "Courses", manageQuestions: "Quiz Bank", codingGames: "Coding Games", manageLevels: "Levels", communityChat: "Community", dashboard: "Dashboard", profile: "Profile", login: "Login", register: "Register", switchToRegister: "Create Account", switchToLogin: "Already have an account?", name: "Name", email: "Email", password: "Password", country: "Country", userManagement: "Users Management", addNewUser: "Add User", role: "Role", status: "Status", actions: "Actions", addCourse: "Add Course", addQuestion: "Add Question", newPass: "New Password", save: "Save", totalUsers: "Total Users", totalCourses: "Courses", totalQuestions: "Questions", totalMessages: "Messages" }
         };
 
         let currentLang = 'ar';
         let currentUser = null;
         let isRegisterMode = false;
         let currentActiveCourseId = null;
+        let currentQuizIndex = 0;
+        let quizScore = 0;
 
-        const DB_KEY = 'KXY_Academy_Advanced_Data_v2';
+        const DB_KEY = 'KXY_Academy_Advanced_Data_v3';
         let defaultData = {
             users: [
                 { id: 1, name: 'Ahmed', email: 'ahmed@admin', pass: '1523259999688855552', country: 'مصر', isAdmin: true, status: 'Active' }
@@ -392,7 +449,7 @@
                 { 
                     id: 1, 
                     title: 'تطوير بوتات Discord باستخدام Node.js', 
-                    desc: 'تعلم البرمجة والاستضافة الكاملة لبوتات ديسكورد.', 
+                    desc: 'تعلم البرمجة والاستضافة الكاملة لبوتات ديسكورد الاحترافية.', 
                     progress: 40,
                     lessons: [
                         { id: 101, title: 'مقدمة عن المتطلبات وتثبيت Node.js', content: 'في هذا الدرس سنقوم بتثبيت البيئة البرمجية وجهوزية المحرر لبرمجة البوت.' }
@@ -401,21 +458,33 @@
                 { 
                     id: 2, 
                     title: 'أساسيات لغة JavaScript وتطوير الويب', 
-                    desc: 'تعرف على أساسيات جافاسكريبت لبناء تطبيقات تفاعلية.', 
+                    desc: 'تعرف على أساسيات جافاسكريبت وبناء تطبيقات واجهات تفاعلية.', 
                     progress: 15,
                     lessons: [
                         { id: 102, title: 'المتغيرات وأنواع البيانات', content: 'شرح تفصيلي لأنواع البيانات وكيفية إعلان المتغيرات باستخدام let و const.' }
                     ]
+                },
+                {
+                    id: 3,
+                    title: 'أساسيات قواعد البيانات واستخدام MongoDB',
+                    desc: 'كيفية ربط مشاريعك وبوتاتك بقواعد بيانات سحابية.',
+                    progress: 0,
+                    lessons: [
+                        { id: 103, title: 'ربط البوت بقاعدة البيانات', content: 'شرح كيفية استخدام Mongoose للاتصال بقواعد بيانات مونغو.' }
+                    ]
                 }
             ],
             questions: [
-                { id: 1, text: 'كيف تقوم بربط بوت ديسكورد بقاعدة بيانات خارجية؟' }
+                { id: 1, text: 'ما هي الطريقة الصحيحة لتعريف متغيير لا يمكن إعادة تعيين قيمته في JavaScript؟', options: ['var x = 5;', 'const x = 5;', 'let x = 5;'], correct: 2 },
+                { id: 2, text: 'في بوتات Discord.js، ما هو الحدث الذي يتم تنفيذه عند جاهزية البوت للعمل؟', options: ['ready', 'message', 'guildCreate'], correct: 1 },
+                { id: 3, text: 'أي من لغات البرمجة التالية تُستخدم بشكل أساسي لتنسيق صفحات الويب (CSS)؟', options: ['JavaScript', 'HTML', 'Cascading Style Sheets'], correct: 3 }
             ],
             levels: [
-                { id: 1, name: 'مطور بوتات مبتدئ', cert: 'شهادة أساسيات Node.js' }
+                { id: 1, name: 'مطور بوتات مبتدئ', cert: 'شهادة أساسيات Node.js' },
+                { id: 2, name: 'مطور واجهات ويب', cert: 'شهادة تصميم المواقع' }
             ],
             messages: [
-                { id: 1, author: 'Ahmed', text: 'أهلاً بكم جميعا في منصة KXY Academy المحدثة!' }
+                { id: 1, author: 'Ahmed', text: 'أهلاً بكم جميعا في منصة KXY Academy المتطورة!' }
             ]
         };
 
@@ -476,6 +545,7 @@
                 targetSection.classList.remove('hidden');
                 void targetSection.offsetWidth;
                 targetSection.classList.add('animate-enter');
+                if(tabId === 'tab-questions') renderQuizQuestion();
             }
         }
 
@@ -596,7 +666,7 @@
         function toggleBan(id) { const u = db.users.find(user => user.id === id); if (u) { u.status = u.status === 'Active' ? 'Banned' : 'Active'; saveDB(); renderAll(); showToast('تم تغيير حالة الحظر'); } }
         function deleteUser(id) { db.users = db.users.filter(u => u.id !== id); saveDB(); renderAll(); showToast('تم حذف العضو'); }
 
-        // الكورسات والشروحات الداخلية
+        // الكورسات
         function saveCourse() {
             const title = document.getElementById('course-title').value;
             const desc = document.getElementById('course-desc').value;
@@ -706,91 +776,41 @@
             });
         }
 
-        // الأسئلة والمستويات
+        // بنك الأسئلة الذكي وتفاعل الانتقال للسؤال التالي
         function saveQuestion() {
             const text = document.getElementById('q-text').value;
-            if (text) { db.questions.push({ id: Date.now(), text }); saveDB(); renderAll(); document.getElementById('q-text').value = ''; document.getElementById('question-add-form').classList.add('hidden'); showToast('تم إضافة السؤال'); }
-        }
-        function deleteQuestion(id) { db.questions = db.questions.filter(q => q.id !== id); saveDB(); renderAll(); showToast('تم الحذف'); }
+            const opt1 = document.getElementById('q-opt1').value;
+            const opt2 = document.getElementById('q-opt2').value;
+            const opt3 = document.getElementById('q-opt3').value;
+            const correct = parseInt(document.getElementById('q-correct').value);
 
-        function renderQuestions() {
-            const list = document.getElementById('questions-list');
-            list.innerHTML = '';
-            db.questions.forEach(q => {
-                list.innerHTML += `
-                    <li style="padding:15px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
-                        <span><i class="fa-solid fa-circle-question" style="color: var(--accent); margin-left: 10px;"></i> ${q.text}</span>
-                        ${currentUser?.isAdmin ? `<button class="btn btn-danger btn-sm" onclick="deleteQuestion(${q.id})"><i class="fa-solid fa-trash"></i></button>` : ''}
-                    </li>
-                `;
-            });
-        }
-
-        function saveLevel() {
-            const name = document.getElementById('level-name').value; const cert = document.getElementById('level-cert').value;
-            if (name && cert) { db.levels.push({ id: Date.now(), name, cert }); saveDB(); renderAll(); document.getElementById('level-name').value = ''; document.getElementById('level-cert').value = ''; document.getElementById('level-add-form').classList.add('hidden'); showToast('تم إضافة المستوى'); }
-        }
-        function deleteLevel(id) { db.levels = db.levels.filter(l => l.id !== id); saveDB(); renderAll(); showToast('تم الحذف'); }
-
-        function renderLevels() {
-            const container = document.getElementById('levels-container');
-            container.innerHTML = '';
-            db.levels.forEach(l => {
-                container.innerHTML += `
-                    <div style="border:1px dashed var(--accent); padding:15px; border-radius:12px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; background: var(--bg-primary);">
-                        <div>
-                            <h4><i class="fa-solid fa-award" style="color: var(--warning);"></i> ${l.name}</h4>
-                            <p style="color:var(--text-sub); margin-top:3px; font-size:0.85rem;"><i class="fa-solid fa-certificate"></i> الشهادة: ${l.cert}</p>
-                        </div>
-                        ${currentUser?.isAdmin ? `<button class="btn btn-danger btn-sm" onclick="deleteLevel(${l.id})"><i class="fa-solid fa-trash"></i></button>` : ''}
-                    </div>
-                `;
-            });
-        }
-
-        function sendChatMessage(e) {
-            e.preventDefault();
-            const input = document.getElementById('chat-input');
-            if(input.value.trim()) {
-                db.messages.push({ id: Date.now(), author: currentUser.name, text: input.value });
-                saveDB(); input.value = ''; renderChat();
+            if (text && opt1 && opt2 && opt3) {
+                db.questions.push({ id: Date.now(), text, options: [opt1, opt2, opt3], correct });
+                saveDB(); renderAll();
+                document.getElementById('q-text').value = '';
+                document.getElementById('q-opt1').value = '';
+                document.getElementById('q-opt2').value = '';
+                document.getElementById('q-opt3').value = '';
+                document.getElementById('question-add-form').classList.add('hidden');
+                showToast('تم إضافة السؤال بنجاح!');
+            } else {
+                showToast('يرجى تعبئة جميع حقول السؤال والاختيارات', 'error');
             }
         }
 
-        function renderChat() {
-            const box = document.getElementById('chat-box');
-            box.innerHTML = '';
-            db.messages.forEach(m => {
-                const isMine = m.author === currentUser?.name;
-                box.innerHTML += `
-                    <div class="chat-msg ${isMine ? 'mine' : ''}">
-                        <div class="author">${m.author}</div>
-                        <div>${m.text}</div>
+        function renderQuizQuestion() {
+            const container = document.getElementById('quiz-container');
+            if (!db.questions || db.questions.length === 0) {
+                container.innerHTML = `<p style="text-align: center; color: var(--text-sub);">لا توجد أسئلة متاحة حالياً.</p>`;
+                return;
+            }
+
+            if (currentQuizIndex >= db.questions.length) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <i class="fa-solid fa-trophy" style="font-size: 3rem; color: var(--warning); margin-bottom: 15px;"></i>
+                        <h3>أحسنت يا بطل! لقد أكملت جميع الأسئلة بنجاح</h3>
+                        <p style="color: var(--text-sub); margin: 10px 0;">نتيجة إجاباتك الصحيحة: ${quizScore} من ${db.questions.length}</p>
+                        <button class="btn" onclick="restartQuiz()"><i class="fa-solid fa-rotate-right"></i> إعادة الاختبار من جديد</button>
                     </div>
-                `;
-            });
-            box.scrollTop = box.scrollHeight;
-        }
-
-        function updateDashboardStats() {
-            if(!currentUser?.isAdmin) return;
-            document.getElementById('stat-users').innerText = db.users.length;
-            document.getElementById('stat-courses').innerText = db.courses.length;
-            document.getElementById('stat-questions').innerText = db.questions.length;
-            document.getElementById('stat-messages').innerText = db.messages.length;
-        }
-
-        function renderAll() { 
-            if(currentUser?.isAdmin) { renderUsersTable(); updateDashboardStats(); }
-            renderCourses(); renderQuestions(); renderLevels(); renderChat();
-        }
-
-        if(currentUser) {
-            loginUser(currentUser);
-        } else {
-            switchTab('auth-section');
-        }
-    </script>
-</body>
-</html>
-
+        
