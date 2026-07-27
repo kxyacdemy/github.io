@@ -9,29 +9,29 @@
     
     <style>
         :root {
-            --bg-primary: #090d16;
-            --bg-secondary: #111827;
-            --bg-card: rgba(17, 24, 39, 0.75);
-            --text-main: #f3f4f6;
-            --text-sub: #9ca3af;
+            --bg-primary: #080c14;
+            --bg-secondary: #0f172a;
+            --bg-card: rgba(15, 23, 42, 0.8);
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
             --accent: #6366f1;
             --accent-hover: #4f46e5;
             --danger: #ef4444;
             --success: #10b981;
             --warning: #f59e0b;
-            --border: #1f2937;
+            --border: #1e293b;
             --sidebar-width: 270px;
         }
 
         [data-theme="light"] {
-            --bg-primary: #f8fafc;
+            --bg-primary: #f1f5f9;
             --bg-secondary: #ffffff;
-            --bg-card: rgba(255, 255, 255, 0.85);
+            --bg-card: rgba(255, 255, 255, 0.9);
             --text-main: #0f172a;
             --text-sub: #64748b;
             --accent: #4f46e5;
             --accent-hover: #4338ca;
-            --border: #e2e8f0;
+            --border: #cbd5e1;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; transition: background 0.3s, color 0.3s, border-color 0.3s; }
@@ -39,15 +39,14 @@
         body {
             background-color: var(--bg-primary); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.12) 0px, transparent 50%),
-                radial-gradient(at 50% 50%, rgba(139, 92, 246, 0.08) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.1) 0px, transparent 50%);
             background-attachment: fixed;
         }
 
         header {
             background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
         }
 
         .logo { font-size: 1.6rem; font-weight: 900; color: var(--accent); display: flex; align-items: center; gap: 12px; letter-spacing: 0.5px; }
@@ -131,13 +130,11 @@
         .lesson-item { background: var(--bg-primary); border: 1px solid var(--border); padding: 18px; border-radius: 12px; margin-bottom: 12px; }
         .lesson-item h4 { color: var(--accent); margin-bottom: 8px; font-size: 1.1rem; }
 
-        /* Quiz Box */
         .quiz-card { background: var(--bg-primary); border: 1px solid var(--border); padding: 24px; border-radius: 14px; margin-top: 15px; }
         .quiz-option { display: block; width: 100%; padding: 12px 18px; margin-top: 10px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); text-align: right; cursor: pointer; font-weight: 600; transition: all 0.2s; }
         [dir="ltr"] .quiz-option { text-align: left; }
         .quiz-option:hover { background: rgba(99, 102, 241, 0.15); border-color: var(--accent); }
 
-        /* Mini Games */
         .game-box { background: var(--bg-primary); border: 1px solid var(--border); padding: 20px; border-radius: 14px; text-align: center; margin-top: 15px; }
         .code-snippet { font-family: 'Fira Code', monospace; background: var(--bg-secondary); padding: 15px; border-radius: 8px; border: 1px solid var(--border); color: #34d399; font-size: 1.1rem; margin: 15px 0; letter-spacing: 1px; }
 
@@ -202,7 +199,7 @@
                     </div>
                     <div class="form-group">
                         <label data-i18n="email">البريد الإلكتروني</label>
-                        <input type="text" id="auth-email" required placeholder="أدخل البريد الإلكتروني">
+                        <input type="text" id="auth-email" required placeholder="أدخل البريد الإلكتروني (أو استخدم حساب الأدمن ahmed@admin)">
                     </div>
                     <div class="form-group">
                         <label data-i18n="password">كلمة المرور</label>
@@ -321,7 +318,7 @@
                 <div id="courses-list" style="margin-top:20px; display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:20px;"></div>
             </section>
 
-            <!-- تفاصيل الكورس والشروحات الداخلية -->
+            <!-- تفاصيل الكورس والشروحات -->
             <section id="tab-course-details" class="card tab-content hidden">
                 <button class="btn btn-secondary btn-sm" onclick="switchTab('tab-courses')" style="margin-bottom: 15px;"><i class="fa-solid fa-arrow-right"></i> العودة للكورسات</button>
                 <h2 id="detail-course-title">عنوان الكورس</h2>
@@ -330,10 +327,10 @@
                 <div class="admin-only hidden" style="background: var(--bg-primary); padding: 18px; border-radius: 12px; margin-bottom: 20px;">
                     <h3>إضافة شرح أو درس جديد داخل الكورس</h3>
                     <div class="form-group" style="margin-top:10px;">
-                        <input type="text" id="lesson-title" placeholder="عنوان الدرس (مثال: إنشاء مشروع Node.js)">
+                        <input type="text" id="lesson-title" placeholder="عنوان الدرس">
                     </div>
                     <div class="form-group">
-                        <textarea id="lesson-content" placeholder="محتوى الشرح، الأكواد البرمجية، أو رابط الفيديو..." style="height: 100px;"></textarea>
+                        <textarea id="lesson-content" placeholder="محتوى الشرح، الأكواد البرمجية..." style="height: 100px;"></textarea>
                     </div>
                     <button class="btn btn-success" onclick="saveLesson()"><i class="fa-solid fa-plus"></i> إضافة الشرح للكورس</button>
                 </div>
@@ -342,7 +339,7 @@
                 <div id="lessons-list"></div>
             </section>
 
-            <!-- بنك الأسئلة التفاعلي (غير المكرر - سؤال بسؤال) -->
+            <!-- بنك الأسئلة التفاعلي -->
             <section id="tab-questions" class="card tab-content hidden">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                     <h2 data-i18n="manageQuestions">بنك الأسئلة والاختبارات الذكية</h2>
@@ -362,7 +359,6 @@
                     <button class="btn btn-secondary" onclick="toggleForm('question-add-form')">إلغاء</button>
                 </div>
 
-                <!-- شاشة الاختبار التفاعلي -->
                 <div id="quiz-container" class="quiz-card">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                         <span id="quiz-progress" style="font-weight: bold; color: var(--accent);">السؤال 1 من 3</span>
@@ -440,10 +436,10 @@
         let currentQuizIndex = 0;
         let quizScore = 0;
 
-        const DB_KEY = 'KXY_Academy_Advanced_Data_v3';
+        const DB_KEY = 'KXY_Academy_Persistent_Storage_v4';
         let defaultData = {
             users: [
-                { id: 1, name: 'Ahmed', email: 'ahmed@admin', pass: '1523259999688855552', country: 'مصر', isAdmin: true, status: 'Active' }
+                { id: 1, name: 'أحمد', email: 'ahmed@admin', pass: '1523259999688855552', country: 'مصر', isAdmin: true, status: 'Active' }
             ],
             courses: [
                 { 
@@ -463,15 +459,6 @@
                     lessons: [
                         { id: 102, title: 'المتغيرات وأنواع البيانات', content: 'شرح تفصيلي لأنواع البيانات وكيفية إعلان المتغيرات باستخدام let و const.' }
                     ]
-                },
-                {
-                    id: 3,
-                    title: 'أساسيات قواعد البيانات واستخدام MongoDB',
-                    desc: 'كيفية ربط مشاريعك وبوتاتك بقواعد بيانات سحابية.',
-                    progress: 0,
-                    lessons: [
-                        { id: 103, title: 'ربط البوت بقاعدة البيانات', content: 'شرح كيفية استخدام Mongoose للاتصال بقواعد بيانات مونغو.' }
-                    ]
                 }
             ],
             questions: [
@@ -480,18 +467,23 @@
                 { id: 3, text: 'أي من لغات البرمجة التالية تُستخدم بشكل أساسي لتنسيق صفحات الويب (CSS)؟', options: ['JavaScript', 'HTML', 'Cascading Style Sheets'], correct: 3 }
             ],
             levels: [
-                { id: 1, name: 'مطور بوتات مبتدئ', cert: 'شهادة أساسيات Node.js' },
-                { id: 2, name: 'مطور واجهات ويب', cert: 'شهادة تصميم المواقع' }
+                { id: 1, name: 'مطور بوتات مبتدئ', cert: 'شهادة أساسيات Node.js' }
             ],
             messages: [
-                { id: 1, author: 'Ahmed', text: 'أهلاً بكم جميعا في منصة KXY Academy المتطورة!' }
+                { id: 1, author: 'أحمد', text: 'أهلاً بكم جميعا في منصة KXY Academy المتطورة!' }
             ]
         };
 
+        // تحميل البيانات من الذاكرة المحلية (Persistent LocalStorage)
         let db = JSON.parse(localStorage.getItem(DB_KEY));
-        if (!db) { db = defaultData; saveDB(); }
+        if (!db) { 
+            db = defaultData; 
+            localStorage.setItem(DB_KEY, JSON.stringify(db)); 
+        }
 
-        function saveDB() { localStorage.setItem(DB_KEY, JSON.stringify(db)); }
+        function saveDB() { 
+            localStorage.setItem(DB_KEY, JSON.stringify(db)); 
+        }
 
         const savedSession = localStorage.getItem('KXY_Session');
         if (savedSession) {
@@ -572,7 +564,7 @@
                 db.users.push(newUser);
                 saveDB();
                 loginUser(newUser);
-                showToast('تم إنشاء الحساب بنجاح!');
+                showToast('تم إنشاء الحساب بنجاح وحفظه!');
             } else {
                 const user = db.users.find(u => u.email === email && u.pass === pass);
                 if (user) {
@@ -618,7 +610,7 @@
             if(u) {
                 u.pass = document.getElementById('new-password').value;
                 saveDB();
-                showToast('تم تحديث كلمة المرور بنجاح!');
+                showToast('تم تحديث كلمة المرور وحفظها بنجاح!');
                 document.getElementById('new-password').value = '';
             }
         }
@@ -636,7 +628,7 @@
             const country = document.getElementById('add-country').value;
             db.users.push({ id: Date.now(), name, email, pass, country, isAdmin, status: 'Active' });
             saveDB(); renderAll(); e.target.reset();
-            showToast('تمت إضافة العضو بنجاح!');
+            showToast('تمت إضافة العضو وحفظه بنجاح!');
         }
 
         function renderUsersTable() {
@@ -666,7 +658,7 @@
         function toggleBan(id) { const u = db.users.find(user => user.id === id); if (u) { u.status = u.status === 'Active' ? 'Banned' : 'Active'; saveDB(); renderAll(); showToast('تم تغيير حالة الحظر'); } }
         function deleteUser(id) { db.users = db.users.filter(u => u.id !== id); saveDB(); renderAll(); showToast('تم حذف العضو'); }
 
-        // الكورسات
+        // إدارة الكورسات والشروحات
         function saveCourse() {
             const title = document.getElementById('course-title').value;
             const desc = document.getElementById('course-desc').value;
@@ -675,7 +667,7 @@
                 saveDB(); renderAll();
                 document.getElementById('course-title').value = ''; document.getElementById('course-desc').value = '';
                 document.getElementById('course-add-form').classList.add('hidden');
-                showToast('تم حفظ الكورس بنجاح!');
+                showToast('تم حفظ الكورس بنجاح ولن يضيع أبداً!');
             }
         }
         function deleteCourse(id) { db.courses = db.courses.filter(c => c.id !== id); saveDB(); renderAll(); showToast('تم حذف الكورس'); }
@@ -704,7 +696,7 @@
                 document.getElementById('lesson-title').value = '';
                 document.getElementById('lesson-content').value = '';
                 renderLessons();
-                showToast('تمت إضافة الشرح بنجاح!');
+                showToast('تمت إضافة الشرح وحفظه بنجاح!');
             }
         }
 
@@ -776,7 +768,7 @@
             });
         }
 
-        // بنك الأسئلة الذكي وتفاعل الانتقال للسؤال التالي
+        // بنك الأسئلة الذكي
         function saveQuestion() {
             const text = document.getElementById('q-text').value;
             const opt1 = document.getElementById('q-opt1').value;
@@ -792,7 +784,7 @@
                 document.getElementById('q-opt2').value = '';
                 document.getElementById('q-opt3').value = '';
                 document.getElementById('question-add-form').classList.add('hidden');
-                showToast('تم إضافة السؤال بنجاح!');
+                showToast('تم إضافة وحفظ السؤال بنجاح!');
             } else {
                 showToast('يرجى تعبئة جميع حقول السؤال والاختيارات', 'error');
             }
@@ -813,4 +805,16 @@
                         <p style="color: var(--text-sub); margin: 10px 0;">نتيجة إجاباتك الصحيحة: ${quizScore} من ${db.questions.length}</p>
                         <button class="btn" onclick="restartQuiz()"><i class="fa-solid fa-rotate-right"></i> إعادة الاختبار من جديد</button>
                     </div>
-        
+                `;
+                return;
+            }
+
+            const q = db.questions[currentQuizIndex];
+            document.getElementById('quiz-progress').innerText = `السؤال ${currentQuizIndex + 1} من ${db.questions.length}`;
+            document.getElementById('quiz-question-title').innerText = q.text;
+
+            const optionsList = document.getElementById('quiz-options-list');
+            optionsList.innerHTML = '';
+            q.options.forEach((opt, idx) => {
+                optionsList.innerHTML += `
+                    <button class="
