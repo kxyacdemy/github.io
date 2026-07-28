@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>KXY Academy - لوحة التحكم الشاملة</title>
+<title>KXY Academy - المنصة التعليمية الذكية</title>
 
 <!-- خط تاجوال الفاخر من Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
@@ -14,33 +14,40 @@
   }
   
   :root {
-    --bg-main: #030712;
-    --bg-card: #0b1325;
-    --bg-sidebar: #060b18;
-    --neon-cyan: #00f0ff;
-    --neon-pink: #ff007f;
-    --neon-purple: #9d00ff;
-    --text-main: #f0f6fc;
-    --text-muted: #8b949e;
-    --border-color: rgba(0, 240, 255, 0.2);
+    --bg-main: #060913;
+    --bg-card: rgba(15, 23, 42, 0.7);
+    --bg-glass: rgba(255, 255, 255, 0.03);
+    --border-glass: rgba(255, 255, 255, 0.08);
+    --primary-neon: #38bdf8;
+    --secondary-neon: #818cf8;
+    --accent-pink: #f43f5e;
+    --accent-green: #10b981;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
   }
 
   html, body {
     height: 100%;
     font-family: 'Tajawal', sans-serif;
-    background: linear-gradient(135deg, #030712, #07101e, #0f1c30);
+    background: var(--bg-main);
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(129, 140, 248, 0.08) 0%, transparent 40%);
     color: var(--text-main);
     direction: rtl;
+    overflow-x: hidden;
   }
 
   ::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
     background: var(--bg-main);
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--neon-cyan);
+    background: rgba(56, 189, 248, 0.3);
     border-radius: 10px;
-    box-shadow: 0 0 10px var(--neon-cyan);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-neon);
   }
 
   #app {
@@ -49,70 +56,70 @@
     overflow: hidden;
   }
 
-  /* القائمة الجانبية */
+  /* القائمة الجانبية الأنيقة */
   nav {
-    width: 270px;
-    background: linear-gradient(180deg, rgba(6,11,24,0.95) 0%, rgba(3,7,18,0.98) 100%);
-    border-left: 1px solid var(--border-color);
-    box-shadow: inset -5px 0 20px rgba(0, 240, 255, 0.03);
+    width: 280px;
+    background: rgba(10, 15, 30, 0.85);
+    backdrop-filter: blur(20px);
+    border-left: 1px solid var(--border-glass);
     display: flex;
     flex-direction: column;
-    padding: 25px 18px;
+    padding: 30px 20px;
     gap: 12px;
     z-index: 10;
   }
 
   nav h1 {
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 900;
     color: var(--text-main);
     text-align: center;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     margin-bottom: 25px;
-    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
   }
   nav h1 span {
-    color: var(--neon-cyan);
-    text-shadow: 0 0 15px var(--neon-cyan);
+    background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   nav button {
-    padding: 12px 16px;
+    padding: 13px 18px;
     background: transparent;
     border: 1px solid transparent;
     color: var(--text-muted);
     font-family: 'Tajawal', sans-serif;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 12px;
     text-align: right;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   nav button:hover {
-    background: rgba(0, 240, 255, 0.05);
-    color: var(--neon-cyan);
-    border-color: rgba(0, 240, 255, 0.3);
+    background: var(--bg-glass);
+    color: var(--text-main);
+    border-color: var(--border-glass);
+    transform: translateX(-4px);
   }
   nav button.active {
-    background: linear-gradient(90deg, rgba(0, 240, 255, 0.15), rgba(157, 0, 255, 0.15));
-    color: var(--neon-cyan);
-    border-color: var(--neon-cyan);
-    box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(129, 140, 248, 0.15));
+    color: var(--primary-neon);
+    border-color: rgba(56, 189, 248, 0.3);
+    box-shadow: 0 4px 20px rgba(56, 189, 248, 0.1);
   }
 
   nav .admin-only {
     display: none;
-    border: 1px dashed var(--neon-pink);
-    color: var(--neon-pink);
+    border: 1px dashed rgba(244, 63, 94, 0.4);
+    color: var(--accent-pink);
   }
 
   /* المحتوى الرئيسي */
   main {
     flex-grow: 1;
-    padding: 30px 45px;
+    padding: 35px 50px;
     overflow-y: auto;
-    background: radial-gradient(circle at top left, rgba(15, 28, 48, 0.4), transparent 60%);
   }
 
   .top-header {
@@ -120,149 +127,172 @@
     justify-content: flex-end;
     align-items: center;
     gap: 15px;
-    margin-bottom: 35px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-glass);
   }
 
   .top-header button {
-    background-color: var(--bg-card);
-    color: var(--neon-cyan);
-    border: 1px solid var(--border-color);
-    padding: 9px 18px;
-    border-radius: 8px;
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    color: var(--text-main);
+    border: 1px solid var(--border-glass);
+    padding: 10px 20px;
+    border-radius: 10px;
     font-family: 'Tajawal', sans-serif;
-    font-weight: 700;
+    font-weight: 600;
     cursor: pointer;
     transition: 0.3s;
   }
   .top-header button:hover {
-    background-color: var(--neon-cyan);
-    color: #030712;
-    box-shadow: 0 0 20px var(--neon-cyan);
+    border-color: var(--primary-neon);
+    color: var(--primary-neon);
   }
   
   .top-header button.primary-btn {
-    background: linear-gradient(135deg, var(--neon-cyan), #0077ff);
-    color: #030712;
+    background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
+    color: #060913;
     border: none;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(56, 189, 248, 0.2);
+  }
+  .top-header button.primary-btn:hover {
+    opacity: 0.9;
+    color: #060913;
+    transform: translateY(-2px);
   }
 
   #user-status-display {
     color: var(--text-muted);
     font-size: 14px;
-    padding: 5px 12px;
+    padding: 8px 16px;
     background: var(--bg-card);
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    border: 1px solid var(--border-glass);
+    backdrop-filter: blur(10px);
   }
 
   .page { display: none; }
-  .page.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+  .page.active { display: block; animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
+    from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
+  /* نماذج الدخول والإنشاء */
   form.auth-form {
-    max-width: 420px;
-    margin: 40px auto;
-    background-color: var(--bg-card);
-    padding: 35px;
-    border-radius: 14px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 0 30px rgba(0, 240, 255, 0.08);
+    max-width: 440px;
+    margin: 50px auto;
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid var(--border-glass);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   }
   form.auth-form h2 {
     margin-bottom: 25px;
     font-weight: 800;
-    color: var(--neon-cyan);
+    color: var(--text-main);
     text-align: center;
   }
   form.auth-form label {
     display: block;
-    margin: 15px 0 6px 0;
+    margin: 15px 0 8px 0;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 14px;
     color: var(--text-muted);
   }
   form.auth-form input {
     width: 100%;
-    padding: 12px 15px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background-color: var(--bg-main);
+    padding: 13px 16px;
+    border: 1px solid var(--border-glass);
+    border-radius: 10px;
+    background: rgba(6, 9, 19, 0.6);
     color: var(--text-main);
     font-family: 'Tajawal', sans-serif;
     font-size: 15px;
     outline: none;
-  }
-  form.auth-form input:focus { border-color: var(--neon-cyan); }
-  form.auth-form button[type="submit"] {
-    margin-top: 25px;
-    width: 100%;
-    padding: 13px;
-    background: linear-gradient(135deg, var(--neon-cyan), #0088ff);
-    color: #030712;
-    border: none;
-    border-radius: 8px;
-    font-family: 'Tajawal', sans-serif;
-    font-weight: 800;
-    font-size: 17px;
-    cursor: pointer;
-  }
-
-  .course-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-  }
-  .course-card {
-    background-color: var(--bg-card);
-    border-radius: 12px;
-    padding: 25px;
-    border: 1px solid var(--border-color);
-    cursor: pointer;
     transition: 0.3s;
   }
-  .course-card:hover { border-color: var(--neon-cyan); transform: translateY(-4px); }
-  .course-card h3 { margin-bottom: 12px; font-weight: 700; color: var(--neon-cyan); font-size: 20px; }
-  .course-card p { font-size: 14px; color: var(--text-muted); margin-bottom: 18px; line-height: 1.7; }
-  .course-card small { background-color: rgba(0, 240, 255, 0.1); color: var(--neon-cyan); padding: 4px 10px; border-radius: 6px; font-weight: 700; border: 1px solid rgba(0, 240, 255, 0.2); }
+  form.auth-form input:focus { border-color: var(--primary-neon); box-shadow: 0 0 10px rgba(56, 189, 248, 0.15); }
+  form.auth-form button[type="submit"] {
+    margin-top: 30px;
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
+    color: #060913;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(56, 189, 248, 0.2);
+    transition: 0.3s;
+  }
+  form.auth-form button[type="submit"]:hover { opacity: 0.95; transform: translateY(-2px); }
 
-  #live-editor-container { display: flex; flex-direction: column; height: 72vh; gap: 15px; }
-  .editor-wrapper { display: flex; gap: 15px; flex: 1; }
-  #code-input { flex: 1; background-color: #030712; border: 1px solid var(--border-color); border-radius: 10px; font-family: monospace; font-size: 15px; color: var(--neon-cyan); padding: 20px; resize: none; outline: none; }
-  iframe#preview { flex: 1; border-radius: 10px; border: 1px solid var(--border-color); background: #fff; }
+  /* الكورسات */
+  .course-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+  }
+  .course-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(15px);
+    border-radius: 16px;
+    padding: 30px;
+    border: 1px solid var(--border-glass);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .course-card:hover {
+    border-color: var(--primary-neon);
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(56, 189, 248, 0.1);
+  }
+  .course-card h3 { margin-bottom: 12px; font-weight: 700; color: var(--text-main); font-size: 20px; }
+  .course-card p { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.7; }
+  .course-card small { background: rgba(56, 189, 248, 0.1); color: var(--primary-neon); padding: 5px 12px; border-radius: 8px; font-weight: 700; border: 1px solid rgba(56, 189, 248, 0.2); }
 
-  .quiz-box { max-width: 700px; margin: 0 auto; }
-  .question-card { background-color: var(--bg-card); border-radius: 12px; padding: 22px; margin-bottom: 18px; border: 1px solid var(--border-color); }
-  .question-card p { font-weight: 700; font-size: 17px; margin-bottom: 14px; }
-  .options-group label { display: block; margin-bottom: 10px; cursor: pointer; font-size: 15px; color: var(--text-muted); }
-  .options-group input { margin-left: 10px; }
+  /* المحرّر الحي */
+  #live-editor-container { display: flex; flex-direction: column; height: 72vh; gap: 20px; }
+  .editor-wrapper { display: flex; gap: 20px; flex: 1; }
+  #code-input { flex: 1; background: rgba(6, 9, 19, 0.8); border: 1px solid var(--border-glass); border-radius: 14px; font-family: monospace; font-size: 15px; color: var(--primary-neon); padding: 25px; resize: none; outline: none; }
+  iframe#preview { flex: 1; border-radius: 14px; border: 1px solid var(--border-glass); background: #fff; }
 
-  .certificate-box { max-width: 750px; margin: 30px auto; background: linear-gradient(135deg, var(--bg-card), #07101e); border-radius: 18px; border: 3px solid var(--neon-cyan); padding: 50px; text-align: center; box-shadow: 0 0 40px rgba(0,240,255,0.2); }
-  .certificate-box h2 { font-size: 2.5rem; color: var(--neon-cyan); margin-bottom: 15px; font-weight: 900; }
+  /* الاختبارات والشهادة */
+  .quiz-box { max-width: 750px; margin: 0 auto; }
+  .question-card { background: var(--bg-card); backdrop-filter: blur(15px); border-radius: 16px; padding: 25px; margin-bottom: 20px; border: 1px solid var(--border-glass); }
+  .question-card p { font-weight: 700; font-size: 17px; margin-bottom: 15px; }
+  .options-group label { display: block; margin-bottom: 12px; cursor: pointer; font-size: 15px; color: var(--text-muted); transition: 0.2s; }
+  .options-group label:hover { color: var(--text-main); }
+  .options-group input { margin-left: 10px; accent-color: var(--primary-neon); }
+
+  .certificate-box { max-width: 750px; margin: 30px auto; background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(6, 9, 19, 0.95)); border-radius: 24px; border: 2px solid var(--primary-neon); padding: 50px; text-align: center; box-shadow: 0 0 50px rgba(56, 189, 248, 0.15); }
+  .certificate-box h2 { font-size: 2.5rem; color: var(--primary-neon); margin-bottom: 15px; font-weight: 900; }
   .certificate-box .username-cert { font-size: 2rem; font-weight: 800; color: #fff; margin: 20px 0; }
 
-  /* لوحة التحكم المتقدمة للأدمن */
-  .admin-panel { max-width: 900px; margin: 0 auto; background-color: var(--bg-card); padding: 30px; border-radius: 14px; border: 1px solid var(--border-color); }
-  .admin-panel h2 { color: var(--neon-cyan); margin-bottom: 20px; text-align: center; }
-  .admin-panel label { display: block; margin-top: 15px; font-weight: 700; color: var(--text-muted); }
-  .admin-panel input, .admin-panel select, .admin-panel textarea { width: 100%; padding: 12px; margin-top: 6px; border-radius: 8px; border: 1px solid var(--border-color); background-color: var(--bg-main); color: var(--text-main); font-family: 'Tajawal'; font-size: 15px; outline: none; }
-  .admin-panel button { margin-top: 20px; padding: 12px 25px; border-radius: 8px; font-family: 'Tajawal'; font-weight: 700; font-size: 16px; background: linear-gradient(135deg, var(--neon-cyan), #0077ff); border: none; cursor: pointer; color: #030712; transition: 0.3s; }
+  /* لوحة تحكم الأدمن المتقدمة */
+  .admin-panel { max-width: 950px; margin: 0 auto; background: var(--bg-card); backdrop-filter: blur(20px); padding: 35px; border-radius: 20px; border: 1px solid var(--border-glass); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+  .admin-panel h2 { color: var(--text-main); margin-bottom: 25px; text-align: center; font-weight: 800; }
+  .admin-panel label { display: block; margin-top: 18px; font-weight: 700; color: var(--text-muted); font-size: 14px; }
+  .admin-panel input, .admin-panel select, .admin-panel textarea { width: 100%; padding: 13px; margin-top: 6px; border-radius: 10px; border: 1px solid var(--border-glass); background: rgba(6, 9, 19, 0.6); color: var(--text-main); font-family: 'Tajawal'; font-size: 15px; outline: none; }
+  .admin-panel input:focus, .admin-panel select:focus, .admin-panel textarea:focus { border-color: var(--primary-neon); }
   
-  .admin-tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
-  .admin-tab-btn { background: var(--bg-main); color: var(--text-muted); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 6px; cursor: pointer; font-family: 'Tajawal'; font-weight: 700; }
-  .admin-tab-btn.active { background: var(--neon-cyan); color: #030712; border-color: var(--neon-cyan); }
+  .admin-tabs { display: flex; gap: 12px; margin-bottom: 25px; border-bottom: 1px solid var(--border-glass); padding-bottom: 18px; }
+  .admin-tab-btn { background: rgba(6, 9, 19, 0.6); color: var(--text-muted); border: 1px solid var(--border-glass); padding: 10px 20px; border-radius: 10px; cursor: pointer; font-family: 'Tajawal'; font-weight: 700; transition: 0.3s; }
+  .admin-tab-btn.active { background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon)); color: #060913; border-color: transparent; }
   
   .sub-section { display: none; }
   .sub-section.active { display: block; }
 
   @media (max-width: 900px) {
     #app { flex-direction: column; }
-    nav { width: 100%; flex-direction: row; flex-wrap: wrap; justify-content: center; padding: 15px; }
+    nav { width: 100%; flex-direction: row; flex-wrap: wrap; justify-content: center; padding: 20px; }
     nav h1 { display: none; }
     .editor-wrapper { flex-direction: column; }
     #live-editor-container { height: auto; }
@@ -287,15 +317,15 @@
       <span id="user-status-display" style="display:none;"></span>
       <button id="btn-login-page" class="primary-btn" onclick="navigate('login')">تسجيل الدخول</button>
       <button id="btn-signup-page" onclick="navigate('signup')">إنشاء حساب</button>
-      <button id="btn-logout" style="display:none; border-color:var(--neon-pink); color:var(--neon-pink);" onclick="logout()">تسجيل الخروج</button>
+      <button id="btn-logout" style="display:none; border-color:var(--accent-pink); color:var(--accent-pink);" onclick="logout()">تسجيل الخروج</button>
     </div>
 
     <!-- الرئيسية -->
     <section id="home" class="page active">
-      <div style="text-align:center; margin-top: 70px;">
-        <h2 style="font-size: 2.8rem; margin-bottom: 20px; font-weight: 900; color:var(--neon-cyan);">منصة KXY Academy لبرمجة HTML</h2>
-        <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 650px; margin: 0 auto; line-height: 1.8;">
-          منصة تعليمية متكاملة تحت تحكمك الكامل. أضف الكورسات، تحكم بالطلاب، وأدر الأسئلة والصلاحيات بسهولة تامة.
+      <div style="text-align:center; margin-top: 80px;">
+        <h2 style="font-size: 3rem; margin-bottom: 20px; font-weight: 900; background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">منصة KXY Academy لبرمجة الويب</h2>
+        <p style="font-size: 1.25rem; color: var(--text-muted); max-width: 680px; margin: 0 auto; line-height: 1.8;">
+          منصتك التعليمية المتكاملة تحت تحكمك الكامل. أضف الكورسات والمستويات، أدر صلاحيات الطلاب، واختبر مهاراتك بكل سهولة وأمان.
         </p>
       </div>
     </section>
@@ -309,8 +339,8 @@
         <label>كلمة المرور</label>
         <input type="password" id="login-password" required autocomplete="current-password" />
         <button type="submit">دخول</button>
-        <p style="margin-top: 15px; text-align:center; font-size: 14px; color: var(--neon-cyan); cursor:pointer;" onclick="navigate('signup')">ليس لديك حساب؟ إنشاء حساب جديد</p>
-        <p id="login-error" style="color:var(--neon-pink); margin-top:10px; text-align:center; font-size:14px;"></p>
+        <p style="margin-top: 20px; text-align:center; font-size: 14px; color: var(--primary-neon); cursor:pointer;" onclick="navigate('signup')">ليس لديك حساب؟ إنشاء حساب جديد</p>
+        <p id="login-error" style="color:var(--accent-pink); margin-top:12px; text-align:center; font-size:14px;"></p>
       </form>
     </section>
 
@@ -323,27 +353,27 @@
         <label>كلمة المرور</label>
         <input type="password" id="signup-password" required autocomplete="new-password" />
         <button type="submit">تسجيل</button>
-        <p style="margin-top: 15px; text-align:center; font-size: 14px; color: var(--neon-cyan); cursor:pointer;" onclick="navigate('login')">لديك حساب بالفعل؟ تسجيل الدخول</p>
-        <p id="signup-error" style="color:var(--neon-pink); margin-top:10px; text-align:center; font-size:14px;"></p>
+        <p style="margin-top: 20px; text-align:center; font-size: 14px; color: var(--primary-neon); cursor:pointer;" onclick="navigate('login')">لديك حساب بالفعل؟ تسجيل الدخول</p>
+        <p id="signup-error" style="color:var(--accent-pink); margin-top:12px; text-align:center; font-size:14px;"></p>
       </form>
     </section>
 
     <!-- الكورسات -->
     <section id="courses" class="page">
-      <h2 style="margin-bottom: 20px; font-size: 2rem; color:var(--neon-cyan);">الكورسات التعليمية</h2>
+      <h2 style="margin-bottom: 25px; font-size: 2.2rem; font-weight:800;">الكورسات التعليمية</h2>
       <div class="course-list" id="course-list"></div>
     </section>
 
     <section id="course-detail" class="page">
-      <button onclick="navigate('courses')" style="background-color:var(--bg-card); color:var(--neon-cyan); border:1px solid var(--border-color); padding: 9px 18px; border-radius:8px; cursor:pointer; margin-bottom: 20px; font-family:'Tajawal'; font-weight:700;">⬅ العودة للقائمة</button>
-      <h2 id="detail-title" style="font-size: 2.2rem; margin-bottom: 12px; color:var(--neon-cyan);"></h2>
+      <button onclick="navigate('courses')" style="background:var(--bg-card); color:var(--primary-neon); border:1px solid var(--border-glass); padding: 10px 20px; border-radius:10px; cursor:pointer; margin-bottom: 25px; font-family:'Tajawal'; font-weight:700;">⬅ العودة للقائمة</button>
+      <h2 id="detail-title" style="font-size: 2.2rem; margin-bottom: 12px; color:var(--primary-neon);"></h2>
       <p id="detail-desc" style="color:var(--text-muted); font-size: 1.1rem; margin-bottom: 20px;"></p>
-      <div id="detail-content" style="background-color:var(--bg-card); padding:25px; border-radius:14px; border:1px solid var(--border-color); line-height: 1.8;"></div>
+      <div id="detail-content" style="background:var(--bg-card); backdrop-filter:blur(15px); padding:30px; border-radius:16px; border:1px solid var(--border-glass); line-height: 1.8;"></div>
     </section>
 
     <!-- محرر الأكواد الحي -->
     <section id="editor" class="page">
-      <h2 style="margin-bottom: 18px; font-size: 2rem; color:var(--neon-cyan);">محرر الأكواد الحي</h2>
+      <h2 style="margin-bottom: 20px; font-size: 2.2rem; font-weight:800;">محرر الأكواد الحي</h2>
       <div id="live-editor-container">
         <div class="editor-wrapper">
           <textarea id="code-input" placeholder="اكتب كود HTML هنا..."></textarea>
@@ -354,26 +384,26 @@
 
     <!-- الاختبارات -->
     <section id="quiz" class="page">
-      <h2 style="margin-bottom: 20px; font-size: 2rem; color:var(--neon-cyan); text-align:center;">اختبارات ومستويات HTML</h2>
+      <h2 style="margin-bottom: 25px; font-size: 2.2rem; font-weight:800; text-align:center;">اختبارات ومستويات البرمجة</h2>
       <div class="quiz-box" id="quiz-container"></div>
-      <div style="text-align:center; margin-top:25px;">
-        <button id="quiz-submit-btn" style="background:linear-gradient(135deg, var(--neon-cyan), #0077ff); color:#030712; font-family:'Tajawal'; font-weight:800; padding: 12px 28px; border:none; border-radius:8px; cursor:pointer; font-size:17px;">إرسال الإجابات</button>
-        <p id="quiz-result" style="margin-top: 15px; font-size: 1.2rem; font-weight:700; color:var(--neon-cyan);"></p>
+      <div style="text-align:center; margin-top:30px;">
+        <button id="quiz-submit-btn" style="background:linear-gradient(135deg, var(--primary-neon), var(--secondary-neon)); color:#060913; font-family:'Tajawal'; font-weight:800; padding: 14px 32px; border:none; border-radius:12px; cursor:pointer; font-size:17px; box-shadow:0 4px 20px rgba(56,189,248,0.2);">إرسال الإجابات</button>
+        <p id="quiz-result" style="margin-top: 20px; font-size: 1.3rem; font-weight:800; color:var(--primary-neon);"></p>
       </div>
     </section>
 
     <!-- الشهادات -->
     <section id="certificate" class="page">
-      <h2 style="margin-bottom: 20px; font-size: 2rem; color:var(--neon-cyan); text-align:center;">شهادة الإتمام</h2>
+      <h2 style="margin-bottom: 25px; font-size: 2.2rem; font-weight:800; text-align:center;">شهادة الإتمام</h2>
       <div id="cert-wrapper" style="display:none;">
         <div class="certificate-box">
           <p style="font-size: 1.2rem; color:var(--text-muted);">تشهد منصة KXY Academy بأن الطالب:</p>
           <div class="username-cert" id="cert-name"></div>
-          <p style="font-size: 1.2rem; color:var(--text-muted);">أتم بنجاح متطلبات مسار برمجة HTML باحترافية تامة.</p>
-          <p id="cert-date" style="margin-top: 30px; color:var(--neon-cyan); font-weight:700; font-size:15px;"></p>
+          <p style="font-size: 1.2rem; color:var(--text-muted);">أتم بنجاح متطلبات مسار برمجة الويب باحترافية تامة.</p>
+          <p id="cert-date" style="margin-top: 30px; color:var(--primary-neon); font-weight:700; font-size:15px;"></p>
         </div>
       </div>
-      <p id="cert-msg" style="text-align:center; color:var(--text-muted); font-size: 1.2rem; margin-top: 40px;"></p>
+      <p id="cert-msg" style="text-align:center; color:var(--text-muted); font-size: 1.2rem; margin-top: 50px;"></p>
     </section>
 
     <!-- لوحة التحكم الكاملة للأدمن -->
@@ -392,23 +422,38 @@
           <form id="admin-course-form">
             <label>عنوان الكورس</label>
             <input type="text" id="admin-title" required />
-            <label>المستوى التعليمي (اختر أو أكتب مستوى جديد)</label>
-            <input type="text" id="admin-level" placeholder="مثال: مبتدئ، متوسط، محترف..." required />
+            <label>المستوى التعليمي (مثال: مبتدئ، متوسط، محترف...)</label>
+            <input type="text" id="admin-level" required />
             <label>وصف قصير</label>
             <input type="text" id="admin-desc" required />
             <label>محتوى الكورس (صيغة HTML)</label>
             <textarea id="admin-content" rows="4" required></textarea>
-            <button type="submit">إضافة الكورس للمنصة</button>
+            <button type="submit" style="margin-top:20px; padding:12px 25px; border-radius:10px; font-family:'Tajawal'; font-weight:700; background:linear-gradient(135deg, var(--primary-neon), var(--secondary-neon)); border:none; cursor:pointer; color:#060913;">إضافة الكورس للمنصة</button>
           </form>
-          <hr style="margin: 25px 0; border-color:var(--border-color);" />
-          <h3 style="margin-bottom: 12px; font-size: 1.2rem; color:var(--neon-cyan);">جميع الكورسات الحالية:</h3>
+          <hr style="margin: 30px 0; border-color:var(--border-glass);" />
+          <h3 style="margin-bottom: 15px; font-size: 1.2rem; color:var(--primary-neon);">جميع الكورسات الحالية:</h3>
           <ul id="admin-courses-list" style="list-style:none;"></ul>
         </div>
 
         <!-- 2. إدارة الطلاب والصلاحيات والحظر -->
         <div id="tab-users" class="sub-section">
-          <h3 style="margin-bottom: 12px; font-size: 1.2rem; color:var(--neon-cyan);">قائمة المستخدمين والطلاب المسجلين:</h3>
-          <p style="color:var(--text-muted); font-size:14px; margin-bottom:15px;">يمكنك ترقية أي طالب لصلاحية أدمن مساعد أو حظره أو حذف حسابه نهائياً.</p>
+          <h3 style="margin-bottom: 12px; font-size: 1.2rem; color:var(--primary-neon);">قائمة المستخدمين والطلاب المسجلين:</h3>
+          <p style="color:var(--text-muted); font-size:14px; margin-bottom:20px;">يمكنك ترقية أي طالب لصلاحية "أدمن" أو حظره أو حذف حسابه نهائياً بضغطة زر.</p>
+          
+          <!-- إضافة طالب جديد مباشرة من الأدمن -->
+          <div style="background:rgba(6,9,19,0.5); padding:20px; border-radius:12px; border:1px solid var(--border-glass); margin-bottom:25px;">
+            <h4 style="margin-bottom:12px; color:var(--text-main); font-size:1rem;">إضافة طالب جديد يدوياً:</h4>
+            <form id="admin-add-user-form" style="display:flex; gap:12px; flex-wrap:wrap;">
+              <input type="email" id="new-user-email" placeholder="البريد الإلكتروني" required style="flex:2; min-width:200px;" />
+              <input type="password" id="new-user-pass" placeholder="كلمة المرور" required style="flex:2; min-width:150px;" />
+              <select id="new-user-role" style="flex:1; min-width:120px;">
+                <option value="student">طالب</option>
+                <option value="admin">أدمن</option>
+              </select>
+              <button type="submit" style="flex:1; min-width:120px; background:var(--primary-neon); color:#060913; border:none; border-radius:10px; font-weight:700; cursor:pointer; font-family:'Tajawal';">إضافة</button>
+            </form>
+          </div>
+
           <ul id="admin-users-list" style="list-style:none;"></ul>
         </div>
 
@@ -432,10 +477,10 @@
               <option value="2">الخيار الثالث</option>
               <option value="3">الخيار الرابع</option>
             </select>
-            <button type="submit">إضافة السؤال للاختبارات</button>
+            <button type="submit" style="margin-top:20px; padding:12px 25px; border-radius:10px; font-family:'Tajawal'; font-weight:700; background:linear-gradient(135deg, var(--primary-neon), var(--secondary-neon)); border:none; cursor:pointer; color:#060913;">إضافة السؤال للاختبارات</button>
           </form>
-          <hr style="margin: 25px 0; border-color:var(--border-color);" />
-          <h3 style="margin-bottom: 12px; font-size: 1.2rem; color:var(--neon-cyan);">الأسئلة الحالية:</h3>
+          <hr style="margin: 30px 0; border-color:var(--border-glass);" />
+          <h3 style="margin-bottom: 15px; font-size: 1.2rem; color:var(--primary-neon);">الأسئلة الحالية:</h3>
           <ul id="admin-quizzes-list" style="list-style:none;"></ul>
         </div>
 
@@ -452,7 +497,8 @@
   };
 
   let users = JSON.parse(localStorage.getItem('kxy_users') || '[]');
-  let currentUser = JSON.parse(sessionStorage.getItem('kxy_current_user') || 'null');
+  // تم تحويلها إلى localStorage لضمان عدم الخروج عند عمل Refresh
+  let currentUser = JSON.parse(localStorage.getItem('kxy_current_user') || 'null');
   
   let courses = JSON.parse(localStorage.getItem('kxy_courses') || '[]');
   if (courses.length === 0) {
@@ -510,7 +556,7 @@
       signupBtn.style.display = 'none';
       logoutBtn.style.display = 'block';
       userDisplay.style.display = 'block';
-      userDisplay.textContent = `مرحباً: ${currentUser.email} (${currentUser.email === ADMIN_DATA.email ? 'أدمن أساسي' : currentUser.role || 'طالب'})`;
+      userDisplay.textContent = `مرحباً: ${currentUser.email} (${currentUser.email === ADMIN_DATA.email ? 'أدمن أساسي' : currentUser.role === 'admin' ? 'أدمن' : 'طالب'})`;
 
       if (currentUser.email === ADMIN_DATA.email || currentUser.role === 'admin') {
         adminNavBtn.style.display = 'block';
@@ -528,7 +574,7 @@
 
   function logout() {
     currentUser = null;
-    sessionStorage.removeItem('kxy_current_user');
+    localStorage.removeItem('kxy_current_user');
     alert('تم تسجيل الخروج بنجاح.');
     navigate('home');
   }
@@ -542,7 +588,7 @@
 
     if (email === ADMIN_DATA.email && password === ADMIN_DATA.password) {
       currentUser = { email: ADMIN_DATA.email, role: 'super-admin' };
-      sessionStorage.setItem('kxy_current_user', JSON.stringify(currentUser));
+      localStorage.setItem('kxy_current_user', JSON.stringify(currentUser));
       alert('مرحباً بك يا أحمد (تحكم كامل بالمنصة).');
       navigate('home');
       return;
@@ -555,7 +601,7 @@
         return;
       }
       currentUser = user;
-      sessionStorage.setItem('kxy_current_user', JSON.stringify(currentUser));
+      localStorage.setItem('kxy_current_user', JSON.stringify(currentUser));
       alert('تم تسجيل الدخول بنجاح.');
       navigate('home');
     } else {
@@ -619,7 +665,7 @@
 
   codeInput.addEventListener('input', updatePreview);
   window.addEventListener('load', () => {
-    codeInput.value = `<!DOCTYPE html>\n<html lang="ar" dir="rtl">\n<head><meta charset="UTF-8"><title>تجربة</title></head>\n<body>\n<h2 style="color:#00f0ff; font-family:Tajawal;">مرحباً بك في KXY Academy</h2>\n<p>اكتب كود HTML هنا وشاهد النتيجة فوراً!</p>\n</body>\n</html>`;
+    codeInput.value = `<!DOCTYPE html>\n<html lang="ar" dir="rtl">\n<head><meta charset="UTF-8"><title>تجربة</title></head>\n<body>\n<h2 style="color:#38bdf8; font-family:Tajawal;">مرحباً بك في KXY Academy</h2>\n<p>اكتب كود HTML هنا وشاهد النتيجة فوراً!</p>\n</body>\n</html>`;
     updatePreview();
     updateHeaderUI();
   });
@@ -694,8 +740,8 @@
     list.innerHTML = '';
     courses.forEach(c => {
       const li = document.createElement('li');
-      li.style.cssText = "display:flex; justify-content:space-between; align-items:center; background-color:var(--bg-main); padding:12px 15px; margin-bottom:10px; border-radius:8px; border:1px solid var(--border-color); font-size:15px;";
-      li.innerHTML = `<span><b>${c.title}</b> (المستوى: ${c.level})</span> <button onclick="deleteCourse(${c.id})" style="background-color:var(--neon-pink); color:#fff; border:none; padding:5px 12px; border-radius:6px; cursor:pointer; font-family:'Tajawal'; font-weight:700;">حذف</button>`;
+      li.style.cssText = "display:flex; justify-content:space-between; align-items:center; background:rgba(6,9,19,0.5); padding:12px 15px; margin-bottom:10px; border-radius:10px; border:1px solid var(--border-glass); font-size:15px;";
+      li.innerHTML = `<span><b>${c.title}</b> (المستوى: ${c.level})</span> <button onclick="deleteCourse(${c.id})" style="background-color:var(--accent-pink); color:#fff; border:none; padding:6px 14px; border-radius:8px; cursor:pointer; font-family:'Tajawal'; font-weight:700;">حذف</button>`;
       list.appendChild(li);
     });
   }
@@ -706,7 +752,27 @@
     renderAdminCoursesList();
   }
 
-  // إدارة المستخدمين والطلاب (حظر، ترقية، حذف)
+  // إضافة طالب جديد مباشرة من الأدمن
+  document.getElementById('admin-add-user-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const email = document.getElementById('new-user-email').value.trim();
+    const password = document.getElementById('new-user-pass').value;
+    const role = document.getElementById('new-user-role').value;
+
+    if (users.some(u => u.email === email) || email === ADMIN_DATA.email) {
+      alert('هذا البريد مستخدم مسبقاً.');
+      return;
+    }
+
+    const newUser = { id: Date.now(), email, password, role, banned: false };
+    users.push(newUser);
+    localStorage.setItem('kxy_users', JSON.stringify(users));
+    alert('تم إضافة الطالب/الأدمن بنجاح!');
+    e.target.reset();
+    renderAdminUsersList();
+  });
+
+  // إدارة المستخدمين والطلاب (حظر، ترقية لأدمن، حذف)
   function renderAdminUsersList() {
     const list = document.getElementById('admin-users-list');
     list.innerHTML = '';
@@ -718,16 +784,16 @@
 
     users.forEach(u => {
       const li = document.createElement('li');
-      li.style.cssText = "display:flex; justify-content:space-between; align-items:center; background-color:var(--bg-main); padding:12px 15px; margin-bottom:10px; border-radius:8px; border:1px solid var(--border-color); font-size:14px; flex-wrap:wrap; gap:10px;";
+      li.style.cssText = "display:flex; justify-content:space-between; align-items:center; background:rgba(6,9,19,0.5); padding:12px 15px; margin-bottom:10px; border-radius:10px; border:1px solid var(--border-glass); font-size:14px; flex-wrap:wrap; gap:10px;";
       
-      let statusText = u.banned ? '<span style="color:var(--neon-pink)">محظور</span>' : `<span style="color:#00ff88">نشيط (${u.role === 'admin' ? 'أدمن مساعد' : 'طالب'})</span>`;
+      let statusText = u.banned ? '<span style="color:var(--accent-pink)">محظور</span>' : `<span style="color:var(--accent-green)">نشيط (${u.role === 'admin' ? 'أدمن' : 'طالب'})</span>`;
       
       li.innerHTML = `
         <span><b>${u.email}</b> - ${statusText}</span>
         <div style="display:flex; gap:8px;">
-          <button onclick="toggleAdminRole(${u.id})" style="background-color:var(--neon-cyan); color:#030712; border:none; padding:5px 10px; border-radius:6px; cursor:pointer; font-family:'Tajawal'; font-weight:700;">${u.role === 'admin' ? 'سحب صلاحية الأدمن' : 'ترقية لأدمن'}</button>
-          <button onclick="toggleBanUser(${u.id})" style="background-color:#ffaa00; color:#030712; border:none; padding:5px 10px; border-radius:6px; cursor:pointer; font-family:'Tajawal'; font-weight:700;">${u.banned ? 'إلغاء الحظر' : 'حظر'}</button>
-          <button onclick="deleteUser(${u.id})" style="background-color:var(--neon-pink); color:#fff; border:none; padding:5px 10px; border-radius:6px; cursor:pointer; font-family:'Tajawal'; font-weight:700;">حذف</button>
+          <button onclick="toggleAdminRole(${u.id})" style="background:var(--primary-neon); color:#060913; border:none; padding:6px 12px; border-radius:8px; cursor:pointer; font-family:'Tajawal'; font-weight:700;">${u.role === 'admin' ? 'سحب الأدمن' : 'ترقية لأدمن'}</button>
+          <button onclick="toggleBanUser(${u.id})" style="background:#f59e0b; color:#060913; border:none; padding:6px 12px; border-radius:8px; cursor:pointer; font-family:'Tajawal'; font-weight:700;">${u.banned ? 'إلغاء الحظر' : 'حظر'}</button>
+          <button onclick="deleteUser(${u.id})" style="background:var(--accent-pink); color:#fff; border:none; padding:6px 12px; border-radius:8px; cursor:pointer; font-family:'Tajawal'; font-weight:700;">حذف</button>
         </div>
       `;
       list.appendChild(li);
@@ -784,8 +850,8 @@
     list.innerHTML = '';
     quizData.forEach(item => {
       const li = document.createElement('li');
-      li.style.cssText = "display:flex; justify-content:space-between; align-items:center; background-color:var(--bg-main); padding:12px 15px; margin-bottom:10px; border-radius:8px; border:1px solid var(--border-color); font-size:14px;";
-      li.innerHTML = `<span><b>س:</b> ${item.q}</span> <button onclick="deleteQuiz(${item.id})" style="background-color:var(--neon-pink); color:#fff; border:none; padding:5px 12px; border-radius:6px; cursor:pointer; font-family:'Tajawal'; font-weight:700;">حذف</button>`;
+      li.style.cssText = "display:flex; justify-content:space-between; align-items:center; background:rgba(6,9,19,0.5); padding:12px 15px; margin-bottom:10px; border-radius:10px; border:1px solid var(--border-glass); font-size:14px;";
+      li.innerHTML = `<span><b>س:</b> ${item.q}</span> <button onclick="deleteQuiz(${item.id})" style="background-color:var(--accent-pink); color:#fff; border:none; padding:6px 12px; border-radius:8px; cursor:pointer; font-family:'Tajawal'; font-weight:700;">حذف</button>`;
       list.appendChild(li);
     });
   }
@@ -798,3 +864,4 @@
 </script>
 </body>
 </html>
+
