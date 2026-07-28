@@ -1,717 +1,800 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KXY Academy - تعلم البرمجة</title>
-    <!-- خط عربي مميز -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <!-- FontAwesome للأيقونات -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --bg: #0f172a;
-            --card-bg: #1e293b;
-            --text: #f8fafc;
-            --text-muted: #94a3b8;
-            --border: #334155;
-            --accent: #10b981;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>KXY Academy - لوحة التحكم الشاملة</title>
 
-        [data-theme="light"] {
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text: #0f172a;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --accent: #059669;
-        }
+<!-- خط تاجوال الفاخر من Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Cairo', sans-serif;
-            transition: background 0.3s, color 0.3s;
-        }
+<style>
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  
+  :root {
+    --bg-main: #030712;
+    --bg-card: #0b1325;
+    --bg-sidebar: #060b18;
+    --neon-cyan: #00f0ff;
+    --neon-pink: #ff007f;
+    --neon-purple: #9d00ff;
+    --text-main: #f0f6fc;
+    --text-muted: #8b949e;
+    --border-color: rgba(0, 240, 255, 0.2);
+  }
 
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+  html, body {
+    height: 100%;
+    font-family: 'Tajawal', sans-serif;
+    background: linear-gradient(135deg, #030712, #07101e, #0f1c30);
+    color: var(--text-main);
+    direction: rtl;
+  }
 
-        header {
-            background-color: var(--card-bg);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+  ::-webkit-scrollbar {
+    width: 6px;
+    background: var(--bg-main);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--neon-cyan);
+    border-radius: 10px;
+    box-shadow: 0 0 10px var(--neon-cyan);
+  }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+  #app {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
 
-        .nav-actions {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
+  /* القائمة الجانبية */
+  nav {
+    width: 270px;
+    background: linear-gradient(180deg, rgba(6,11,24,0.95) 0%, rgba(3,7,18,0.98) 100%);
+    border-left: 1px solid var(--border-color);
+    box-shadow: inset -5px 0 20px rgba(0, 240, 255, 0.03);
+    display: flex;
+    flex-direction: column;
+    padding: 25px 18px;
+    gap: 12px;
+    z-index: 10;
+  }
 
-        .btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
+  nav h1 {
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--text-main);
+    text-align: center;
+    letter-spacing: 3px;
+    margin-bottom: 25px;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+  }
+  nav h1 span {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 15px var(--neon-cyan);
+  }
 
-        .btn:hover {
-            background-color: var(--primary-hover);
-        }
+  nav button {
+    padding: 12px 16px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-muted);
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    text-align: right;
+    transition: all 0.3s ease;
+  }
+  nav button:hover {
+    background: rgba(0, 240, 255, 0.05);
+    color: var(--neon-cyan);
+    border-color: rgba(0, 240, 255, 0.3);
+  }
+  nav button.active {
+    background: linear-gradient(90deg, rgba(0, 240, 255, 0.15), rgba(157, 0, 255, 0.15));
+    color: var(--neon-cyan);
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+  }
 
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text);
-        }
+  nav .admin-only {
+    display: none;
+    border: 1px dashed var(--neon-pink);
+    color: var(--neon-pink);
+  }
 
-        .btn-outline:hover {
-            border-color: var(--primary);
-        }
+  /* المحتوى الرئيسي */
+  main {
+    flex-grow: 1;
+    padding: 30px 45px;
+    overflow-y: auto;
+    background: radial-gradient(circle at top left, rgba(15, 28, 48, 0.4), transparent 60%);
+  }
 
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            width: 100%;
-            flex: 1;
-        }
+  .top-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 35px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+  }
 
-        /* نماذج الدخول والتسجيل */
-        .auth-box {
-            max-width: 400px;
-            margin: 4rem auto;
-            background: var(--card-bg);
-            padding: 2.5rem;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
+  .top-header button {
+    background-color: var(--bg-card);
+    color: var(--neon-cyan);
+    border: 1px solid var(--border-color);
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .top-header button:hover {
+    background-color: var(--neon-cyan);
+    color: #030712;
+    box-shadow: 0 0 20px var(--neon-cyan);
+  }
+  
+  .top-header button.primary-btn {
+    background: linear-gradient(135deg, var(--neon-cyan), #0077ff);
+    color: #030712;
+    border: none;
+  }
 
-        .auth-box h2 {
-            margin-bottom: 1.5rem;
-            text-align: center;
-            font-weight: 700;
-        }
+  #user-status-display {
+    color: var(--text-muted);
+    font-size: 14px;
+    padding: 5px 12px;
+    background: var(--bg-card);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+  }
 
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
+  .page { display: none; }
+  .page.active { display: block; animation: fadeIn 0.3s ease-in-out; }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-        .form-control {
-            width: 100%;
-            padding: 10px 14px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            background: var(--bg);
-            color: var(--text);
-            outline: none;
-        }
+  form.auth-form {
+    max-width: 420px;
+    margin: 40px auto;
+    background-color: var(--bg-card);
+    padding: 35px;
+    border-radius: 14px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.08);
+  }
+  form.auth-form h2 {
+    margin-bottom: 25px;
+    font-weight: 800;
+    color: var(--neon-cyan);
+    text-align: center;
+  }
+  form.auth-form label {
+    display: block;
+    margin: 15px 0 6px 0;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-muted);
+  }
+  form.auth-form input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 15px;
+    outline: none;
+  }
+  form.auth-form input:focus { border-color: var(--neon-cyan); }
+  form.auth-form button[type="submit"] {
+    margin-top: 25px;
+    width: 100%;
+    padding: 13px;
+    background: linear-gradient(135deg, var(--neon-cyan), #0088ff);
+    color: #030712;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 800;
+    font-size: 17px;
+    cursor: pointer;
+  }
 
-        .form-control:focus {
-            border-color: var(--primary);
-        }
+  .course-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .course-card {
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    padding: 25px;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .course-card:hover { border-color: var(--neon-cyan); transform: translateY(-4px); }
+  .course-card h3 { margin-bottom: 12px; font-weight: 700; color: var(--neon-cyan); font-size: 20px; }
+  .course-card p { font-size: 14px; color: var(--text-muted); margin-bottom: 18px; line-height: 1.7; }
+  .course-card small { background-color: rgba(0, 240, 255, 0.1); color: var(--neon-cyan); padding: 4px 10px; border-radius: 6px; font-weight: 700; border: 1px solid rgba(0, 240, 255, 0.2); }
 
-        /* شبكة الكورسات */
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 1.5rem;
-        }
+  #live-editor-container { display: flex; flex-direction: column; height: 72vh; gap: 15px; }
+  .editor-wrapper { display: flex; gap: 15px; flex: 1; }
+  #code-input { flex: 1; background-color: #030712; border: 1px solid var(--border-color); border-radius: 10px; font-family: monospace; font-size: 15px; color: var(--neon-cyan); padding: 20px; resize: none; outline: none; }
+  iframe#preview { flex: 1; border-radius: 10px; border: 1px solid var(--border-color); background: #fff; }
 
-        .course-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
+  .quiz-box { max-width: 700px; margin: 0 auto; }
+  .question-card { background-color: var(--bg-card); border-radius: 12px; padding: 22px; margin-bottom: 18px; border: 1px solid var(--border-color); }
+  .question-card p { font-weight: 700; font-size: 17px; margin-bottom: 14px; }
+  .options-group label { display: block; margin-bottom: 10px; cursor: pointer; font-size: 15px; color: var(--text-muted); }
+  .options-group input { margin-left: 10px; }
 
-        .course-header {
-            background: linear-gradient(135deg, var(--primary), #818cf8);
-            color: white;
-            padding: 1.5rem;
-            font-weight: 700;
-        }
+  .certificate-box { max-width: 750px; margin: 30px auto; background: linear-gradient(135deg, var(--bg-card), #07101e); border-radius: 18px; border: 3px solid var(--neon-cyan); padding: 50px; text-align: center; box-shadow: 0 0 40px rgba(0,240,255,0.2); }
+  .certificate-box h2 { font-size: 2.5rem; color: var(--neon-cyan); margin-bottom: 15px; font-weight: 900; }
+  .certificate-box .username-cert { font-size: 2rem; font-weight: 800; color: #fff; margin: 20px 0; }
 
-        .course-body {
-            padding: 1.5rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+  /* لوحة التحكم المتقدمة للأدمن */
+  .admin-panel { max-width: 900px; margin: 0 auto; background-color: var(--bg-card); padding: 30px; border-radius: 14px; border: 1px solid var(--border-color); }
+  .admin-panel h2 { color: var(--neon-cyan); margin-bottom: 20px; text-align: center; }
+  .admin-panel label { display: block; margin-top: 15px; font-weight: 700; color: var(--text-muted); }
+  .admin-panel input, .admin-panel select, .admin-panel textarea { width: 100%; padding: 12px; margin-top: 6px; border-radius: 8px; border: 1px solid var(--border-color); background-color: var(--bg-main); color: var(--text-main); font-family: 'Tajawal'; font-size: 15px; outline: none; }
+  .admin-panel button { margin-top: 20px; padding: 12px 25px; border-radius: 8px; font-family: 'Tajawal'; font-weight: 700; font-size: 16px; background: linear-gradient(135deg, var(--neon-cyan), #0077ff); border: none; cursor: pointer; color: #030712; transition: 0.3s; }
+  
+  .admin-tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
+  .admin-tab-btn { background: var(--bg-main); color: var(--text-muted); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 6px; cursor: pointer; font-family: 'Tajawal'; font-weight: 700; }
+  .admin-tab-btn.active { background: var(--neon-cyan); color: #030712; border-color: var(--neon-cyan); }
+  
+  .sub-section { display: none; }
+  .sub-section.active { display: block; }
 
-        .course-body p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-        }
-
-        /* صفحة عرض الدرس والشرح */
-        .lesson-view {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
-        }
-
-        @media(max-width: 768px) {
-            .lesson-view {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .lesson-content, .code-playground, .chat-box, .admin-panel {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .code-editor {
-            width: 100%;
-            height: 150px;
-            background: #090d16;
-            color: #38bdf8;
-            font-family: monospace;
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            resize: vertical;
-        }
-
-        .preview-frame {
-            width: 100%;
-            height: 120px;
-            background: white;
-            border-radius: 6px;
-            border: none;
-            margin-top: 10px;
-        }
-
-        /* نظام الدردشة */
-        .chat-messages {
-            height: 250px;
-            overflow-y: auto;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 10px;
-            background: var(--bg);
-        }
-
-        .message {
-            margin-bottom: 8px;
-            padding: 8px 12px;
-            border-radius: 6px;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            font-size: 0.9rem;
-        }
-
-        .message span {
-            font-weight: bold;
-            color: var(--primary);
-            margin-left: 5px;
-        }
-
-        /* لوحة التحكم الخفية / الأدمن */
-        .admin-badge {
-            background: var(--accent);
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            margin-right: 5px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        th, td {
-            border: 1px solid var(--border);
-            padding: 8px 12px;
-            text-align: right;
-            font-size: 0.9rem;
-        }
-
-        th {
-            background: var(--bg);
-        }
-
-        .hidden {
-            display: none !important;
-        }
-    </style>
+  @media (max-width: 900px) {
+    #app { flex-direction: column; }
+    nav { width: 100%; flex-direction: row; flex-wrap: wrap; justify-content: center; padding: 15px; }
+    nav h1 { display: none; }
+    .editor-wrapper { flex-direction: column; }
+    #live-editor-container { height: auto; }
+  }
+</style>
 </head>
-<body data-theme="dark">
+<body>
 
-    <header>
-        <div class="logo">
-            <i class="fa-solid fa-code"></i> KXY Academy
-        </div>
-        <div class="nav-actions">
-            <button class="btn btn-outline" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="theme-icon"></i></button>
-            <div id="user-nav" class="hidden">
-                <span id="nav-username" style="font-weight:600; margin-left: 10px;"></span>
-                <span id="admin-tag"></span>
-                <button class="btn btn-outline" onclick="logout()">خروج</button>
-            </div>
-        </div>
-    </header>
+<div id="app">
+  <nav>
+    <h1>KXY <span>Academy</span></h1>
+    <button class="nav-btn active" data-page="home" onclick="navigate('home')">الرئيسية</button>
+    <button class="nav-btn" data-page="courses" onclick="navigate('courses')">الكورسات</button>
+    <button class="nav-btn" data-page="editor" onclick="navigate('editor')">محرر الأكواد الحي</button>
+    <button class="nav-btn" data-page="quiz" onclick="navigate('quiz')">الاختبارات</button>
+    <button class="nav-btn" data-page="certificate" onclick="navigate('certificate')">الشهادات</button>
+    <button class="nav-btn admin-only" data-page="admin" onclick="navigate('admin')">لوحة التحكم الكاملة</button>
+  </nav>
 
-    <div class="container">
-
-        <!-- 1. نموذج تسجيل الدخول -->
-        <section id="login-section" class="auth-box">
-            <h2>تسجيل الدخول</h2>
-            <div class="form-group">
-                <label>البريد الإلكتروني</label>
-                <input type="email" id="login-email" class="form-control" placeholder="ادخل بريدك الإلكتروني">
-            </div>
-            <div class="form-group">
-                <label>كلمة المرور</label>
-                <input type="password" id="login-pass" class="form-control" placeholder="ادخل كلمة المرور">
-            </div>
-            <button class="btn" style="width: 100%; justify-content: center;" onclick="login()">دخول</button>
-            <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">
-                ليس لديك حساب؟ <a href="#" onclick="switchAuth('register')" style="color: var(--primary);">انشئ حساباً جديداً</a>
-            </p>
-        </section>
-
-        <!-- 2. نموذج إنشاء حساب -->
-        <section id="register-section" class="auth-box hidden">
-            <h2>إنشاء حساب جديد</h2>
-            <div class="form-group">
-                <label>اسم المستخدم</label>
-                <input type="text" id="reg-name" class="form-control" placeholder="ادخل اسمك">
-            </div>
-            <div class="form-group">
-                <label>البريد الإلكتروني</label>
-                <input type="email" id="reg-email" class="form-control" placeholder="ادخل بريدك الإلكتروني">
-            </div>
-            <div class="form-group">
-                <label>كلمة المرور</label>
-                <input type="password" id="reg-pass" class="form-control" placeholder="ادخل كلمة المرور">
-            </div>
-            <button class="btn" style="width: 100%; justify-content: center;" onclick="register()">تسجيل</button>
-            <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">
-                لديك حساب بالفعل؟ <a href="#" onclick="switchAuth('login')" style="color: var(--primary);">سجل دخولك</a>
-            </p>
-        </section>
-
-        <!-- 3. لوحة المنصة الرئيسية (الكورسات والشات) -->
-        <section id="app-section" class="hidden">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                <h2>الكورسات التعليمية (HTML)</h2>
-                <div id="admin-add-btn-wrapper" class="hidden">
-                    <button class="btn" onclick="toggleAdminPanel()"><i class="fa-solid fa-gear"></i> لوحة الإدارة</button>
-                </div>
-            </div>
-
-            <!-- لوحة تحكم الأدمن الخفية -->
-            <div id="admin-panel" class="admin-panel hidden">
-                <h3>لوحة إدارة المنصة (أدمن فقط)</h3>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 1rem;">
-                    <div>
-                        <h4>إضافة كورس جديد</h4>
-                        <div class="form-group" style="margin-top: 10px;">
-                            <input type="text" id="new-course-title" class="form-control" placeholder="عنوان الكورس">
-                        </div>
-                        <div class="form-group">
-                            <textarea id="new-course-desc" class="form-control" placeholder="وصف الكورس" style="height: 80px;"></textarea>
-                        </div>
-                        <button class="btn" onclick="addCourse()">إضافة الكورس</button>
-                    </div>
-                    <div>
-                        <h4>إدارة الطلاب والصلاحيات</h4>
-                        <div style="max-height: 150px; overflow-y: auto;">
-                            <table id="students-table">
-                                <thead>
-                                    <tr>
-                                        <th>الاسم</th>
-                                        <th>النوع</th>
-                                        <th>تحكم</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="students-list"></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div style="margin-top: 20px;">
-                    <h4>سجل تسجيل الدخول (Login Log)</h4>
-                    <div style="max-height: 120px; overflow-y: auto; background: var(--bg); padding: 8px; border-radius: 6px;">
-                        <ul id="logs-list" style="list-style: none; font-size: 0.85rem; color: var(--text-muted);"></ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- قائمة الكورسات -->
-            <div class="courses-grid" id="courses-container"></div>
-
-            <!-- دردشة المجتمع -->
-            <div class="chat-box" style="margin-top: 2rem;">
-                <h3><i class="fa-solid fa-comments"></i> مجتمع الطلاب والدردشة المباشرة</h3>
-                <div class="chat-messages" id="chat-messages"></div>
-                <div style="display: flex; gap: 10px;">
-                    <input type="text" id="chat-input" class="form-control" placeholder="اكتب رسالتك هنا..." onkeypress="checkSend(event)">
-                    <button class="btn" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. صفحة عرض محتوى الدرس والشرح -->
-        <section id="lesson-section" class="hidden">
-            <button class="btn btn-outline" style="margin-bottom: 1rem;" onclick="backToCourses()"><i class="fa-solid fa-arrow-right"></i> العودة للكورسات</button>
-            <div class="lesson-view">
-                <div>
-                    <div class="lesson-content">
-                        <h2 id="lesson-title" style="margin-bottom: 1rem; color: var(--primary);"></h2>
-                        <div id="lesson-text" style="line-height: 1.8; color: var(--text-muted);"></div>
-                    </div>
-                    <!-- محرّر الأكواد التجريبي -->
-                    <div class="code-playground">
-                        <h4><i class="fa-solid fa-laptop-code"></i> جرب كود الـ HTML فوراً:</h4>
-                        <textarea class="code-editor" id="live-code" oninput="runCode()"><h1>مرحباً بك في KXY Academy</h1><p>هذا النص تجريبي يمكنك تعديله!</p></textarea>
-                        <h5 style="margin-top: 10px;">النتيجة المباشرة:</h5>
-                        <iframe class="preview-frame" id="code-preview"></iframe>
-                    </div>
-                </div>
-                <div>
-                    <div class="lesson-content">
-                        <h4><i class="fa-solid fa-circle-check"></i> إنجاز الدرس</h4>
-                        <p style="font-size: 0.9rem; color: var(--text-muted); margin: 10px 0;">اضغط عند انتهائك من فهم الدرس لكسب نقاط وإثبات إكمالك.</p>
-                        <button class="btn" style="width: 100%; justify-content: center;" onclick="completeLesson()">تم الانتهاء من الدرس</button>
-                        <div style="margin-top: 15px; text-align: center; font-weight: bold;" id="points-display">نقاطك: 0</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+  <main>
+    <div class="top-header">
+      <span id="user-status-display" style="display:none;"></span>
+      <button id="btn-login-page" class="primary-btn" onclick="navigate('login')">تسجيل الدخول</button>
+      <button id="btn-signup-page" onclick="navigate('signup')">إنشاء حساب</button>
+      <button id="btn-logout" style="display:none; border-color:var(--neon-pink); color:var(--neon-pink);" onclick="logout()">تسجيل الخروج</button>
     </div>
 
-    <script>
-        // البيانات الأساسية المخزنة
-        let users = JSON.parse(localStorage.getItem('kxy_users')) || [
-            { name: "أحمد (مشرف)", email: "ahmed@admin", pass: "1523259999688855552", isAdmin: true, points: 100 }
-        ];
+    <!-- الرئيسية -->
+    <section id="home" class="page active">
+      <div style="text-align:center; margin-top: 70px;">
+        <h2 style="font-size: 2.8rem; margin-bottom: 20px; font-weight: 900; color:var(--neon-cyan);">منصة KXY Academy لبرمجة HTML</h2>
+        <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 650px; margin: 0 auto; line-height: 1.8;">
+          منصة تعليمية متكاملة تحت تحكمك الكامل. أضف الكورسات، تحكم بالطلاب، وأدر الأسئلة والصلاحيات بسهولة تامة.
+        </p>
+      </div>
+    </section>
+
+    <!-- تسجيل الدخول -->
+    <section id="login" class="page">
+      <form class="auth-form" id="login-form">
+        <h2>تسجيل الدخول</h2>
+        <label>البريد الإلكتروني</label>
+        <input type="email" id="login-email" required autocomplete="username" />
+        <label>كلمة المرور</label>
+        <input type="password" id="login-password" required autocomplete="current-password" />
+        <button type="submit">دخول</button>
+        <p style="margin-top: 15px; text-align:center; font-size: 14px; color: var(--neon-cyan); cursor:pointer;" onclick="navigate('signup')">ليس لديك حساب؟ إنشاء حساب جديد</p>
+        <p id="login-error" style="color:var(--neon-pink); margin-top:10px; text-align:center; font-size:14px;"></p>
+      </form>
+    </section>
+
+    <!-- إنشاء حساب -->
+    <section id="signup" class="page">
+      <form class="auth-form" id="signup-form">
+        <h2>إنشاء حساب جديد</h2>
+        <label>البريد الإلكتروني</label>
+        <input type="email" id="signup-email" required autocomplete="email" />
+        <label>كلمة المرور</label>
+        <input type="password" id="signup-password" required autocomplete="new-password" />
+        <button type="submit">تسجيل</button>
+        <p style="margin-top: 15px; text-align:center; font-size: 14px; color: var(--neon-cyan); cursor:pointer;" onclick="navigate('login')">لديك حساب بالفعل؟ تسجيل الدخول</p>
+        <p id="signup-error" style="color:var(--neon-pink); margin-top:10px; text-align:center; font-size:14px;"></p>
+      </form>
+    </section>
+
+    <!-- الكورسات -->
+    <section id="courses" class="page">
+      <h2 style="margin-bottom: 20px; font-size: 2rem; color:var(--neon-cyan);">الكورسات التعليمية</h2>
+      <div class="course-list" id="course-list"></div>
+    </section>
+
+    <section id="course-detail" class="page">
+      <button onclick="navigate('courses')" style="background-color:var(--bg-card); color:var(--neon-cyan); border:1px solid var(--border-color); padding: 9px 18px; border-radius:8px; cursor:pointer; margin-bottom: 20px; font-family:'Tajawal'; font-weight:700;">⬅ العودة للقائمة</button>
+      <h2 id="detail-title" style="font-size: 2.2rem; margin-bottom: 12px; color:var(--neon-cyan);"></h2>
+      <p id="detail-desc" style="color:var(--text-muted); font-size: 1.1rem; margin-bottom: 20px;"></p>
+      <div id="detail-content" style="background-color:var(--bg-card); padding:25px; border-radius:14px; border:1px solid var(--border-color); line-height: 1.8;"></div>
+    </section>
+
+    <!-- محرر الأكواد الحي -->
+    <section id="editor" class="page">
+      <h2 style="margin-bottom: 18px; font-size: 2rem; color:var(--neon-cyan);">محرر الأكواد الحي</h2>
+      <div id="live-editor-container">
+        <div class="editor-wrapper">
+          <textarea id="code-input" placeholder="اكتب كود HTML هنا..."></textarea>
+          <iframe id="preview" sandbox="allow-scripts allow-same-origin"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- الاختبارات -->
+    <section id="quiz" class="page">
+      <h2 style="margin-bottom: 20px; font-size: 2rem; color:var(--neon-cyan); text-align:center;">اختبارات ومستويات HTML</h2>
+      <div class="quiz-box" id="quiz-container"></div>
+      <div style="text-align:center; margin-top:25px;">
+        <button id="quiz-submit-btn" style="background:linear-gradient(135deg, var(--neon-cyan), #0077ff); color:#030712; font-family:'Tajawal'; font-weight:800; padding: 12px 28px; border:none; border-radius:8px; cursor:pointer; font-size:17px;">إرسال الإجابات</button>
+        <p id="quiz-result" style="margin-top: 15px; font-size: 1.2rem; font-weight:700; color:var(--neon-cyan);"></p>
+      </div>
+    </section>
+
+    <!-- الشهادات -->
+    <section id="certificate" class="page">
+      <h2 style="margin-bottom: 20px; font-size: 2rem; color:var(--neon-cyan); text-align:center;">شهادة الإتمام</h2>
+      <div id="cert-wrapper" style="display:none;">
+        <div class="certificate-box">
+          <p style="font-size: 1.2rem; color:var(--text-muted);">تشهد منصة KXY Academy بأن الطالب:</p>
+          <div class="username-cert" id="cert-name"></div>
+          <p style="font-size: 1.2rem; color:var(--text-muted);">أتم بنجاح متطلبات مسار برمجة HTML باحترافية تامة.</p>
+          <p id="cert-date" style="margin-top: 30px; color:var(--neon-cyan); font-weight:700; font-size:15px;"></p>
+        </div>
+      </div>
+      <p id="cert-msg" style="text-align:center; color:var(--text-muted); font-size: 1.2rem; margin-top: 40px;"></p>
+    </section>
+
+    <!-- لوحة التحكم الكاملة للأدمن -->
+    <section id="admin" class="page">
+      <div class="admin-panel">
+        <h2>لوحة التحكم الشاملة (Full Access)</h2>
         
-        let courses = JSON.parse(localStorage.getItem('kxy_courses')) || [
-            { id: 1, title: "مقدمة لغة HTML", desc: "تعرف على هيكل صفحات الويب والوسوم الأساسية وكيف تبدأ أول صفحة." },
-            { id: 2, title: "العناصر والنصوص في HTML", desc: "كيفية تنسيق العناوين، الفقرات، القوائم، والروابط باحترافية." },
-            { id: 3, title: "الصور والجداول والنماذج", desc: "إدراج الصور، بناء الجداول البيانية، وصنع نماذج التسجيل." }
-        ];
+        <div class="admin-tabs">
+          <button class="admin-tab-btn active" onclick="switchAdminTab('tab-courses')">إدارة الكورسات والمستويات</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('tab-users')">إدارة الطلاب والصلاحيات</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('tab-quizzes')">إدارة الأسئلة</button>
+        </div>
 
-        let logs = JSON.parse(localStorage.getItem('kxy_logs')) || [];
-        let messages = JSON.parse(localStorage.getItem('kxy_messages')) || [
-            { user: "نظام KXY", text: "أهلاً بك في مجتمع البرمجة! اطرح أسئلتك هنا." }
-        ];
+        <!-- 1. إدارة الكورسات والمستويات -->
+        <div id="tab-courses" class="sub-section active">
+          <form id="admin-course-form">
+            <label>عنوان الكورس</label>
+            <input type="text" id="admin-title" required />
+            <label>المستوى التعليمي (اختر أو أكتب مستوى جديد)</label>
+            <input type="text" id="admin-level" placeholder="مثال: مبتدئ، متوسط، محترف..." required />
+            <label>وصف قصير</label>
+            <input type="text" id="admin-desc" required />
+            <label>محتوى الكورس (صيغة HTML)</label>
+            <textarea id="admin-content" rows="4" required></textarea>
+            <button type="submit">إضافة الكورس للمنصة</button>
+          </form>
+          <hr style="margin: 25px 0; border-color:var(--border-color);" />
+          <h3 style="margin-bottom: 12px; font-size: 1.2rem; color:var(--neon-cyan);">جميع الكورسات الحالية:</h3>
+          <ul id="admin-courses-list" style="list-style:none;"></ul>
+        </div>
 
-        let currentUser = JSON.parse(localStorage.getItem('kxy_current_user')) || null;
+        <!-- 2. إدارة الطلاب والصلاحيات والحظر -->
+        <div id="tab-users" class="sub-section">
+          <h3 style="margin-bottom: 12px; font-size: 1.2rem; color:var(--neon-cyan);">قائمة المستخدمين والطلاب المسجلين:</h3>
+          <p style="color:var(--text-muted); font-size:14px; margin-bottom:15px;">يمكنك ترقية أي طالب لصلاحية أدمن مساعد أو حظره أو حذف حسابه نهائياً.</p>
+          <ul id="admin-users-list" style="list-style:none;"></ul>
+        </div>
 
-        // تهيئة التطبيق عند الفتح
-        window.onload = function() {
-            if (currentUser) {
-                showApp();
-            }
-            renderChat();
-        };
+        <!-- 3. إدارة الأسئلة -->
+        <div id="tab-quizzes" class="sub-section">
+          <form id="admin-quiz-form">
+            <label>نص السؤال</label>
+            <input type="text" id="q-text" required />
+            <label>الخيار الأول</label>
+            <input type="text" id="q-opt0" required />
+            <label>الخيار الثاني</label>
+            <input type="text" id="q-opt1" required />
+            <label>الخيار الثالث</label>
+            <input type="text" id="q-opt2" required />
+            <label>الخيار الرابع</label>
+            <input type="text" id="q-opt3" required />
+            <label>رقم الإجابة الصحيحة (من 0 إلى 3)</label>
+            <select id="q-ans">
+              <option value="0">الخيار الأول</option>
+              <option value="1">الخيار الثاني</option>
+              <option value="2">الخيار الثالث</option>
+              <option value="3">الخيار الرابع</option>
+            </select>
+            <button type="submit">إضافة السؤال للاختبارات</button>
+          </form>
+          <hr style="margin: 25px 0; border-color:var(--border-color);" />
+          <h3 style="margin-bottom: 12px; font-size: 1.2rem; color:var(--neon-cyan);">الأسئلة الحالية:</h3>
+          <ul id="admin-quizzes-list" style="list-style:none;"></ul>
+        </div>
 
-        // تبديل الثيم (ظلام/فاتح)
-        function toggleTheme() {
-            const body = document.body;
-            const icon = document.getElementById('theme-icon');
-            if (body.getAttribute('data-theme') === 'dark') {
-                body.setAttribute('data-theme', 'light');
-                icon.className = "fa-solid fa-sun";
-            } else {
-                body.setAttribute('data-theme', 'dark');
-                icon.className = "fa-solid fa-moon";
-            }
-        }
+      </div>
+    </section>
 
-        // التنقل بين واجهات الدخول والتسجيل
-        function switchAuth(type) {
-            if (type === 'register') {
-                document.getElementById('login-section').classList.add('hidden');
-                document.getElementById('register-section').classList.remove('hidden');
-            } else {
-                document.getElementById('register-section').classList.add('hidden');
-                document.getElementById('login-section').classList.remove('hidden');
-            }
-        }
+  </main>
+</div>
 
-        // عملية تسجيل الدخول
-        function login() {
-            const email = document.getElementById('login-email').value.trim();
-            const pass = document.getElementById('login-pass').value.trim();
+<script>
+  const ADMIN_DATA = {
+    email: 'ahmedrehanm11@gmail.com',
+    password: '1523259999688855552'
+  };
 
-            const user = users.find(u => u.email === email && u.pass === pass);
-            if (user) {
-                currentUser = user;
-                localStorage.setItem('kxy_current_user', JSON.stringify(currentUser));
-                addLog(`تسجيل دخول: ${user.name}`);
-                showApp();
-            } else {
-                alert('البريد الإلكتروني أو كلمة المرور غير صحيحة!');
-            }
-        }
+  let users = JSON.parse(localStorage.getItem('kxy_users') || '[]');
+  let currentUser = JSON.parse(sessionStorage.getItem('kxy_current_user') || 'null');
+  
+  let courses = JSON.parse(localStorage.getItem('kxy_courses') || '[]');
+  if (courses.length === 0) {
+    courses = [
+      { id: 1, title: 'أساسيات HTML للمبتدئين', level: 'مبتدئ', desc: 'تعرف على هيكل الصفحة والوسوم الأساسية.', content: '<h3>مرحباً بك في أول دروس HTML</h3><p>تتكون صفحة الويب من وسوم أساسية مثل html, head, و body.</p>' }
+    ];
+    localStorage.setItem('kxy_courses', JSON.stringify(courses));
+  }
 
-        // إنشاء حساب جديد
-        function register() {
-            const name = document.getElementById('reg-name').value.trim();
-            const email = document.getElementById('reg-email').value.trim();
-            const pass = document.getElementById('reg-pass').value.trim();
+  let quizData = JSON.parse(localStorage.getItem('kxy_quizzes') || '[]');
+  if (quizData.length === 0) {
+    quizData = [
+      { id: 1, q: 'ما هو الوسم المسؤول عن إنشاء فقرة نصية؟', options: ['<p>', '<div>', '<h1>', '<span>'], ans: 0 },
+      { id: 2, q: 'أي وسم يستخدم لإدراج صورة في الصفحة؟', options: ['<image>', '<img>', '<src>', '<pic>'], ans: 1 }
+    ];
+    localStorage.setItem('kxy_quizzes', JSON.stringify(quizData));
+  }
 
-            if (!name || !email || !pass) {
-                alert('الرجاء ملء جميع الحقول!');
-                return;
-            }
+  function navigate(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById(pageId);
+    if (target) target.classList.add('active');
 
-            if (users.some(u => u.email === email)) {
-                alert('هذا البريد مستخدم مسبقاً!');
-                return;
-            }
+    document.querySelectorAll('nav button.nav-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.page === pageId);
+    });
 
-            const newUser = { name, email, pass, isAdmin: false, points: 10 };
-            users.push(newUser);
-            localStorage.setItem('kxy_users', JSON.stringify(users));
+    if (pageId === 'courses') renderCourses();
+    if (pageId === 'quiz') renderQuiz();
+    if (pageId === 'certificate') renderCertificate();
+    if (pageId === 'admin') {
+      const isSuperAdmin = currentUser && currentUser.email === ADMIN_DATA.email;
+      const isSubAdmin = currentUser && currentUser.role === 'admin';
+      if (!isSuperAdmin && !isSubAdmin) {
+        alert('هذه الصفحة مخصصة للأدمن فقط.');
+        navigate('home');
+        return;
+      }
+      renderAdminCoursesList();
+      renderAdminUsersList();
+      renderAdminQuizzesList();
+    }
+    updateHeaderUI();
+  }
 
-            currentUser = newUser;
-            localStorage.setItem('kxy_current_user', JSON.stringify(currentUser));
-            addLog(`انضمام وتسجيل جديد: ${name}`);
-            showApp();
-        }
+  function updateHeaderUI() {
+    const loginBtn = document.getElementById('btn-login-page');
+    const signupBtn = document.getElementById('btn-signup-page');
+    const logoutBtn = document.getElementById('btn-logout');
+    const userDisplay = document.getElementById('user-status-display');
+    const adminNavBtn = document.querySelector('nav button.admin-only');
 
-        // تسجيل الخروج
-        function logout() {
-            currentUser = null;
-            localStorage.removeItem('kxy_current_user');
-            document.getElementById('app-section').classList.add('hidden');
-            document.getElementById('lesson-section').classList.add('hidden');
-            document.getElementById('user-nav').classList.add('hidden');
-            document.getElementById('login-section').classList.remove('hidden');
-        }
+    if (currentUser) {
+      loginBtn.style.display = 'none';
+      signupBtn.style.display = 'none';
+      logoutBtn.style.display = 'block';
+      userDisplay.style.display = 'block';
+      userDisplay.textContent = `مرحباً: ${currentUser.email} (${currentUser.email === ADMIN_DATA.email ? 'أدمن أساسي' : currentUser.role || 'طالب'})`;
 
-        // إظهار لوحة المنصة بعد الدخول
-        function showApp() {
-            document.getElementById('login-section').classList.add('hidden');
-            document.getElementById('register-section').classList.add('hidden');
-            document.getElementById('app-section').classList.remove('hidden');
-            document.getElementById('user-nav').classList.remove('hidden');
-            
-            document.getElementById('nav-username').innerText = currentUser.name;
-            
-            if (currentUser.isAdmin) {
-                document.getElementById('admin-tag').innerHTML = '<span class="admin-badge">مشرف</span>';
-                document.getElementById('admin-add-btn-wrapper').classList.remove('hidden');
-                renderStudentsTable();
-                renderLogs();
-            } else {
-                document.getElementById('admin-tag').innerHTML = '';
-                document.getElementById('admin-add-btn-wrapper').classList.add('hidden');
-            }
+      if (currentUser.email === ADMIN_DATA.email || currentUser.role === 'admin') {
+        adminNavBtn.style.display = 'block';
+      } else {
+        adminNavBtn.style.display = 'none';
+      }
+    } else {
+      loginBtn.style.display = 'block';
+      signupBtn.style.display = 'block';
+      logoutBtn.style.display = 'none';
+      userDisplay.style.display = 'none';
+      adminNavBtn.style.display = 'none';
+    }
+  }
 
-            renderCourses();
-        }
+  function logout() {
+    currentUser = null;
+    sessionStorage.removeItem('kxy_current_user');
+    alert('تم تسجيل الخروج بنجاح.');
+    navigate('home');
+  }
 
-        // إضافة سجل دخول
-        function addLog(action) {
-            const time = new Date().toLocaleTimeString('ar-EG');
-            logs.unshift(`${time} - ${action}`);
-            if (logs.length > 20) logs.pop();
-            localStorage.setItem('kxy_logs', JSON.stringify(logs));
-        }
+  document.getElementById('login-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    const errEl = document.getElementById('login-error');
+    errEl.textContent = '';
 
-        // عرض الكورسات
-        function renderCourses() {
-            const container = document.getElementById('courses-container');
-            container.innerHTML = '';
-            courses.forEach(c => {
-                container.innerHTML += `
-                    <div class="course-card">
-                        <div class="course-header">${c.title}</div>
-                        <div class="course-body">
-                            <p>${c.desc}</p>
-                            <button class="btn" onclick="openLesson(${c.id})"><i class="fa-solid fa-book-open"></i> ابدأ الدرس</button>
-                        </div>
-                    </div>
-                `;
-            });
-        }
+    if (email === ADMIN_DATA.email && password === ADMIN_DATA.password) {
+      currentUser = { email: ADMIN_DATA.email, role: 'super-admin' };
+      sessionStorage.setItem('kxy_current_user', JSON.stringify(currentUser));
+      alert('مرحباً بك يا أحمد (تحكم كامل بالمنصة).');
+      navigate('home');
+      return;
+    }
 
-        // فتح صفحة الدرس
-        function openLesson(id) {
-            const course = courses.find(c => c.id === id);
-            document.getElementById('app-section').classList.add('hidden');
-            document.getElementById('lesson-section').classList.remove('hidden');
-            
-            document.getElementById('lesson-title').innerText = course.title;
-            document.getElementById('lesson-text').innerHTML = `
-                <p>مرحباً بك في درس: <strong>${course.title}</strong></p><br>
-                <p>${course.desc}</p><br>
-                <p>لغة HTML هي الأساس الذي تُبنى عليه كل صفحات الويب. تتكون من مجموعة من الوسوم (Tags) التي تخبر المتصفح كيف يعرض العناصر والنصوص للمستخدمين بشكل منظم ورائع.</p>
-            `;
-            document.getElementById('points-display').innerText = `نقاطك: ${currentUser.points || 0}`;
-            runCode();
-        }
+    const user = users.find(u => u.email === email && u.password === password);
+    if (user) {
+      if (user.banned) {
+        errEl.textContent = 'هذا الحساب محظور من قبل الإدارة.';
+        return;
+      }
+      currentUser = user;
+      sessionStorage.setItem('kxy_current_user', JSON.stringify(currentUser));
+      alert('تم تسجيل الدخول بنجاح.');
+      navigate('home');
+    } else {
+      errEl.textContent = 'البريد الإلكتروني أو كلمة المرور غير صحيحة.';
+    }
+  });
 
-        function backToCourses() {
-            document.getElementById('lesson-section').classList.add('hidden');
-            document.getElementById('app-section').classList.remove('hidden');
-        }
+  document.getElementById('signup-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const email = document.getElementById('signup-email').value.trim();
+    const password = document.getElementById('signup-password').value;
+    const errEl = document.getElementById('signup-error');
+    errEl.textContent = '';
 
-        // محرر الأكواد الحي
-        function runCode() {
-            const code = document.getElementById('live-code').value;
-            const preview = document.getElementById('code-preview');
-            const doc = preview.contentDocument || preview.contentWindow.document;
-            doc.open();
-            doc.write(code);
-            doc.close();
-        }
+    if (users.some(u => u.email === email) || email === ADMIN_DATA.email) {
+      errEl.textContent = 'هذا البريد مستخدم مسبقاً.';
+      return;
+    }
+    if (password.length < 6) {
+      errEl.textContent = 'كلمة المرور يجب ألا تقل عن 6 أحرف.';
+      return;
+    }
 
-        // إكمال الدرس وزيادة النقاط
-        function completeLesson() {
-            currentUser.points = (currentUser.points || 0) + 25;
-            // تحديث المستخدم في مصفوفة المستخدمين
-            let idx = users.findIndex(u => u.email === currentUser.email);
-            if(idx !== -1) users[idx] = currentUser;
-            
-            localStorage.setItem('kxy_users', JSON.stringify(users));
-            localStorage.setItem('kxy_current_user', JSON.stringify(currentUser));
-            document.getElementById('points-display').innerText = `نقاطك: ${currentUser.points}`;
-            alert('أحسنت! تمت إضافة 25 نقطة لرصيدك.');
-        }
+    const newUser = { id: Date.now(), email, password, role: 'student', banned: false };
+    users.push(newUser);
+    localStorage.setItem('kxy_users', JSON.stringify(users));
+    alert('تم إنشاء الحساب بنجاح، يمكنك تسجيل الدخول الآن.');
+    navigate('login');
+  });
 
-        // دردشة المجتمع
-        function renderChat() {
-            const chatBox = document.getElementById('chat-messages');
-            chatBox.innerHTML = '';
-            messages.forEach(m => {
-                chatBox.innerHTML += `<div class="message"><span>${m.user}:</span> ${m.text}</div>`;
-            });
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
+  // الكورسات
+  function renderCourses() {
+    const listEl = document.getElementById('course-list');
+    listEl.innerHTML = '';
+    courses.forEach(c => {
+      const card = document.createElement('div');
+      card.className = 'course-card';
+      card.innerHTML = `<h3>${c.title}</h3><p>${c.desc}</p><small>المستوى: ${c.level}</small>`;
+      card.onclick = () => openCourseDetail(c);
+      listEl.appendChild(card);
+    });
+  }
 
-        function sendMessage() {
-            const input = document.getElementById('chat-input');
-            const text = input.value.trim();
-            if(!text) return;
+  function openCourseDetail(c) {
+    document.getElementById('detail-title').textContent = c.title;
+    document.getElementById('detail-desc').textContent = c.desc;
+    document.getElementById('detail-content').innerHTML = c.content;
+    navigate('course-detail');
+  }
 
-            messages.push({ user: currentUser ? currentUser.name : "زائر", text });
-            localStorage.setItem('kxy_messages', JSON.stringify(messages));
-            input.value = '';
-            renderChat();
-        }
+  // محرر الأكواد
+  const codeInput = document.getElementById('code-input');
+  const preview = document.getElementById('preview');
 
-        function checkSend(e) {
-            if (e.key === 'Enter') sendMessage();
-        }
+  function updatePreview() {
+    const doc = preview.contentDocument || preview.contentWindow.document;
+    doc.open();
+    doc.write(codeInput.value);
+    doc.close();
+  }
 
-        // لوحة تحكم الأدمن (خفية بالكامل في الأزرار العامة)
-        function toggleAdminPanel() {
-            const panel = document.getElementById('admin-panel');
-            panel.classList.toggle('hidden');
-        }
+  codeInput.addEventListener('input', updatePreview);
+  window.addEventListener('load', () => {
+    codeInput.value = `<!DOCTYPE html>\n<html lang="ar" dir="rtl">\n<head><meta charset="UTF-8"><title>تجربة</title></head>\n<body>\n<h2 style="color:#00f0ff; font-family:Tajawal;">مرحباً بك في KXY Academy</h2>\n<p>اكتب كود HTML هنا وشاهد النتيجة فوراً!</p>\n</body>\n</html>`;
+    updatePreview();
+    updateHeaderUI();
+  });
 
-        function addCourse() {
-            const title = document.getElementById('new-course-title').value.trim();
-            const desc = document.getElementById('new-course-desc').value.trim();
+  // الاختبارات
+  function renderQuiz() {
+    const container = document.getElementById('quiz-container');
+    container.innerHTML = '';
+    quizData.forEach((item, index) => {
+      let html = `<div class="question-card"><p>السؤال ${index + 1}: ${item.q}</p><div class="options-group">`;
+      item.options.forEach((opt, oIndex) => {
+        html += `<label><input type="radio" name="q_${item.id}" value="${oIndex}"> ${opt}</label>`;
+      });
+      html += `</div></div>`;
+      container.innerHTML += html;
+    });
+  }
 
-            if(!title || !desc) {
-                alert('الرجاء كتابة العنوان ووصف الكورس');
-                return;
-            }
+  document.getElementById('quiz-submit-btn').addEventListener('click', () => {
+    let score = 0;
+    quizData.forEach((item) => {
+      const selected = document.querySelector(`input[name="q_${item.id}"]:checked`);
+      if (selected && parseInt(selected.value) === item.ans) score++;
+    });
+    document.getElementById('quiz-result').textContent = `نتيجتك هي: ${score} من ${quizData.length}`;
+  });
 
-            courses.push({ id: Date.now(), title, desc });
-            localStorage.setItem('kxy_courses', JSON.stringify(courses));
-            document.getElementById('new-course-title').value = '';
-            document.getElementById('new-course-desc').value = '';
-            renderCourses();
-            alert('تمت إضافة الكورس بنجاح!');
-        }
+  // الشهادات
+  function renderCertificate() {
+    const certWrapper = document.getElementById('cert-wrapper');
+    const certMsg = document.getElementById('cert-msg');
+    const certName = document.getElementById('cert-name');
+    const certDate = document.getElementById('cert-date');
 
-        function renderStudentsTable() {
-            const tbody = document.getElementById('students-list');
-            tbody.innerHTML = '';
-            users.forEach(u => {
-                tbody.innerHTML += `
-                    <tr>
-                        <td>${u.name}</td>
-                        <td>${u.isAdmin ? 'مشرف' : 'طالب'}</td>
-                        <td>
-                            ${u.email !== 'ahmed@admin' ? `<button class="btn" style="padding: 2px 6px; font-size:0.8rem;" onclick="toggleAdminRole('${u.email}')">${u.isAdmin ? 'سحب الإشراف' : 'ترقية لأدمن'}</button>` : 'مالك المنصة'}
-                        </td>
-                    </tr>
-                `;
-            });
-        }
+    if (!currentUser) {
+      certWrapper.style.display = 'none';
+      certMsg.textContent = 'يرجى تسجيل الدخول لعرض الشهادة الخاصة بك.';
+      return;
+    }
 
-        function toggleAdminRole(email) {
-            let u = users.find(x => x.email === email);
-            if(u) {
-                u.isAdmin = !u.isAdmin;
-                localStorage.setItem('kxy_users', JSON.stringify(users));
-                renderStudentsTable();
-            }
-        }
+    certWrapper.style.display = 'block';
+    certMsg.textContent = '';
+    certName.textContent = currentUser.email.split('@')[0];
+    certDate.textContent = `تاريخ الإصدار: ${new Date().toLocaleDateString('ar-EG')}`;
+  }
 
-        function renderLogs() {
-            const logsList = document.getElementById('logs-list');
-            logsList.innerHTML = '';
-            logs.forEach(l => {
-                logsList.innerHTML += `<li>• ${l}</li>`;
-            });
-        }
-    </script>
+  // تبويبات لوحة التحكم
+  function switchAdminTab(tabId) {
+    document.querySelectorAll('.sub-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // إدارة الكورسات للأدمن
+  document.getElementById('admin-course-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const title = document.getElementById('admin-title').value;
+    const level = document.getElementById('admin-level').value;
+    const desc = document.getElementById('admin-desc').value;
+    const content = document.getElementById('admin-content').value;
+
+    courses.push({ id: Date.now(), title, level, desc, content });
+    localStorage.setItem('kxy_courses', JSON.stringify(courses));
+    alert('تم إضافة الكورس والمستوى بنجاح!');
+    e.target.reset();
+    renderAdminCoursesList();
+  });
+
+  function renderAdminCoursesList() {
+    const list = document.getElementById('admin-courses-list');
+    list.innerHTML = '';
+    courses.forEach(c => {
+      const li = document.createElement('li');
+      li.style.cssText = "display:flex; justify-content:space-between; align-items:center; background-color:var(--bg-main); padding:12px 15px; margin-bottom:10px; border-radius:8px; border:1px solid var(--border-color); font-size:15px;";
+      li.innerHTML = `<span><b>${c.title}</b> (المستوى: ${c.level})</span> <button onclick="deleteCourse(${c.id})" style="background-color:var(--neon-pink); color:#fff; border:none; padding:5px 12px; border-radius:6px; cursor:pointer; font-family:'Tajawal'; font-weight:700;">حذف</button>`;
+      list.appendChild(li);
+    });
+  }
+
+  function deleteCourse(id) {
+    courses = courses.filter(c => c.id !== id);
+    localStorage.setItem('kxy_courses', JSON.stringify(courses));
+    renderAdminCoursesList();
+  }
+
+  // إدارة المستخدمين والطلاب (حظر، ترقية، حذف)
+  function renderAdminUsersList() {
+    const list = document.getElementById('admin-users-list');
+    list.innerHTML = '';
+    
+    if (users.length === 0) {
+      list.innerHTML = '<p style="color:var(--text-muted)">لا توجد حسابات طلاب مسجلة حتى الآن.</p>';
+      return;
+    }
+
+    users.forEach(u => {
+      const li = document.createElement('li');
+      li.style.cssText = "display:flex; justify-content:space-between; align-items:center; background-color:var(--bg-main); padding:12px 15px; margin-bottom:10px; border-radius:8px; border:1px solid var(--border-color); font-size:14px; flex-wrap:wrap; gap:10px;";
+      
+      let statusText = u.banned ? '<span style="color:var(--neon-pink)">محظور</span>' : `<span style="color:#00ff88">نشيط (${u.role === 'admin' ? 'أدمن مساعد' : 'طالب'})</span>`;
+      
+      li.innerHTML = `
+        <span><b>${u.email}</b> - ${statusText}</span>
+        <div style="display:flex; gap:8px;">
+          <button onclick="toggleAdminRole(${u.id})" style="background-color:var(--neon-cyan); color:#030712; border:none; padding:5px 10px; border-radius:6px; cursor:pointer; font-family:'Tajawal'; font-weight:700;">${u.role === 'admin' ? 'سحب صلاحية الأدمن' : 'ترقية لأدمن'}</button>
+          <button onclick="toggleBanUser(${u.id})" style="background-color:#ffaa00; color:#030712; border:none; padding:5px 10px; border-radius:6px; cursor:pointer; font-family:'Tajawal'; font-weight:700;">${u.banned ? 'إلغاء الحظر' : 'حظر'}</button>
+          <button onclick="deleteUser(${u.id})" style="background-color:var(--neon-pink); color:#fff; border:none; padding:5px 10px; border-radius:6px; cursor:pointer; font-family:'Tajawal'; font-weight:700;">حذف</button>
+        </div>
+      `;
+      list.appendChild(li);
+    });
+  }
+
+  function toggleAdminRole(id) {
+    users = users.map(u => {
+      if (u.id === id) {
+        u.role = u.role === 'admin' ? 'student' : 'admin';
+      }
+      return u;
+    });
+    localStorage.setItem('kxy_users', JSON.stringify(users));
+    renderAdminUsersList();
+  }
+
+  function toggleBanUser(id) {
+    users = users.map(u => {
+      if (u.id === id) {
+        u.banned = !u.banned;
+      }
+      return u;
+    });
+    localStorage.setItem('kxy_users', JSON.stringify(users));
+    renderAdminUsersList();
+  }
+
+  function deleteUser(id) {
+    users = users.filter(u => u.id !== id);
+    localStorage.setItem('kxy_users', JSON.stringify(users));
+    renderAdminUsersList();
+  }
+
+  // إدارة الأسئلة للأدمن
+  document.getElementById('admin-quiz-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const q = document.getElementById('q-text').value;
+    const opt0 = document.getElementById('q-opt0').value;
+    const opt1 = document.getElementById('q-opt1').value;
+    const opt2 = document.getElementById('q-opt2').value;
+    const opt3 = document.getElementById('q-opt3').value;
+    const ans = parseInt(document.getElementById('q-ans').value);
+
+    quizData.push({ id: Date.now(), q, options: [opt0, opt1, opt2, opt3], ans });
+    localStorage.setItem('kxy_quizzes', JSON.stringify(quizData));
+    alert('تم إضافة السؤال بنجاح!');
+    e.target.reset();
+    renderAdminQuizzesList();
+  });
+
+  function renderAdminQuizzesList() {
+    const list = document.getElementById('admin-quizzes-list');
+    list.innerHTML = '';
+    quizData.forEach(item => {
+      const li = document.createElement('li');
+      li.style.cssText = "display:flex; justify-content:space-between; align-items:center; background-color:var(--bg-main); padding:12px 15px; margin-bottom:10px; border-radius:8px; border:1px solid var(--border-color); font-size:14px;";
+      li.innerHTML = `<span><b>س:</b> ${item.q}</span> <button onclick="deleteQuiz(${item.id})" style="background-color:var(--neon-pink); color:#fff; border:none; padding:5px 12px; border-radius:6px; cursor:pointer; font-family:'Tajawal'; font-weight:700;">حذف</button>`;
+      list.appendChild(li);
+    });
+  }
+
+  function deleteQuiz(id) {
+    quizData = quizData.filter(item => item.id !== id);
+    localStorage.setItem('kxy_quizzes', JSON.stringify(quizData));
+    renderAdminQuizzesList();
+  }
+</script>
 </body>
 </html>
-
