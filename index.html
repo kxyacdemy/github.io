@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KXY Academy - المنصة الاحترافية</title>
+    <title>KXY Academy - لوحة التحكم</title>
     <!-- استدعاء خط Tajawal الاحترافي -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -41,7 +41,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Tajawal', sans-serif;
-            transition: background-color 0.25s, color 0.25s, border-color 0.25s;
+            transition: background-color 0.25s, color 0.25s, border-color 0.25s, width 0.3s;
         }
 
         body {
@@ -52,7 +52,7 @@
             overflow-x: hidden;
         }
 
-        /* الشريط الجانبي */
+        /* الشريط الجانبي الذكي مع زر 3 شرط */
         aside {
             width: 260px;
             background-color: var(--sidebar-bg);
@@ -60,17 +60,34 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 1.5rem;
+            padding: 1.5rem 1rem;
             position: fixed;
             height: 100vh;
             z-index: 100;
         }
 
+        aside.collapsed {
+            width: 80px;
+        }
+
+        aside.collapsed .logo-text,
+        aside.collapsed .nav-links span,
+        aside.collapsed .sidebar-footer span {
+            display: none;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding: 0 0.5rem;
+        }
+
         .logo-area {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--text-main);
-            margin-bottom: 2rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -78,10 +95,20 @@
 
         .logo-area span { color: var(--primary); }
 
+        .menu-toggle-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.4rem 0.6rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
         .nav-links {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.4rem;
             flex: 1;
             overflow-y: auto;
         }
@@ -98,7 +125,8 @@
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 1rem;
+            width: 100%;
         }
 
         .nav-links button:hover, .nav-links button.active {
@@ -114,6 +142,21 @@
             padding-top: 1rem;
         }
 
+        .sidebar-footer button {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.75rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
         /* المحتوى الرئيسي */
         main {
             flex: 1;
@@ -122,6 +165,10 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+        }
+
+        main.expanded {
+            margin-right: 80px;
         }
 
         .top-bar {
@@ -236,38 +283,43 @@
         }
 
         @media (max-width: 900px) {
-            aside { width: 80px; padding: 1rem 0.5rem; }
-            aside .logo-area span, aside .nav-links span, aside .sidebar-footer span { display: none; }
+            aside { width: 80px; }
+            aside .logo-text, aside .nav-links span, aside .sidebar-footer span { display: none; }
             main { margin-right: 80px; padding: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- الشريط الجانبي العصري -->
-    <aside>
+    <!-- الشريط الجانبي بـ 3 شرط -->
+    <aside id="sidebar">
         <div>
-            <div class="logo-area">⚡ <span>KXY</span></div>
+            <div class="sidebar-header">
+                <div class="logo-area">
+                    <span>KXY</span><span class="logo-text"> Academy</span>
+                </div>
+                <button class="menu-toggle-btn" onclick="toggleSidebar()">☰</button>
+            </div>
             <div class="nav-links">
-                <button onclick="switchTab('home')" class="active" id="nav-home">🏠 <span>الرئيسية</span></button>
-                <button onclick="switchTab('discord')" id="nav-discord">🤖 <span>مشاريع ديسكورد</span></button>
-                <button onclick="switchTab('courses')" id="nav-courses">📚 <span>الكورسات</span></button>
-                <button onclick="switchTab('wallet')" id="nav-wallet">💳 <span>المحفظة</span></button>
-                <button onclick="switchTab('promo')" id="nav-promo">🎁 <span>أكواد الخصم والهدايا</span></button>
-                <button onclick="switchTab('subscribe')" id="nav-subscribe">⭐ <span>الاشتراكات</span></button>
-                <button onclick="switchTab('admin')" id="nav-admin" style="display:none; color: var(--accent);">🛠️ <span>لوحة التحكم</span></button>
+                <button onclick="switchTab('home')" class="active" id="nav-home"><span>الرئيسية</span></button>
+                <button onclick="switchTab('discord')" id="nav-discord"><span>مشاريع ديسكورد</span></button>
+                <button onclick="switchTab('courses')" id="nav-courses"><span>الكورسات</span></button>
+                <button onclick="switchTab('wallet')" id="nav-wallet"><span>المحفظة</span></button>
+                <button onclick="switchTab('promo')" id="nav-promo"><span>أكواد الخصم</span></button>
+                <button onclick="switchTab('subscribe')" id="nav-subscribe"><span>الاشتراكات</span></button>
+                <button onclick="switchTab('admin')" id="nav-admin" style="display:none; color: var(--accent);"><span>لوحة التحكم</span></button>
             </div>
         </div>
         <div class="sidebar-footer">
-            <button onclick="toggleTheme()" id="themeBtn">🌙 <span>الوضع الداكن</span></button>
-            <button onclick="openAuthModal()" id="authBtn" style="background: var(--primary); color: white; border-radius: 8px; justify-content: center;">👤 <span id="authBtnText">دخول</span></button>
+            <button onclick="toggleTheme()" id="themeBtn"><span>الوضع الداكن</span></button>
+            <button onclick="openAuthModal()" id="authBtn" style="background: var(--primary); color: white; border: none;"><span id="authBtnText">تسجيل الدخول</span></button>
         </div>
     </aside>
 
     <!-- المحتوى الرئيسي -->
-    <main>
+    <main id="mainContent">
         <div class="top-bar">
-            <h2 id="pageTitle" style="margin-bottom: 0;">لوحة المنصة</h2>
+            <h2 id="pageTitle" style="margin-bottom: 0;">الرئيسية</h2>
             <p id="userStatusHeader" style="font-size: 0.9rem; margin-bottom: 0;">مرحباً بك زائرنا الكريم</p>
         </div>
 
@@ -275,16 +327,16 @@
         <section id="home" class="section active">
             <div class="card">
                 <h2>أهلاً بك في منصة KXY Academy التطويرية</h2>
-                <p>المنصة المتكاملة لإدارة البرمجيات، بوتات ديسكورد، والمحتوى التعليمي بأعلى أداء وشكل متناسق ونظيف.</p>
+                <p>المنصة المتكاملة لإدارة البرمجيات، بوتات ديسكورد، والمحتوى التعليمي بأعلى أداء وتصميم متناسق.</p>
             </div>
             <div class="grid">
                 <div class="card" style="text-align: center;">
                     <h3 style="color: var(--primary); font-size: 2rem;" id="statProjectsCount">0</h3>
-                    <p>مشروع وبوت ديسكورد متاح</p>
+                    <p>مشروع ديسكورد متاح</p>
                 </div>
                 <div class="card" style="text-align: center;">
                     <h3 style="color: var(--accent); font-size: 2rem;" id="statVisitsCount">1</h3>
-                    <p>إجمالي زيارات المنصة</p>
+                    <p>إجمالي الزيارات</p>
                 </div>
             </div>
         </section>
@@ -323,15 +375,15 @@
         <section id="promo" class="section">
             <h2>أكواد الخصم والهدايا الترويجية</h2>
             <div class="card">
-                <h3>هل تمتلك كود خصم أو هدية؟</h3>
-                <p style="margin-bottom: 1rem;">أدخل الكود أدناه للحصول على رصيد مجاني، مشروع ديسكورد مدفوع، أو خصم خاص على الاشتراكات.</p>
+                <h3>أدخل كود الخصم أو الهدية</h3>
+                <p style="margin-bottom: 1rem;">استخدم الأكواد للحصول على رصيد مجاني أو فتح المشاريع المدفوعة.</p>
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
                     <input type="text" id="userPromoInput" placeholder="أدخل الكود هنا (مثال: KXYFREE)" style="margin-bottom: 0; flex: 1; min-width: 200px;">
                     <button class="btn" onclick="redeemPromoCode()">تفعيل الكود واستلام الهدية</button>
                 </div>
             </div>
             <div class="card">
-                <h3>الأكواد النشطة المتاحة للاستخدام</h3>
+                <h3>الأكواد النشطة المتاحة</h3>
                 <div id="activePromoList" style="margin-top: 1rem;"></div>
             </div>
         </section>
@@ -359,19 +411,29 @@
             </div>
         </section>
 
-        <!-- لوحة التحكم (للآدمن فقط - أحمد) -->
+        <!-- لوحة التحكم الإدارية (أحمد) -->
         <section id="admin" class="section">
-            <h2>لوحة تحكم المسؤول (أحمد)</h2>
+            <h2>لوحة تحكم المسؤول الشاملة (أحمد)</h2>
             
-            <!-- إضافة أكواد ترويجية وهدايا -->
+            <div class="grid">
+                <div class="card" style="text-align: center;">
+                    <h3 style="color: var(--primary); font-size: 1.8rem;" id="adminStatUsers">0</h3>
+                    <p>إجمالي الطلاب المسجلين</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <h3 style="color: var(--accent); font-size: 1.8rem;" id="adminStatBalance">$0</h3>
+                    <p>إجمالي أرصدة الطلاب</p>
+                </div>
+            </div>
+
             <div class="card">
                 <h3>إنشاء كود خصم أو هدية جديد</h3>
                 <input type="text" id="adminPromoCode" placeholder="كود الخصم (مثال: VIP2026)">
                 <select id="adminPromoType">
                     <option value="balance">رصيد مالي مجاني ($)</option>
-                    <option value="project">فتح جميع المشاريع المدفوعة مجاناً</option>
+                    <option value="project">فتح كافة المشاريع المدفوعة مجاناً</option>
                 </select>
-                <input type="number" id="adminPromoValue" placeholder="قيمة الرصيد (اكتب الرقم إذا كان رصيداً)">
+                <input type="number" id="adminPromoValue" placeholder="قيمة الرصيد (إن وجد)">
                 <button class="btn" onclick="createPromoCode()">إضافة وتفعيل الكود</button>
                 <div id="adminPromoTable"></div>
             </div>
@@ -381,8 +443,8 @@
                 <input type="text" id="adminProjTitle" placeholder="اسم المشروع أو البوت">
                 <textarea id="adminProjDesc" placeholder="وصف مميزات المشروع" rows="2"></textarea>
                 <select id="adminProjType">
-                    <option value="free">مجاني 🟢</option>
-                    <option value="paid">مدفوع 🔒</option>
+                    <option value="free">مجاني</option>
+                    <option value="paid">مدفوع</option>
                 </select>
                 <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem;">ملف المشروع (ZIP):</label>
                 <input type="file" id="adminProjFile">
@@ -462,7 +524,12 @@
 
         function updateThemeButtonText() {
             const btn = document.getElementById('themeBtn');
-            btn.innerHTML = currentTheme === 'dark' ? '☀️ <span>الوضع الفاتح</span>' : '🌙 <span>الوضع الداكن</span>';
+            btn.innerHTML = `<span>${currentTheme === 'dark' ? 'الوضع الفاتح' : 'الوضع الداكن'}</span>`;
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('collapsed');
+            document.getElementById('mainContent').classList.toggle('expanded');
         }
 
         function saveDB() {
@@ -498,7 +565,7 @@
         function handleAuthSubmit() {
             let u = document.getElementById('authUsername').value.trim();
             let p = document.getElementById('authPassword').value.trim();
-            if (!u || !p) return alert('أدخل البيانات');
+            if (!u || !p) return alert('أدخل البيانات المطلوبة');
 
             if (u.toLowerCase() === 'admin' && p === '1313') {
                 currentUser = { name: 'أحمد (الآدمن)', isAdmin: true, subscribed: true, expiry: 'دائم', wallet: 1000 };
@@ -509,7 +576,7 @@
 
             let existing = db.users.find(x => x.username === u);
             if (existing) {
-                if (existing.password !== p) return alert('كلمة المرور خطأ');
+                if (existing.password !== p) return alert('كلمة المرور غير صحيحة');
                 currentUser = existing;
             } else {
                 let newUser = { username: u, name: u, password: p, isAdmin: false, subscribed: false, wallet: 50 };
@@ -531,7 +598,7 @@
                 document.getElementById('walletBalance').innerText = `$${currentUser.wallet.toFixed(2)}`;
                 userStatusHeader.innerText = `مرحباً، ${currentUser.name}`;
             } else {
-                authBtnText.innerText = 'دخول';
+                authBtnText.innerText = 'تسجيل الدخول';
                 adminNav.style.display = 'none';
                 document.getElementById('walletBalance').innerText = '$0.00';
                 userStatusHeader.innerText = 'مرحباً بك زائرنا الكريم';
@@ -540,27 +607,24 @@
             document.getElementById('statProjectsCount').innerText = db.discordProjects.length;
             document.getElementById('statVisitsCount').innerText = db.visits;
 
-            // مشاريع ديسكورد
             document.getElementById('discordProjectsGrid').innerHTML = db.discordProjects.map(p => `
                 <div class="card">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
                         <h3>${p.title}</h3>
-                        <span class="badge ${p.type === 'free' ? 'badge-success' : 'badge-primary'}">${p.type === 'free' ? 'مجاني 🟢' : 'مدفوع 🔒'}</span>
+                        <span class="badge ${p.type === 'free' ? 'badge-success' : 'badge-primary'}">${p.type === 'free' ? 'مجاني' : 'مدفوع'}</span>
                     </div>
                     <p style="margin-bottom:1rem;">${p.desc}</p>
-                    <button class="btn" style="width:100%;" onclick="downloadProject('${p.title}', '${p.fileData}', '${p.type}')">تحميل ملف المشروع 📥</button>
+                    <button class="btn" style="width:100%;" onclick="downloadProject('${p.title}', '${p.fileData}', '${p.type}')">تحميل ملف المشروع</button>
                 </div>
             `).join('');
 
-            // الأكواد النشطة
             document.getElementById('activePromoList').innerHTML = db.promoCodes.map(c => `
                 <div style="display:flex; justify-content:space-between; align-items:center; padding:0.8rem; background:var(--bg-color); border:1px solid var(--border); border-radius:8px; margin-bottom:0.5rem;">
-                    <div><strong style="color:var(--primary);">${c.code}</strong> - <span style="font-size:0.85rem;">${c.type === 'balance' ? `رصيد بقيمة $${c.value}` : 'فتح كافة المشاريع المدفوعة'}</span></div>
+                    <div><strong style="color:var(--primary);">${c.code}</strong> - <span style="font-size:0.85rem;">${c.type === 'balance' ? `رصيد بقيمة $${c.value}` : 'فتح المشاريع المدفوعة'}</span></div>
                     <span class="badge ${c.used ? 'badge-primary' : 'badge-success'}">${c.used ? 'مستعمل' : 'متاح للاستخدام'}</span>
                 </div>
             `).join('');
 
-            // الكورسات
             document.getElementById('coursesGrid').innerHTML = db.courses.map(c => `
                 <div class="card">
                     <h3>${c.title}</h3>
@@ -569,7 +633,6 @@
                 </div>
             `).join('');
 
-            // طرق الدفع
             document.getElementById('paymentMethodsList').innerHTML = db.paymentMethods.map(m => `
                 <div style="background:var(--bg-color); border:1px solid var(--border); padding:0.8rem 1.2rem; border-radius:8px; flex:1; min-width:200px;">
                     <strong style="color:var(--primary);">${m.name}</strong>
@@ -593,7 +656,6 @@
             }
         }
 
-        // تفيعل كود الخصم أو الهدية
         function redeemPromoCode() {
             if (!currentUser) return alert('يرجى تسجيل الدخول أولاً لتفعيل الكود');
             let codeInput = document.getElementById('userPromoInput').value.trim();
@@ -634,7 +696,6 @@
         function closeCheckout() { document.getElementById('checkoutModal').style.display = 'none'; }
         function depositWallet() { if (!currentUser) return alert('سجل دخولك أولاً'); currentUser.wallet += 50; saveDB(); renderUI(); alert('تم شحن 50$ بنجاح!'); }
 
-        // دوال الآدمن
         function createPromoCode() {
             let code = document.getElementById('adminPromoCode').value.trim();
             let type = document.getElementById('adminPromoType').value;
@@ -687,6 +748,12 @@
         }
 
         function renderAdminTables() {
+            let totalUsers = db.users.length;
+            let totalBalance = db.users.reduce((acc, u) => acc + (u.wallet || 0), 0);
+
+            document.getElementById('adminStatUsers').innerText = totalUsers;
+            document.getElementById('adminStatBalance').innerText = `$${totalBalance}`;
+
             document.getElementById('adminPromoTable').innerHTML = `<table><tr><th>الكود</th><th>النوع</th><th>إجراء</th></tr>` +
                 db.promoCodes.map((c, idx) => `<tr><td>${c.code}</td><td>${c.type}</td><td><button class="btn btn-danger" style="padding:0.2rem 0.5rem; font-size:0.8rem;" onclick="db.promoCodes.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
 
