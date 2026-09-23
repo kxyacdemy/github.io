@@ -3,25 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KXY Academy</title>
+    <title>KXY Academy - المنصة الاحترافية</title>
     <!-- استدعاء خط Tajawal الاحترافي -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #07090e;
-            --card-bg: #0f1420;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
-            --accent: #10b981;
-            --danger: #ef4444;
-            --border: #1e293b;
-            --radius: 14px;
-        }
-
-        [data-theme="light"] {
-            --bg-color: #f1f5f9;
+            --bg-color: #f8fafc;
+            --sidebar-bg: #ffffff;
             --card-bg: #ffffff;
             --text-main: #0f172a;
             --text-muted: #64748b;
@@ -30,6 +18,22 @@
             --accent: #059669;
             --danger: #dc2626;
             --border: #e2e8f0;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --radius: 12px;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #07090e;
+            --sidebar-bg: #0f1420;
+            --card-bg: #0f1420;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --accent: #10b981;
+            --danger: #ef4444;
+            --border: #1e293b;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
         * {
@@ -37,8 +41,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Tajawal', sans-serif;
-            font-weight: 400;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.25s, color 0.25s, border-color 0.25s;
         }
 
         body {
@@ -46,74 +49,97 @@
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            letter-spacing: 0.2px;
+            overflow-x: hidden;
         }
 
-        header {
-            background-color: var(--card-bg);
-            backdrop-filter: blur(16px);
-            padding: 1rem 2rem;
+        /* الشريط الجانبي العصري */
+        aside {
+            width: 260px;
+            background-color: var(--sidebar-bg);
+            border-left: 1px solid var(--border);
             display: flex;
+            flex-direction: column;
             justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
+            padding: 1.5rem;
+            position: fixed;
+            height: 100vh;
             z-index: 100;
         }
 
-        .logo {
-            font-size: 1.4rem;
+        .logo-area {
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--text-main);
-        }
-
-        .logo span {
-            color: var(--primary);
-        }
-
-        nav {
+            margin-bottom: 2rem;
             display: flex;
             align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
+            gap: 0.5rem;
         }
 
-        nav button, .theme-toggle {
+        .logo-area span { color: var(--primary); }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .nav-links button {
             background: none;
             border: none;
             color: var(--text-muted);
+            text-align: right;
+            padding: 0.85rem 1rem;
+            border-radius: var(--radius);
             font-size: 0.95rem;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
         }
 
-        nav button:hover, nav button.active, .theme-toggle:hover {
-            color: var(--text-main);
+        .nav-links button:hover, .nav-links button.active {
+            background-color: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
         }
 
-        .auth-btn {
-            background: var(--primary) !important;
-            color: white !important;
-            padding: 0.5rem 1.2rem;
-            border-radius: 8px;
-            font-weight: 500 !important;
+        .sidebar-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
         }
 
-        .container {
-            max-width: 1100px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            width: 100%;
+        /* المحتوى الرئيسي */
+        main {
             flex: 1;
+            margin-right: 260px;
+            padding: 2.5rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background-color: var(--card-bg);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
         }
 
         .section { display: none; }
         .section.active { display: block; animation: fadeIn 0.3s ease; }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
+            from { opacity: 0; transform: translateY(5px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -123,28 +149,12 @@
             border-radius: var(--radius);
             padding: 1.8rem;
             margin-bottom: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            box-shadow: var(--shadow);
         }
 
-        h2 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 1.2rem;
-            color: var(--text-main);
-        }
-
-        h3 {
-            font-size: 1.1rem;
-            font-weight: 500;
-            margin-bottom: 0.8rem;
-            color: var(--text-main);
-        }
-
-        p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
+        h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.2rem; }
+        h3 { font-size: 1.1rem; font-weight: 500; margin-bottom: 0.8rem; }
+        p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
 
         input, select, textarea {
             width: 100%;
@@ -158,9 +168,7 @@
             outline: none;
         }
 
-        input:focus, select:focus {
-            border-color: var(--primary);
-        }
+        input:focus, select:focus, textarea:focus { border-color: var(--primary); }
 
         button.btn {
             background-color: var(--primary);
@@ -174,9 +182,7 @@
             transition: opacity 0.2s;
         }
 
-        button.btn:hover {
-            opacity: 0.9;
-        }
+        button.btn:hover { opacity: 0.9; }
 
         button.btn-danger {
             background-color: transparent;
@@ -184,10 +190,7 @@
             color: var(--danger);
         }
 
-        button.btn-danger:hover {
-            background-color: var(--danger);
-            color: white;
-        }
+        button.btn-danger:hover { background-color: var(--danger); color: white; }
 
         .grid {
             display: grid;
@@ -202,64 +205,12 @@
             font-size: 0.8rem;
             font-weight: 500;
         }
-
         .badge-success { background-color: rgba(16, 185, 129, 0.15); color: var(--accent); border: 1px solid rgba(16, 185, 129, 0.3); }
         .badge-primary { background-color: rgba(99, 102, 241, 0.15); color: var(--primary); border: 1px solid rgba(99, 102, 241, 0.3); }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-            overflow-x: auto;
-            display: block;
-        }
-
-        th, td {
-            padding: 0.9rem;
-            text-align: right;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.9rem;
-            white-space: nowrap;
-        }
-
-        th {
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        .live-banner {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), var(--card-bg));
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            padding: 1.2rem 1.5rem;
-            border-radius: var(--radius);
-            margin-bottom: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        /* زر واتساب والعائم */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 25px;
-            left: 25px;
-            background-color: #25d366;
-            color: white;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.6rem;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-            z-index: 999;
-            text-decoration: none;
-            transition: transform 0.2s;
-        }
-        .whatsapp-float:hover { transform: scale(1.1); }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; overflow-x: auto; display: block; }
+        th, td { padding: 0.9rem; text-align: right; border-bottom: 1px solid var(--border); font-size: 0.9rem; white-space: nowrap; }
+        th { color: var(--text-muted); font-weight: 500; }
 
         .modal-overlay {
             display: none;
@@ -280,186 +231,157 @@
             width: 100%;
             max-width: 420px;
             padding: 2.2rem;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            box-shadow: var(--shadow);
         }
 
-        @media (max-width: 768px) {
-            header { padding: 1rem; flex-direction: column; gap: 0.8rem; }
-            nav { justify-content: center; gap: 0.8rem; }
+        @media (max-width: 900px) {
+            aside { width: 80px; padding: 1rem 0.5rem; }
+            aside .logo-area span, aside .nav-links span, aside .sidebar-footer span { display: none; }
+            main { margin-right: 80px; padding: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">KXY<span>.</span> Academy</div>
-        <nav>
-            <button onclick="switchTab('home')" class="active" id="nav-home">الرئيسية</button>
-            <button onclick="switchTab('discord')" id="nav-discord">مشاريع ديسكورد</button>
-            <button onclick="switchTab('courses')" id="nav-courses">الكورسات</button>
-            <button onclick="switchTab('wallet')" id="nav-wallet">المحفظة والولاء</button>
-            <button onclick="switchTab('subscribe')" id="nav-subscribe">الاشتراكات</button>
-            <button onclick="switchTab('admin')" id="nav-admin" style="display:none; color: var(--accent);">لوحة التحكم</button>
-            <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 الوضع الداكن</button>
-            <button onclick="openAuthModal()" id="authBtn" class="auth-btn">تسجيل الدخول</button>
-        </nav>
-    </header>
+    <!-- الشريط الجانبي الاحترافي -->
+    <aside>
+        <div>
+            <div class="logo-area">⚡ <span>KXY</span></div>
+            <div class="nav-links">
+                <button onclick="switchTab('home')" class="active" id="nav-home">🏠 <span>الرئيسية</span></button>
+                <button onclick="switchTab('discord')" id="nav-discord">🤖 <span>مشاريع ديسكورد</span></button>
+                <button onclick="switchTab('courses')" id="nav-courses">📚 <span>الكورسات</span></button>
+                <button onclick="switchTab('wallet')" id="nav-wallet">💳 <span>المحفظة</span></button>
+                <button onclick="switchTab('subscribe')" id="nav-subscribe">⭐ <span>الاشتراكات</span></button>
+                <button onclick="switchTab('admin')" id="nav-admin" style="display:none; color: var(--accent);">🛠️ <span>لوحة التحكم</span></button>
+            </div>
+        </div>
+        <div class="sidebar-footer">
+            <button onclick="toggleTheme()" id="themeBtn">🌙 <span>الوضع الداكن</span></button>
+            <button onclick="openAuthModal()" id="authBtn" style="background: var(--primary); color: white; border-radius: 8px; justify-content: center;">👤 <span id="authBtnText">دخول</span></button>
+        </div>
+    </aside>
 
-    <div class="container">
+    <!-- المحتوى الرئيسي -->
+    <main>
+        <div class="top-bar">
+            <h2 id="pageTitle" style="margin-bottom: 0;">لوحة المنصة</h2>
+            <p id="userStatusHeader" style="font-size: 0.9rem; margin-bottom: 0;">مرحباً بك زائرنا الكريم</p>
+        </div>
 
         <!-- الرئيسية -->
         <section id="home" class="section active">
-            <div id="liveAlertBox"></div>
             <div class="card">
-                <h2>مرحباً بك في منصة KXY Academy الاحترافية</h2>
-                <p>الوجهة المتكاملة لاحتراف البرمجة وتطوير بوتات ديسكورد والمشاريع التقنية بأعلى معايير الجودة.</p>
+                <h2>أهلاً بك في منصة KXY Academy التطويرية</h2>
+                <p>المنصة المتكاملة لإدارة البرمجيات، بوتات ديسكورد، والمحتوى التعليمي بأعلى أداء وشكل متناسق.</p>
             </div>
             <div class="grid">
-                <div class="card" style="text-align: center; margin-bottom: 0;">
-                    <h3 style="color: var(--primary); font-size: 1.8rem;" id="statCoursesCount">0</h3>
-                    <p>مسار وكورس تعليمي</p>
+                <div class="card" style="text-align: center;">
+                    <h3 style="color: var(--primary); font-size: 2rem;" id="statProjectsCount">0</h3>
+                    <p>مشروع وبوت ديسكورد متاح</p>
                 </div>
-                <div class="card" style="text-align: center; margin-bottom: 0;">
-                    <h3 style="color: var(--accent); font-size: 1.8rem;" id="statVisitsCount">1</h3>
-                    <p>إجمالي الزيارات للموقع</p>
+                <div class="card" style="text-align: center;">
+                    <h3 style="color: var(--accent); font-size: 2rem;" id="statVisitsCount">1</h3>
+                    <p>إجمالي زيارات المنصة</p>
                 </div>
             </div>
         </section>
 
-        <!-- مشاريع ديسكورد وسيرفر الدعم -->
+        <!-- مشاريع ديسكورد مع رفع الملفات -->
         <section id="discord" class="section">
-            <h2>مشاريع بوتات وبرمجيات ديسكورد</h2>
-            <div class="card" style="background: linear-gradient(135deg, rgba(88, 101, 242, 0.15), var(--card-bg)); border-color: rgba(88, 101, 242, 0.3);">
-                <h3>سيرفر الدعم الفني والمجتمع</h3>
-                <p style="margin-bottom: 1rem;">انضم إلى سيرفر الدعم الفني للحصول على المساعدة المباشرة وتحديثات البوتات والأكواد البرمجية.</p>
-                <a href="https://discord.gg/gvvcKEPPqV" target="_blank" class="btn" style="display: inline-block; text-decoration: none; background-color: #5865F2;">الانضمام إلى سيرفر الدعم (Discord)</a>
+            <h2>مشاريع وملفات بوتات ديسكورد</h2>
+            <div class="card" style="background: linear-gradient(135deg, rgba(88, 101, 242, 0.12), var(--card-bg)); border-color: rgba(88, 101, 242, 0.3);">
+                <h3>سيرفر الدعم الفني الرسمي</h3>
+                <p style="margin-bottom: 1rem;">تحتاج مساعدة برمجية أو استفسار؟ انضم الآن لسيرفر الدعم الفني وتواصل معنا مباشرة.</p>
+                <a href="https://discord.gg/gvvcKEPPqV" target="_blank" class="btn" style="display: inline-block; text-decoration: none; background-color: #5865F2;">الانضمام لسيرفر الدعم (Discord)</a>
             </div>
-            <h3>قائمة المشاريع المتاحة</h3>
+            <h3>قائمة المشاريع والملفات المتاحة</h3>
             <div class="grid" id="discordProjectsGrid"></div>
         </section>
 
-        <!-- الكورسات والتعليقات -->
+        <!-- الكورسات -->
         <section id="courses" class="section">
-            <h2>المسارات والكورسات المتاحة</h2>
+            <h2>المسارات والكورسات البرمجية</h2>
             <div class="grid" id="coursesGrid"></div>
-            
-            <div class="card" style="margin-top: 2rem;">
-                <h3>آراء الطلاب والتقييمات</h3>
-                <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
-                    <input type="text" id="reviewInput" placeholder="اكتب رأيك أو تقييمك عن المنصة..." style="margin-bottom: 0; flex: 1; min-width: 200px;">
-                    <button class="btn" onclick="addReview()">إرسال التقييم</button>
-                </div>
-                <div id="reviewsList" style="margin-top: 1.5rem;"></div>
-            </div>
         </section>
 
-        <!-- المحفظة ونظام الولاء -->
+        <!-- المحفظة -->
         <section id="wallet" class="section">
-            <h2>محفظة الرصيد الداخلي ونقاط الولاء</h2>
+            <h2>محفظة الرصيد الداخلي</h2>
             <div class="grid">
                 <div class="card" style="text-align: center;">
-                    <h3>الرصيد المتاح في المحفظة</h3>
-                    <p style="font-size: 2rem; font-weight: 700; color: var(--accent); margin: 1rem 0;" id="walletBalance">$0.00</p>
-                    <button class="btn" onclick="depositWallet()">شحن رصيد تجريبي</button>
-                </div>
-                <div class="card" style="text-align: center;">
-                    <h3>نقاط الولاء</h3>
-                    <p style="font-size: 2rem; font-weight: 700; color: var(--primary); margin: 1rem 0;" id="walletPoints">0 نقطة</p>
-                    <p style="font-size: 0.85rem;">كل تفاعل أو شراء يمنحك نقاطاً لتحويلها إلى خصومات حصرية!</p>
+                    <h3>رصيدك الحالي</h3>
+                    <p style="font-size: 2.2rem; font-weight: 700; color: var(--accent); margin: 1rem 0;" id="walletBalance">$0.00</p>
+                    <button class="btn" onclick="depositWallet()">شحن رصيد تجريبي (50$)</button>
                 </div>
             </div>
         </section>
 
-        <!-- الاشتراكات والدفع -->
+        <!-- الاشتراكات -->
         <section id="subscribe" class="section">
-            <h2>العضويات وطرق الدفع المتاحة</h2>
+            <h2>العضويات وطرق الدفع</h2>
             <div class="card" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
                 <div>
-                    <h3>حالة حسابك الحالي</h3>
-                    <p id="subExpiryText" style="margin-top: 0.4rem;">تحقق من حالة اشتراكك للوصول الشامل.</p>
+                    <h3>حالة الحساب</h3>
+                    <p id="subExpiryText" style="margin-top: 0.4rem;">تحقق من حالة اشتراكك.</p>
                 </div>
                 <span id="subStatusBadge" class="badge badge-primary">عضو عادي</span>
             </div>
-
-            <!-- عرض طرق الدفع المضافة من الآدمن -->
             <div class="card">
-                <h3>طرق الدفع المعتمدة في المنصة</h3>
+                <h3>طرق الدفع المتاحة في المنصة</h3>
                 <div id="paymentMethodsList" style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;"></div>
             </div>
-
             <div class="grid">
                 <div class="card">
                     <h3>الباقة الشهريّة</h3>
-                    <p style="font-size: 1.6rem; font-weight: 700; margin: 1rem 0; color: var(--text-main);">$15 <span style="font-size: 0.9rem; font-weight: 400; color: var(--text-muted);">/ شهرياً</span></p>
-                    <p>وصول كامل لكافة الكورسات والدروس وتوليد فاتورة مؤتمتة.</p>
-                    <button class="btn" style="margin-top: 1.5rem; width: 100%;" onclick="openCheckout('الاشتراك الشهري', 15)">شراء عبر المحفظة</button>
-                </div>
-                <div class="card" style="border-color: var(--primary);">
-                    <h3>الباقة السنويّة</h3>
-                    <p style="font-size: 1.6rem; font-weight: 700; margin: 1rem 0; color: var(--primary);">$120 <span style="font-size: 0.9rem; font-weight: 400; color: var(--text-muted);">/ سنوياً</span></p>
-                    <p>توفير أعلى وصلاحيات غير محدودة وهدايا نقاط ولاء مضاعفة.</p>
-                    <button class="btn" style="margin-top: 1.5rem; width: 100%;" onclick="openCheckout('الاشتراك السنوي', 120)">شراء عبر المحفظة</button>
-                </div>
-            </div>
-
-            <div class="card" style="margin-top: 2rem;">
-                <h3>تفعيل كود هدية أو تفعيل</h3>
-                <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
-                    <input type="text" id="promoCodeInput" placeholder="أدخل كود التفعيل هنا..." style="margin-bottom: 0; flex: 1; min-width: 200px;">
-                    <button class="btn" onclick="redeemCode()">تفعيل الكود</button>
+                    <p style="font-size: 1.6rem; font-weight: 700; margin: 1rem 0;">$15 <span style="font-size: 0.9rem; color: var(--text-muted);">/ شهرياً</span></p>
+                    <button class="btn" style="width: 100%;" onclick="openCheckout('الاشتراك الشهري', 15)">شراء الاشتراك</button>
                 </div>
             </div>
         </section>
 
-        <!-- لوحة التحكم الإدارية الكاملة -->
+        <!-- لوحة التحكم (للآدمن فقط) -->
         <section id="admin" class="section">
-            <h2>لوحة تحكم المسؤول الشاملة (أحمد)</h2>
+            <h2>لوحة تحكم المسؤول (أحمد)</h2>
             
-            <!-- إدارة طرق الدفع -->
+            <div class="card">
+                <h3>رفع مشروع أو ملف ديسكورد جديد</h3>
+                <input type="text" id="adminProjTitle" placeholder="اسم المشروع أو البوت">
+                <textarea id="adminProjDesc" placeholder="وصف مميزات المشروع" rows="2"></textarea>
+                <select id="adminProjType">
+                    <option value="free">مجاني (Free)</option>
+                    <option value="paid">مدفوع (Paid)</option>
+                </select>
+                <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem;">ارفع ملف المشروع (ZIP أو كود برمجي):</label>
+                <input type="file" id="adminProjFile">
+                <button class="btn" onclick="uploadDiscordProject()">رفع المشروع وإضافته</button>
+                <div id="adminProjectsTable"></div>
+            </div>
+
             <div class="card">
                 <h3>إضافة طريقة دفع جديدة</h3>
-                <input type="text" id="adminPaymentName" placeholder="اسم طريقة الدفع (مثال: فودافون كاش، باي بال، كريبتو)">
-                <input type="text" id="adminPaymentDetails" placeholder="تفاصيل الدفع أو الرقم المعرف">
+                <input type="text" id="adminPaymentName" placeholder="اسم طريقة الدفع (مثل فودافون كاش)">
+                <input type="text" id="adminPaymentDetails" placeholder="التفاصيل أو الرقم">
                 <button class="btn" onclick="addPaymentMethod()">إضافة طريقة الدفع</button>
                 <div id="adminPaymentsTable"></div>
             </div>
 
-            <!-- إدارة رصيد وطلاب المنصة -->
             <div class="card">
-                <h3>إدارة الطلاب والتحكم بالأرصدة</h3>
-                <input type="text" id="adminTargetUser" placeholder="اسم الطالب المستهدف">
-                <input type="number" id="adminAddBalanceVal" placeholder="المبلغ المضاف للرصيد ($)">
+                <h3>إدارة الطلاب وأرصدتهم</h3>
+                <input type="text" id="adminTargetUser" placeholder="اسم الطالب">
+                <input type="number" id="adminAddBalanceVal" placeholder="المبلغ المضاف ($)">
                 <button class="btn" onclick="adminGiveBalance()">إضافة رصيد للطالب</button>
                 <div id="adminUsersTable"></div>
             </div>
-
-            <!-- إضافة مشاريع ديسكورد -->
-            <div class="card">
-                <h3>إضافة مشروع ديسكورد جديد</h3>
-                <input type="text" id="adminProjTitle" placeholder="عنوان المشروع (مثال: بوت تذاكر متطور)">
-                <textarea id="adminProjDesc" placeholder="وصف مميزات بوت أو مشروع ديسكورد" rows="2" style="width:100%; padding:0.85rem 1rem; background:var(--bg-color); border:1px solid var(--border); border-radius:8px; color:var(--text-main); margin-bottom:1rem; outline:none;"></textarea>
-                <input type="text" id="adminProjLink" placeholder="رابط المعاينة أو دعوة البوت">
-                <button class="btn" onclick="addDiscordProject()">إضافة المشروع للقائمة</button>
-                <div id="adminProjectsTable"></div>
-            </div>
-
-            <!-- إدارة الكورسات -->
-            <div class="card">
-                <h3>إضافة كورس أو مسار جديد</h3>
-                <input type="text" id="newCourseTitle" placeholder="عنوان الكورس">
-                <textarea id="newCourseDesc" placeholder="وصف الكورس وملخص محتواه" rows="2" style="width:100%; padding:0.85rem 1rem; background:var(--bg-color); border:1px solid var(--border); border-radius:8px; color:var(--text-main); margin-bottom:1rem; outline:none;"></textarea>
-                <button class="btn" onclick="addCourse()">إضافة الكورس</button>
-            </div>
         </section>
 
-        <!-- نافذة تسجيل الدخول -->
+        <!-- نافذة الدخول -->
         <div id="authModal" class="modal-overlay">
             <div class="modal-card">
                 <h3 style="margin-bottom: 0.5rem; text-align: center;">تسجيل الدخول الآمن</h3>
-                <p style="text-align: center; margin-bottom: 1.5rem; font-size: 0.85rem;">أدخل بيانات حسابك للمتابعة</p>
                 <input type="text" id="authUsername" placeholder="اسم المستخدم">
                 <input type="password" id="authPassword" placeholder="كلمة المرور">
-                <button class="btn" style="width: 100%; margin-bottom: 0.8rem;" onclick="handleAuthSubmit()">متابعة وتسجيل الدخول</button>
+                <button class="btn" style="width: 100%; margin-bottom: 0.8rem;" onclick="handleAuthSubmit()">دخول</button>
                 <button class="btn btn-danger" style="width: 100%;" onclick="closeAuthModal()">إلغاء</button>
             </div>
         </div>
@@ -467,38 +389,29 @@
         <!-- نافذة تأكيد الشراء -->
         <div id="checkoutModal" class="modal-overlay">
             <div class="modal-card" style="text-align: center;">
-                <h3 id="checkoutTitle" style="margin-bottom: 0.5rem;"></h3>
-                <p id="checkoutPrice" style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin-bottom: 1rem;"></p>
-                <p style="margin-bottom: 1.5rem; font-size: 0.85rem;">تم خصم المبلغ وتوليد الفاتورة بنجاح!</p>
-                <button class="btn" style="width: 100%; margin-bottom: 0.8rem;" onclick="confirmPurchase()">تأكيد وخصم الرصيد</button>
+                <h3 id="checkoutTitle"></h3>
+                <p id="checkoutPrice" style="font-size: 1.5rem; font-weight: 700; margin: 1rem 0;"></p>
+                <button class="btn" style="width: 100%; margin-bottom: 0.8rem;" onclick="confirmPurchase()">تأكيد الشراء</button>
                 <button class="btn btn-danger" style="width: 100%;" onclick="closeCheckout()">إلغاء</button>
             </div>
         </div>
-
-    </div>
-
-    <!-- زر واتساب عائم -->
-    <a href="https://wa.me/" target="_blank" class="whatsapp-float" title="تواصل معنا عبر واتساب">💬</a>
+    </main>
 
     <script>
         let currentUser = JSON.parse(localStorage.getItem('kxy_current_user')) || null;
         let currentTheme = localStorage.getItem('kxy_theme') || 'dark';
         let db = JSON.parse(localStorage.getItem('kxy_db')) || {
             paymentMethods: [
-                { name: 'فودافون كاش', details: '01012345678' },
-                { name: 'باي بال (PayPal)', details: 'admin@kxyacademy.com' }
+                { name: 'فودافون كاش', details: '01012345678' }
             ],
             discordProjects: [
-                { id: 1, title: 'بوت المتجر والتذاكر (Shop & Ticket)', desc: 'بوت ديسكورد متكامل لإنشاء تذاكر الدعم وعرض منتجات المتجر برمجياً.', link: 'https://discord.gg/gvvcKEPPqV' }
+                { id: 1, title: 'بوت تذاكر ديسكورد متطور', desc: 'بوت كامل لإدارة التذاكر مع نظام لوغ.', type: 'free', fileName: 'ticket-bot.zip', fileData: '#' }
             ],
-            codes: [{ code: 'KXY2026', type: 'subscription', days: 30, used: false }],
             courses: [
-                { id: 1, title: 'تطوير بوتات ديسكورد الاحترافية', desc: 'بناء بوتات متكاملة باستخدام Node.js و discord.js من الصفر.' },
-                { id: 2, title: 'أساسيات الويب وتطوير الواجهات', desc: 'تصميم وتطوير واجهات مستخدم باستخدام HTML و CSS و JavaScript.' }
+                { id: 1, title: 'تطوير بوتات ديسكورد الاحترافية', desc: 'بناء بوتات متكاملة باستخدام Node.js و discord.js.' }
             ],
             users: [],
-            reviews: [{ user: 'أحمد', text: 'منصة ممتازة جداً والشرح احترافي!' }],
-            visits: 120
+            visits: 100
         };
 
         document.documentElement.setAttribute('data-theme', currentTheme);
@@ -513,7 +426,7 @@
 
         function updateThemeButtonText() {
             const btn = document.getElementById('themeBtn');
-            btn.innerText = currentTheme === 'dark' ? '☀️ الوضع الفاتح' : '🌙 الوضع الداكن';
+            btn.innerHTML = currentTheme === 'dark' ? '☀️ <span>الوضع الفاتح</span>' : '🌙 <span>الوضع الداكن</span>';
         }
 
         function saveDB() {
@@ -523,15 +436,16 @@
 
         function switchTab(tabId) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             document.getElementById('nav-' + tabId).classList.add('active');
+            document.getElementById('pageTitle').innerText = document.getElementById('nav-' + tabId).innerText.trim();
             renderUI();
         }
 
         function openAuthModal() {
             if (currentUser) {
-                if (confirm(`هل تريد تسجيل الخروج من حساب (${currentUser.name})؟`)) {
+                if (confirm(`هل تريد تسجيل الخروج من (${currentUser.name})؟`)) {
                     currentUser = null;
                     saveDB();
                     renderUI();
@@ -543,85 +457,62 @@
             }
         }
 
-        function closeAuthModal() {
-            document.getElementById('authModal').style.display = 'none';
-        }
+        function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
 
         function handleAuthSubmit() {
             let u = document.getElementById('authUsername').value.trim();
             let p = document.getElementById('authPassword').value.trim();
+            if (!u || !p) return alert('أدخل البيانات');
 
-            if (!u || !p) return alert('يرجى إدخال البيانات المطلوبة');
-
-            // حساب الآدمن الرئيسي
             if (u.toLowerCase() === 'admin' && p === '1313') {
-                currentUser = {
-                    name: 'أحمد (المسؤول)',
-                    isAdmin: true,
-                    subscribed: true,
-                    expiry: 'صلاحية دائمة',
-                    wallet: 1000,
-                    points: 5000
-                };
-                saveDB();
-                closeAuthModal();
-                renderUI();
-                alert('مرحباً بك يا أحمد، تم تفعيل صلاحيات المسؤول الكاملة.');
+                currentUser = { name: 'أحمد (الآدمن)', isAdmin: true, subscribed: true, expiry: 'دائم', wallet: 1000 };
+                saveDB(); closeAuthModal(); renderUI();
+                alert('مرحباً بك يا أحمد في لوحة التحكم الإدارية.');
                 return;
             }
 
-            let existingUser = db.users.find(x => x.username === u);
-            if (existingUser) {
-                if (existingUser.password !== p) return alert('كلمة المرور غير صحيحة');
-                currentUser = existingUser;
+            let existing = db.users.find(x => x.username === u);
+            if (existing) {
+                if (existing.password !== p) return alert('كلمة المرور خطأ');
+                currentUser = existing;
             } else {
-                let newUser = {
-                    username: u,
-                    name: u,
-                    password: p,
-                    isAdmin: false,
-                    subscribed: false,
-                    expiry: null,
-                    wallet: 50,
-                    points: 10
-                };
+                let newUser = { username: u, name: u, password: p, isAdmin: false, subscribed: false, wallet: 50 };
                 db.users.push(newUser);
                 currentUser = newUser;
-                alert('تم إنشاء الحساب بنجاح!');
+                alert('تم إنشاء حسابك بنجاح مع رصيد 50$ هدية!');
             }
-
-            saveDB();
-            closeAuthModal();
-            renderUI();
+            saveDB(); closeAuthModal(); renderUI();
         }
 
         function renderUI() {
-            const authBtn = document.getElementById('authBtn');
+            const authBtnText = document.getElementById('authBtnText');
             const adminNav = document.getElementById('nav-admin');
-            
+            const userStatusHeader = document.getElementById('userStatusHeader');
+
             if (currentUser) {
-                authBtn.innerText = currentUser.name;
-                authBtn.style.background = 'rgba(99, 102, 241, 0.25)';
-                adminNav.style.display = currentUser.isAdmin ? 'inline-block' : 'none';
+                authBtnText.innerText = currentUser.name;
+                adminNav.style.display = currentUser.isAdmin ? 'flex' : 'none';
                 document.getElementById('walletBalance').innerText = `$${currentUser.wallet.toFixed(2)}`;
-                document.getElementById('walletPoints').innerText = `${currentUser.points} نقطة`;
+                userStatusHeader.innerText = `مرحباً، ${currentUser.name}`;
             } else {
-                authBtn.innerText = 'تسجيل الدخول';
-                authBtn.style.background = 'var(--primary)';
+                authBtnText.innerText = 'دخول';
                 adminNav.style.display = 'none';
                 document.getElementById('walletBalance').innerText = '$0.00';
-                document.getElementById('walletPoints').innerText = '0 نقطة';
+                userStatusHeader.innerText = 'مرحباً بك زائرنا الكريم';
             }
 
-            document.getElementById('statCoursesCount').innerText = db.courses.length;
+            document.getElementById('statProjectsCount').innerText = db.discordProjects.length;
             document.getElementById('statVisitsCount').innerText = db.visits;
 
-            // مشاريع ديسكورد
+            // عرض مشاريع ديسكورد مع حالة مجاني أو مدفوع ورفع الملفات
             document.getElementById('discordProjectsGrid').innerHTML = db.discordProjects.map(p => `
                 <div class="card">
-                    <h3>${p.title}</h3>
-                    <p style="margin: 0.6rem 0 1.2rem 0;">${p.desc}</p>
-                    <a href="${p.link}" target="_blank" class="btn" style="display:inline-block; text-align:center; text-decoration:none; width:100%; background-color:#5865F2;">الانتقال للمشروع / الدعم</a>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+                        <h3>${p.title}</h3>
+                        <span class="badge ${p.type === 'free' ? 'badge-success' : 'badge-primary'}">${p.type === 'free' ? 'مجاني 🟢' : 'مدفوع 🔒'}</span>
+                    </div>
+                    <p style="margin-bottom:1rem;">${p.desc}</p>
+                    <a href="${p.fileData}" download="${p.fileName || 'project.zip'}" class="btn" style="display:block; text-align:center; text-decoration:none;">تحميل ملف المشروع 📥</a>
                 </div>
             `).join('');
 
@@ -629,8 +520,8 @@
             document.getElementById('coursesGrid').innerHTML = db.courses.map(c => `
                 <div class="card">
                     <h3>${c.title}</h3>
-                    <p style="margin: 0.6rem 0 1.2rem 0;">${c.desc}</p>
-                    <button class="btn" style="width: 100%;" onclick="alert('جاري فتح محتوى الكورس...')">استعراض المسار</button>
+                    <p style="margin:0.6rem 0 1.2rem 0;">${c.desc}</p>
+                    <button class="btn" style="width:100%;" onclick="alert('جاري فتح الكورس...')">استعراض المسار</button>
                 </div>
             `).join('');
 
@@ -642,164 +533,77 @@
                 </div>
             `).join('');
 
-            // التعليقات
-            document.getElementById('reviewsList').innerHTML = db.reviews.map(r => `
-                <div style="padding: 0.8rem 0; border-bottom: 1px solid var(--border);">
-                    <span style="font-weight: 700; color: var(--primary);">${r.user}: </span>
-                    <span style="color: var(--text-main);">${r.text}</span>
-                </div>
-            `).join('');
-
-            // حالة الاشتراك
-            if (currentUser && currentUser.subscribed) {
-                document.getElementById('subStatusBadge').className = 'badge badge-success';
-                document.getElementById('subStatusBadge').innerText = 'مشترك نشط';
-                document.getElementById('subExpiryText').innerText = `تنتهي الصلاحية في: ${currentUser.expiry}`;
-            } else {
-                document.getElementById('subStatusBadge').className = 'badge badge-primary';
-                document.getElementById('subStatusBadge').innerText = 'عضو عادي';
-                document.getElementById('subExpiryText').innerText = 'ترقية الحساب يمنحك صلاحيات الوصول الشامل.';
-            }
-
             if (currentUser && currentUser.isAdmin) renderAdminTables();
         }
 
-        let pendingCheckoutPrice = 0;
-        let pendingCheckoutTitle = '';
-
+        let pendingPrice = 0, pendingTitle = '';
         function openCheckout(title, price) {
-            if (!currentUser) return alert('يرجى تسجيل الدخول أولاً');
-            pendingCheckoutTitle = title;
-            pendingCheckoutPrice = price;
+            if (!currentUser) return alert('سجل دخولك أولاً');
+            pendingPrice = price; pendingTitle = title;
             document.getElementById('checkoutTitle').innerText = title;
             document.getElementById('checkoutPrice').innerText = `$${price}`;
             document.getElementById('checkoutModal').style.display = 'flex';
         }
-
         function confirmPurchase() {
-            if (currentUser.wallet < pendingCheckoutPrice) {
-                alert('رصيد المحفظة غير كافٍ! تواصل مع الآدمن لشحن رصيدك.');
-                closeCheckout();
-                return;
-            }
-            currentUser.wallet -= pendingCheckoutPrice;
+            if (currentUser.wallet < pendingPrice) return alert('رصيدك غير كافٍ!');
+            currentUser.wallet -= pendingPrice;
             currentUser.subscribed = true;
-            currentUser.points += 50;
-            let d = new Date();
-            d.setDate(d.getDate() + 30);
-            currentUser.expiry = d.toLocaleDateString('ar-EG');
+            saveDB(); closeCheckout(); renderUI();
+            alert('تم الشراء بنجاح!');
+        }
+        function closeCheckout() { document.getElementById('checkoutModal').style.display = 'none'; }
+        function depositWallet() { if (!currentUser) return alert('سجل دخولك أولاً'); currentUser.wallet += 50; saveDB(); renderUI(); alert('تم شحن 50$ بنجاح!'); }
+
+        // دوال الآدمن لرفع الملفات
+        function uploadDiscordProject() {
+            let title = document.getElementById('adminProjTitle').value.trim();
+            let desc = document.getElementById('adminProjDesc').value.trim();
+            let type = document.getElementById('adminProjType').value;
+            let fileInput = document.getElementById('adminProjFile');
             
+            if (!title || !desc) return alert('أدخل بيانات المشروع');
+            
+            let fileName = fileInput.files.length > 0 ? fileInput.files[0].name : 'code-package.zip';
+            let fileData = fileInput.files.length > 0 ? URL.createObjectURL(fileInput.files[0]) : '#';
+
+            db.discordProjects.push({ id: Date.now(), title, desc, type, fileName, fileData });
             saveDB();
-            closeCheckout();
+            document.getElementById('adminProjTitle').value = '';
+            document.getElementById('adminProjDesc').value = '';
+            fileInput.value = '';
             renderUI();
-            alert('تمت عملية الشراء بنجاح!');
+            alert('تم رفع المشروع بنجاح!');
         }
 
-        function closeCheckout() {
-            document.getElementById('checkoutModal').style.display = 'none';
-        }
-
-        function depositWallet() {
-            if (!currentUser) return alert('يرجى تسجيل الدخول أولاً');
-            currentUser.wallet += 50;
-            saveDB();
-            renderUI();
-            alert('تم شحن 50$ بنجاح!');
-        }
-
-        function addReview() {
-            if (!currentUser) return alert('يرجى تسجيل الدخول أولاً');
-            let text = document.getElementById('reviewInput').value.trim();
-            if (!text) return alert('يرجى كتابة التقييم');
-            db.reviews.push({ user: currentUser.name, text });
-            saveDB();
-            document.getElementById('reviewInput').value = '';
-            renderUI();
-            alert('تم إضافة تقييمك بنجاح');
-        }
-
-        // دوال الآدمن
         function addPaymentMethod() {
             let name = document.getElementById('adminPaymentName').value.trim();
             let details = document.getElementById('adminPaymentDetails').value.trim();
-            if (!name || !details) return alert('يرجى إكمال تفاصيل طريقة الدفع');
+            if (!name || !details) return alert('أدخل التفاصيل');
             db.paymentMethods.push({ name, details });
-            saveDB();
-            document.getElementById('adminPaymentName').value = '';
-            document.getElementById('adminPaymentDetails').value = '';
-            renderUI();
-            alert('تم إضافة طريقة الدفع بنجاح');
+            saveDB(); renderUI(); alert('تم إضافة طريقة الدفع');
         }
 
         function adminGiveBalance() {
             let username = document.getElementById('adminTargetUser').value.trim();
             let amount = parseFloat(document.getElementById('adminAddBalanceVal').value) || 0;
             let target = db.users.find(u => u.username === username);
-            if (!target) return alert('لم يتم العثور على الطالب بهذا الاسم');
+            if (!target) return alert('الطالب غير موجود');
             target.wallet += amount;
-            saveDB();
-            renderUI();
-            alert(`تم إضافة $${amount} إلى رصيد الطالب ${username} بنجاح!`);
-        }
-
-        function addDiscordProject() {
-            let title = document.getElementById('adminProjTitle').value.trim();
-            let desc = document.getElementById('adminProjDesc').value.trim();
-            let link = document.getElementById('adminProjLink').value.trim() || 'https://discord.gg/gvvcKEPPqV';
-            if (!title || !desc) return alert('يرجى ملء بيانات مشروع ديسكورد');
-            db.discordProjects.push({ id: Date.now(), title, desc, link });
-            saveDB();
-            document.getElementById('adminProjTitle').value = '';
-            document.getElementById('adminProjDesc').value = '';
-            document.getElementById('adminProjLink').value = '';
-            renderUI();
-            alert('تم إضافة مشروع ديسكورد بنجاح!');
-        }
-
-        function addCourse() {
-            let title = document.getElementById('newCourseTitle').value.trim();
-            let desc = document.getElementById('newCourseDesc').value.trim();
-            if (!title || !desc) return alert('يرجى إدخال بيانات الكورس');
-            db.courses.push({ id: Date.now(), title, desc });
-            saveDB();
-            document.getElementById('newCourseTitle').value = '';
-            document.getElementById('newCourseDesc').value = '';
-            renderUI();
-            alert('تم إضافة الكورس بنجاح');
+            saveDB(); renderUI(); alert(`تم إضافة $${amount} للطالب ${username}!`);
         }
 
         function renderAdminTables() {
-            document.getElementById('adminPaymentsTable').innerHTML = `<table><tr><th>طريقة الدفع</th><th>التفاصيل</th><th>إجراء</th></tr>` +
-                db.paymentMethods.map((m, idx) => `<tr><td>${m.name}</td><td>${m.details}</td><td><button class="btn btn-danger" style="padding:0.2rem 0.5rem; font-size:0.8rem;" onclick="db.paymentMethods.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
+            document.getElementById('adminProjectsTable').innerHTML = `<table><tr><th>المشروع</th><th>الحالة</th><th>إجراء</th></tr>` +
+                db.discordProjects.map((p, idx) => `<tr><td>${p.title}</td><td>${p.type}</td><td><button class="btn btn-danger" style="padding:0.2rem 0.5rem; font-size:0.8rem;" onclick="db.discordProjects.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
 
-            document.getElementById('adminProjectsTable').innerHTML = `<table><tr><th>المشروع</th><th>إجراء</th></tr>` +
-                db.discordProjects.map((p, idx) => `<tr><td>${p.title}</td><td><button class="btn btn-danger" style="padding:0.2rem 0.5rem; font-size:0.8rem;" onclick="db.discordProjects.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
+            document.getElementById('adminPaymentsTable').innerHTML = `<table><tr><th>الطريقة</th><th>إجراء</th></tr>` +
+                db.paymentMethods.map((m, idx) => `<tr><td>${m.name}</td><td><button class="btn btn-danger" style="padding:0.2rem 0.5rem; font-size:0.8rem;" onclick="db.paymentMethods.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
 
-            document.getElementById('adminUsersTable').innerHTML = `<table><tr><th>اسم الطالب</th><th>الرصيد</th><th>الحالة</th><th>إجراء</th></tr>` +
-                db.users.map((u, idx) => `<tr><td>${u.username}</td><td>$${u.wallet || 0}</td><td>${u.subscribed ? 'مشترك' : 'عادی'}</td><td><button class="btn btn-danger" style="padding:0.2rem 0.5rem; font-size:0.8rem;" onclick="db.users.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
+            document.getElementById('adminUsersTable').innerHTML = `<table><tr><th>الطالب</th><th>الرصيد</th><th>إجراء</th></tr>` +
+                db.users.map((u, idx) => `<tr><td>${u.username}</td><td>$${u.wallet || 0}</td><td><button class="btn btn-danger" style="padding:0.2rem 0.5rem; font-size:0.8rem;" onclick="db.users.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
         }
 
-        function redeemCode() {
-            if (!currentUser) return alert('يرجى تسجيل الدخول أولاً');
-            let inputCode = document.getElementById('promoCodeInput').value.trim();
-            let found = db.codes.find(c => c.code === inputCode);
-            if (!found || found.used) return alert('الكود غير صالح');
-
-            found.used = true;
-            currentUser.subscribed = true;
-            let d = new Date();
-            d.setDate(d.getDate() + found.days);
-            currentUser.expiry = d.toLocaleDateString('ar-EG');
-            saveDB();
-            renderUI();
-            alert('تم تفعيل الكود بنجاح!');
-        }
-
-        window.onload = () => {
-            db.visits++;
-            saveDB();
-            renderUI();
-        };
+        window.onload = () => { db.visits++; saveDB(); renderUI(); };
     </script>
 </body>
 </html>
