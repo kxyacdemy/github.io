@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" data-theme="dark">
+<html lang="ar" dir="rtl" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,7 +52,7 @@
             overflow-x: hidden;
         }
 
-        /* الشريط الجانبي العصري */
+        /* الشريط الجانبي */
         aside {
             width: 260px;
             background-color: var(--sidebar-bg);
@@ -83,6 +83,7 @@
             flex-direction: column;
             gap: 0.5rem;
             flex: 1;
+            overflow-y: auto;
         }
 
         .nav-links button {
@@ -243,7 +244,7 @@
 </head>
 <body>
 
-    <!-- الشريط الجانبي الاحترافي -->
+    <!-- الشريط الجانبي العصري -->
     <aside>
         <div>
             <div class="logo-area">⚡ <span>KXY</span></div>
@@ -252,6 +253,7 @@
                 <button onclick="switchTab('discord')" id="nav-discord">🤖 <span>مشاريع ديسكورد</span></button>
                 <button onclick="switchTab('courses')" id="nav-courses">📚 <span>الكورسات</span></button>
                 <button onclick="switchTab('wallet')" id="nav-wallet">💳 <span>المحفظة</span></button>
+                <button onclick="switchTab('promo')" id="nav-promo">🎁 <span>أكواد الخصم والهدايا</span></button>
                 <button onclick="switchTab('subscribe')" id="nav-subscribe">⭐ <span>الاشتراكات</span></button>
                 <button onclick="switchTab('admin')" id="nav-admin" style="display:none; color: var(--accent);">🛠️ <span>لوحة التحكم</span></button>
             </div>
@@ -273,7 +275,7 @@
         <section id="home" class="section active">
             <div class="card">
                 <h2>أهلاً بك في منصة KXY Academy التطويرية</h2>
-                <p>المنصة المتكاملة لإدارة البرمجيات، بوتات ديسكورد، والمحتوى التعليمي بأعلى أداء وشكل متناسق.</p>
+                <p>المنصة المتكاملة لإدارة البرمجيات، بوتات ديسكورد، والمحتوى التعليمي بأعلى أداء وشكل متناسق ونظيف.</p>
             </div>
             <div class="grid">
                 <div class="card" style="text-align: center;">
@@ -287,7 +289,7 @@
             </div>
         </section>
 
-        <!-- مشاريع ديسكورد مع رفع الملفات -->
+        <!-- مشاريع ديسكورد -->
         <section id="discord" class="section">
             <h2>مشاريع وملفات بوتات ديسكورد</h2>
             <div class="card" style="background: linear-gradient(135deg, rgba(88, 101, 242, 0.12), var(--card-bg)); border-color: rgba(88, 101, 242, 0.3);">
@@ -317,6 +319,23 @@
             </div>
         </section>
 
+        <!-- قسم الأكواد والخصومات -->
+        <section id="promo" class="section">
+            <h2>أكواد الخصم والهدايا الترويجية</h2>
+            <div class="card">
+                <h3>هل تمتلك كود خصم أو هدية؟</h3>
+                <p style="margin-bottom: 1rem;">أدخل الكود أدناه للحصول على رصيد مجاني، مشروع ديسكورد مدفوع، أو خصم خاص على الاشتراكات.</p>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <input type="text" id="userPromoInput" placeholder="أدخل الكود هنا (مثال: KXYFREE)" style="margin-bottom: 0; flex: 1; min-width: 200px;">
+                    <button class="btn" onclick="redeemPromoCode()">تفعيل الكود واستلام الهدية</button>
+                </div>
+            </div>
+            <div class="card">
+                <h3>الأكواد النشطة المتاحة للاستخدام</h3>
+                <div id="activePromoList" style="margin-top: 1rem;"></div>
+            </div>
+        </section>
+
         <!-- الاشتراكات -->
         <section id="subscribe" class="section">
             <h2>العضويات وطرق الدفع</h2>
@@ -340,19 +359,32 @@
             </div>
         </section>
 
-        <!-- لوحة التحكم (للآدمن فقط) -->
+        <!-- لوحة التحكم (للآدمن فقط - أحمد) -->
         <section id="admin" class="section">
             <h2>لوحة تحكم المسؤول (أحمد)</h2>
             
+            <!-- إضافة أكواد ترويجية وهدايا -->
+            <div class="card">
+                <h3>إنشاء كود خصم أو هدية جديد</h3>
+                <input type="text" id="adminPromoCode" placeholder="كود الخصم (مثال: VIP2026)">
+                <select id="adminPromoType">
+                    <option value="balance">رصيد مالي مجاني ($)</option>
+                    <option value="project">فتح جميع المشاريع المدفوعة مجاناً</option>
+                </select>
+                <input type="number" id="adminPromoValue" placeholder="قيمة الرصيد (اكتب الرقم إذا كان رصيداً)">
+                <button class="btn" onclick="createPromoCode()">إضافة وتفعيل الكود</button>
+                <div id="adminPromoTable"></div>
+            </div>
+
             <div class="card">
                 <h3>رفع مشروع أو ملف ديسكورد جديد</h3>
                 <input type="text" id="adminProjTitle" placeholder="اسم المشروع أو البوت">
                 <textarea id="adminProjDesc" placeholder="وصف مميزات المشروع" rows="2"></textarea>
                 <select id="adminProjType">
-                    <option value="free">مجاني (Free)</option>
-                    <option value="paid">مدفوع (Paid)</option>
+                    <option value="free">مجاني 🟢</option>
+                    <option value="paid">مدفوع 🔒</option>
                 </select>
-                <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem;">ارفع ملف المشروع (ZIP أو كود برمجي):</label>
+                <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem;">ملف المشروع (ZIP):</label>
                 <input type="file" id="adminProjFile">
                 <button class="btn" onclick="uploadDiscordProject()">رفع المشروع وإضافته</button>
                 <div id="adminProjectsTable"></div>
@@ -399,7 +431,7 @@
 
     <script>
         let currentUser = JSON.parse(localStorage.getItem('kxy_current_user')) || null;
-        let currentTheme = localStorage.getItem('kxy_theme') || 'dark';
+        let currentTheme = localStorage.getItem('kxy_theme') || 'light';
         let db = JSON.parse(localStorage.getItem('kxy_db')) || {
             paymentMethods: [
                 { name: 'فودافون كاش', details: '01012345678' }
@@ -409,6 +441,10 @@
             ],
             courses: [
                 { id: 1, title: 'تطوير بوتات ديسكورد الاحترافية', desc: 'بناء بوتات متكاملة باستخدام Node.js و discord.js.' }
+            ],
+            promoCodes: [
+                { code: 'KXYFREE', type: 'balance', value: 20, used: false },
+                { code: 'VIPBOTS', type: 'project', value: 0, used: false }
             ],
             users: [],
             visits: 100
@@ -479,7 +515,7 @@
                 let newUser = { username: u, name: u, password: p, isAdmin: false, subscribed: false, wallet: 50 };
                 db.users.push(newUser);
                 currentUser = newUser;
-                alert('تم إنشاء حسابك بنجاح مع رصيد 50$ هدية!');
+                alert('تم إنشاء حسابك بنجاح مع رصيد 50$ هدية ترحيبية!');
             }
             saveDB(); closeAuthModal(); renderUI();
         }
@@ -504,7 +540,7 @@
             document.getElementById('statProjectsCount').innerText = db.discordProjects.length;
             document.getElementById('statVisitsCount').innerText = db.visits;
 
-            // عرض مشاريع ديسكورد مع حالة مجاني أو مدفوع ورفع الملفات
+            // مشاريع ديسكورد
             document.getElementById('discordProjectsGrid').innerHTML = db.discordProjects.map(p => `
                 <div class="card">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
@@ -512,7 +548,15 @@
                         <span class="badge ${p.type === 'free' ? 'badge-success' : 'badge-primary'}">${p.type === 'free' ? 'مجاني 🟢' : 'مدفوع 🔒'}</span>
                     </div>
                     <p style="margin-bottom:1rem;">${p.desc}</p>
-                    <a href="${p.fileData}" download="${p.fileName || 'project.zip'}" class="btn" style="display:block; text-align:center; text-decoration:none;">تحميل ملف المشروع 📥</a>
+                    <button class="btn" style="width:100%;" onclick="downloadProject('${p.title}', '${p.fileData}', '${p.type}')">تحميل ملف المشروع 📥</button>
+                </div>
+            `).join('');
+
+            // الأكواد النشطة
+            document.getElementById('activePromoList').innerHTML = db.promoCodes.map(c => `
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:0.8rem; background:var(--bg-color); border:1px solid var(--border); border-radius:8px; margin-bottom:0.5rem;">
+                    <div><strong style="color:var(--primary);">${c.code}</strong> - <span style="font-size:0.85rem;">${c.type === 'balance' ? `رصيد بقيمة $${c.value}` : 'فتح كافة المشاريع المدفوعة'}</span></div>
+                    <span class="badge ${c.used ? 'badge-primary' : 'badge-success'}">${c.used ? 'مستعمل' : 'متاح للاستخدام'}</span>
                 </div>
             `).join('');
 
@@ -536,6 +580,42 @@
             if (currentUser && currentUser.isAdmin) renderAdminTables();
         }
 
+        function downloadProject(title, fileData, type) {
+            if (type === 'paid' && (!currentUser || !currentUser.subscribed)) {
+                return alert('هذا المشروع مدفوع! يرجى الاشتراك أو استخدام كود ترويجي لفتحه.');
+            }
+            alert(`جاري تحميل ملف مشروع: ${title}`);
+            if(fileData !== '#') {
+                let a = document.createElement('a');
+                a.href = fileData;
+                a.download = title + '.zip';
+                a.click();
+            }
+        }
+
+        // تفيعل كود الخصم أو الهدية
+        function redeemPromoCode() {
+            if (!currentUser) return alert('يرجى تسجيل الدخول أولاً لتفعيل الكود');
+            let codeInput = document.getElementById('userPromoInput').value.trim();
+            let found = db.promoCodes.find(c => c.code.toLowerCase() === codeInput.toLowerCase());
+
+            if (!found) return alert('الكود غير صحيح أو غير موجود!');
+            if (found.used) return alert('تم استهلاك هذا الكود مسبقاً!');
+
+            if (found.type === 'balance') {
+                currentUser.wallet += found.value;
+                alert(`مبروك! تمت إضافة $${found.value} إلى رصيد محفظتك بنجاح.`);
+            } else if (found.type === 'project') {
+                currentUser.subscribed = true;
+                alert('مبروك! تم تفعيل اشتراكك الشامل وفتح كافة المشاريع المدفوعة مجاناً.');
+            }
+
+            found.used = true;
+            saveDB();
+            document.getElementById('userPromoInput').value = '';
+            renderUI();
+        }
+
         let pendingPrice = 0, pendingTitle = '';
         function openCheckout(title, price) {
             if (!currentUser) return alert('سجل دخولك أولاً');
@@ -554,7 +634,21 @@
         function closeCheckout() { document.getElementById('checkoutModal').style.display = 'none'; }
         function depositWallet() { if (!currentUser) return alert('سجل دخولك أولاً'); currentUser.wallet += 50; saveDB(); renderUI(); alert('تم شحن 50$ بنجاح!'); }
 
-        // دوال الآدمن لرفع الملفات
+        // دوال الآدمن
+        function createPromoCode() {
+            let code = document.getElementById('adminPromoCode').value.trim();
+            let type = document.getElementById('adminPromoType').value;
+            let value = parseFloat(document.getElementById('adminPromoValue').value) || 0;
+
+            if (!code) return alert('أدخل رمز الكود');
+            db.promoCodes.push({ code, type, value, used: false });
+            saveDB();
+            document.getElementById('adminPromoCode').value = '';
+            document.getElementById('adminPromoValue').value = '';
+            renderUI();
+            alert('تم إنشاء وتفعيل الكود بنجاح!');
+        }
+
         function uploadDiscordProject() {
             let title = document.getElementById('adminProjTitle').value.trim();
             let desc = document.getElementById('adminProjDesc').value.trim();
@@ -593,6 +687,9 @@
         }
 
         function renderAdminTables() {
+            document.getElementById('adminPromoTable').innerHTML = `<table><tr><th>الكود</th><th>النوع</th><th>إجراء</th></tr>` +
+                db.promoCodes.map((c, idx) => `<tr><td>${c.code}</td><td>${c.type}</td><td><button class="btn btn-danger" style="padding:0.2rem 0.5rem; font-size:0.8rem;" onclick="db.promoCodes.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
+
             document.getElementById('adminProjectsTable').innerHTML = `<table><tr><th>المشروع</th><th>الحالة</th><th>إجراء</th></tr>` +
                 db.discordProjects.map((p, idx) => `<tr><td>${p.title}</td><td>${p.type}</td><td><button class="btn btn-danger" style="padding:0.2rem 0.5rem; font-size:0.8rem;" onclick="db.discordProjects.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
 
