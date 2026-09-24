@@ -222,26 +222,6 @@
         }
         input:focus, textarea:focus { border-color: var(--primary); }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-            text-align: right;
-            font-size: 0.95rem;
-        }
-        th, td { padding: 12px; border-bottom: 1px solid var(--border); }
-        th { color: var(--text-muted); font-weight: 600; }
-
-        .badge {
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-        }
-        .badge-admin { background: rgba(59, 130, 246, 0.15); color: var(--primary); }
-        .badge-owner { background: rgba(16, 185, 129, 0.15); color: var(--accent); }
-        .badge-user { background: rgba(148, 163, 184, 0.15); color: var(--text-muted); }
-
         .course-card {
             background: var(--bg-main);
             border: 1px solid var(--border);
@@ -423,7 +403,7 @@
         <section id="logs" class="tab-pane">
             <h2 class="title">📋 سجلات النظام الحية (System Logs)</h2>
             <div class="logs-box" id="logs-container">
-                <div class="log-row">[2026-09-24 20:50] تم تشغيل المنصة بنجاح.</div>
+                <div class="log-row">[2026-09-24 20:55] تم تشغيل المنصة بنجاح.</div>
             </div>
         </section>
 
@@ -449,9 +429,9 @@
     </footer>
 
     <script>
-        // قاعدة بيانات الحسابات (حساب الأدمن مخفي ولا يظهر في واجهات الإنشاء أو القوائم العامة)
+        // قاعدة البيانات: تم تضمين حساب الأدمن الجديد بالاسم admin والباسورد 1121 وإخفائه تماماً
         let users = JSON.parse(localStorage.getItem('kxy_users')) || [
-            { username: "KXY_ADMIN", pass: "admin123", role: "owner", xp: 5000 }
+            { username: "admin", pass: "1121", role: "owner", xp: 5000 }
         ];
 
         let currentUser = JSON.parse(localStorage.getItem('kxy_current_user')) || null;
@@ -632,8 +612,8 @@
 
         function loadUsersList() {
             const box = document.getElementById('users-list-box');
-            // استثناء حساب الأدمن المخفي من القائمة إذا أردت إخفاءه تماماً حتى عن عيون لوحة التحكم، أو عرضه للإدارة
-            box.innerHTML = users.filter(u => u.username !== "KXY_ADMIN").map(u => `<div style="padding: 6px 0; border-bottom: 1px solid var(--border);">👤 ${u.username} - الرتبة: <b>${u.role}</b> - النقاط: ${u.xp} XP</div>`).join('') || '<p>لا توجد حسابات مسجلة بعد.</p>';
+            // استثناء حساب الأدمن المخفي من القائمة
+            box.innerHTML = users.filter(u => u.username !== "admin").map(u => `<div style="padding: 6px 0; border-bottom: 1px solid var(--border);">👤 ${u.username} - الرتبة: <b>${u.role}</b> - النقاط: ${u.xp} XP</div>`).join('') || '<p>لا توجد حسابات مسجلة بعد.</p>';
         }
     </script>
 </body>
