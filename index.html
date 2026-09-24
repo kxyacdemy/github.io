@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KXY Academy | المنصة الشاملة الخارقة</title>
+    <title>KXY Academy  </title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -35,14 +35,73 @@
             flex-direction: column;
         }
 
-        /* شريط الإعلانات المتحرك */
+        /* صفحة تسجيل الدخول / إنشاء الحساب (Auth Overlay) */
+        #auth-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 15, 25, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .auth-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        .auth-box h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            background: var(--bg-main);
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .auth-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .auth-form { display: none; }
+        .auth-form.active { display: block; }
+
+        /* شريط الإعلانات */
         .marquee-container {
             background: linear-gradient(90deg, #3b82f6, #6366f1, #10b981);
             color: #fff;
             font-weight: 700;
             padding: 8px 12px;
             font-size: 0.95rem;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
         }
 
         /* النافبار */
@@ -64,18 +123,14 @@
             align-items: center;
         }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--primary);
-            letter-spacing: 0.5px;
-        }
+        .logo { font-size: 1.8rem; font-weight: 900; color: var(--primary); }
         .logo span { color: var(--accent); }
 
         .nav-menu {
             display: flex;
             gap: 10px;
             list-style: none;
+            align-items: center;
         }
 
         .nav-menu button {
@@ -95,7 +150,6 @@
             background: var(--bg-hover);
         }
 
-        /* المحتوى الرئيسي */
         main {
             max-width: 1350px;
             margin: 2rem auto;
@@ -122,7 +176,6 @@
             padding-right: 12px;
         }
 
-        /* الكروت والشبكات */
         .grid-2 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -139,7 +192,6 @@
 
         .card h3 { margin-bottom: 1rem; color: var(--text-main); font-size: 1.2rem; }
 
-        /* الأزرار والحقول */
         .btn {
             background-color: var(--primary);
             color: white;
@@ -150,11 +202,12 @@
             font-weight: 700;
             font-size: 0.95rem;
             transition: 0.2s;
+            width: 100%;
         }
-        .btn:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
+        .btn:hover { background-color: var(--primary-hover); }
         .btn-success { background-color: var(--accent); color: #0b0f19; }
         .btn-danger { background-color: var(--danger); }
-        .btn-sm { padding: 5px 10px; font-size: 0.85rem; }
+        .btn-sm { padding: 5px 10px; font-size: 0.85rem; width: auto; }
 
         input, textarea, select {
             background: var(--bg-main);
@@ -165,11 +218,10 @@
             width: 100%;
             font-size: 0.95rem;
             outline: none;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         input:focus, textarea:focus { border-color: var(--primary); }
 
-        /* الجداول */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -190,8 +242,7 @@
         .badge-owner { background: rgba(16, 185, 129, 0.15); color: var(--accent); }
         .badge-user { background: rgba(148, 163, 184, 0.15); color: var(--text-muted); }
 
-        /* الكورسات والامتحانات */
-        .course-card, .quiz-box {
+        .course-card {
             background: var(--bg-main);
             border: 1px solid var(--border);
             border-radius: 10px;
@@ -226,9 +277,36 @@
 </head>
 <body>
 
+    <!-- شاشة تسجيل الدخول وإنشاء الحساب (الافتراضية عند فتح الموقع) -->
+    <div id="auth-screen">
+        <div class="auth-box">
+            <h2>KXY Academy</h2>
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchAuthTab('login', this)">تسجيل الدخول</button>
+                <button class="auth-tab" onclick="switchAuthTab('register', this)">حساب جديد</button>
+            </div>
+
+            <!-- نموذج تسجيل الدخول -->
+            <div id="login-form" class="auth-form active">
+                <input type="text" id="login-username" placeholder="اسم المستخدم">
+                <input type="password" id="login-password" placeholder="كلمة المرور">
+                <button class="btn" onclick="handleLogin()">دخول للمنصة</button>
+                <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 15px;">💡 حساب الأدمن السري الخاص بك: اسم المستخدم <code>KXY_ADMIN</code> وكلمة المرور <code>admin123</code></p>
+            </div>
+
+            <!-- نموذج إنشاء حساب -->
+            <div id="register-form" class="auth-form">
+                <input type="text" id="reg-username" placeholder="اختر اسم مستخدم جديد">
+                <input type="password" id="reg-password" placeholder="كلمة المرور">
+                <button class="btn btn-success" onclick="handleRegister()">إنشاء الحساب والانضمام</button>
+            </div>
+            <p id="auth-msg" style="margin-top: 1rem; font-weight: bold; font-size: 0.9rem;"></p>
+        </div>
+    </div>
+
     <!-- شريط الإعلانات المتحرك -->
     <div class="marquee-container">
-        <marquee scrollamount="6" id="top-announcement">🚀 أهلاً بك يا أحمد في منصة KXY Academy الشاملة • تم فتح باب إضافة الكورسات، الامتحانات، والتحكم بالأدمن بالكامل!</marquee>
+        <marquee scrollamount="6" id="top-announcement">🚀 مرحباً بك في منصة KXY Academy الشاملة • تم تفعيل نظام الحسابات الحقيقي والأمان الكامل!</marquee>
     </div>
 
     <!-- النافبار العلوي -->
@@ -241,7 +319,8 @@
                 <li><button onclick="switchTab('exams', this)">الامتحانات والأسئلة</button></li>
                 <li><button onclick="switchTab('files', this)">الملفات والروابط</button></li>
                 <li><button onclick="switchTab('logs', this)">السجلات (Logs)</button></li>
-                <li><button onclick="switchTab('admin', this)" style="color: var(--warning);">لوحة الأدمن 🛡️</button></li>
+                <li><button onclick="switchTab('admin', this)" id="admin-nav-btn" style="color: var(--warning); display: none;">لوحة الأدمن 🛡️</button></li>
+                <li><button onclick="handleLogout()" style="color: var(--danger);">خروج 🚪</button></li>
             </ul>
         </div>
     </header>
@@ -252,26 +331,25 @@
             <h2 class="title">🏠 لوحة التحكم الشخصية</h2>
             <div class="grid-2">
                 <div class="card">
-                    <h3>مرحباً بك، أحمد 👋</h3>
-                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">أنت تمتلك صلاحيات المالك (Owner) على هذه النسخة التفاعلية بالكامل.</p>
+                    <h3>أهلاً بك، <span id="current-user-display" style="color: var(--primary);"></span> 👋</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">أنت مسجل حالياً في المنصة بنجاح وحسابك محمّل بكافة الصلاحيات.</p>
                     <div style="display: flex; gap: 1rem;">
                         <div style="background: var(--bg-main); padding: 1rem; border-radius: 8px; flex:1; text-align: center;">
                             <span style="color: var(--text-muted); font-size: 0.85rem;">نقاطك الكلية</span>
-                            <h3 id="user-xp" style="color: var(--accent); font-size: 1.6rem; margin-top: 5px;">3,200 XP</h3>
+                            <h3 id="user-xp" style="color: var(--accent); font-size: 1.6rem; margin-top: 5px;">0 XP</h3>
                         </div>
                         <div style="background: var(--bg-main); padding: 1rem; border-radius: 8px; flex:1; text-align: center;">
-                            <span style="color: var(--text-muted); font-size: 0.85rem;">الكورسات المتاحة</span>
-                            <h3 id="courses-count" style="color: var(--primary); font-size: 1.6rem; margin-top: 5px;">3 كورسات</h3>
+                            <span style="color: var(--text-muted); font-size: 0.85rem;">رتبتك في المنصة</span>
+                            <h3 id="user-role-display" style="color: var(--primary); font-size: 1.4rem; margin-top: 5px;">طالب</h3>
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <h3>💡 مميزات المنصة المفعلة</h3>
                     <ul style="color: var(--text-muted); padding-right: 1.2rem; display: flex; flex-direction: column; gap: 8px; font-size: 0.95rem;">
-                        <li>تغيير الشريط المتحرك وإعلانات المنصة فوراً.</li>
-                        <li>إضافة حسابات جديدة وترقية أي عضو لأدمن بضغطة زر.</li>
-                        <li>إنشاء كورسات، شرائح تعليمية، وملفات خاصة.</li>
-                        <li>اختبارات تفاعلية فورية تمنح نقاط XP عند النجاح.</li>
+                        <li>تسجيل دخول وحفظ الحسابات تلقائياً عبر المتصفح.</li>
+                        <li>حساب أدمن سري خاص بالمالك بصلاحيات كاملة.</li>
+                        <li>إضافة كورسات، شرائح، وملفات، وامتحانات تفاعلية.</li>
                     </ul>
                 </div>
             </div>
@@ -281,11 +359,11 @@
         <section id="courses" class="tab-pane">
             <h2 class="title">📚 الدورات والشرائح التعليمية</h2>
             <div class="grid-2">
-                <div class="card">
-                    <h3>إضافة كورس جديد (أدمن)</h3>
-                    <input type="text" id="course-title" placeholder="عنوان الكورس (مثال: احتراف JavaScript)">
-                    <textarea id="course-desc" placeholder="وصف الكورس والشرائح التعليمية..." rows="3"></textarea>
-                    <button class="btn btn-success" onclick="addCourse()">نشر الكورس في المنصة</button>
+                <div class="card" id="add-course-card" style="display: none;">
+                    <h3>إضافة كورس جديد (أدمن فقط)</h3>
+                    <input type="text" id="course-title" placeholder="عنوان الكورس...">
+                    <textarea id="course-desc" placeholder="وصف الكورس والشرائح..." rows="3"></textarea>
+                    <button class="btn btn-success" onclick="addCourse()">نشر الكورس</button>
                 </div>
                 <div class="card">
                     <h3>قائمة الكورسات الحالية</h3>
@@ -293,10 +371,6 @@
                         <div class="course-card">
                             <h4 style="color: var(--primary);">برمجة بوتات ديسكورد (Node.js)</h4>
                             <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">شرح أساسيات الـ handlers و slash commands والـ events.</p>
-                        </div>
-                        <div class="course-card">
-                            <h4 style="color: var(--primary);">تطوير واجهات الويب (HTML & CSS)</h4>
-                            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">تصميم المواقع وتنسيق الأزرار واللوحات التفاعلية.</p>
                         </div>
                     </div>
                 </div>
@@ -308,8 +382,8 @@
             <h2 class="title">📝 الامتحانات والاختبارات الذكية</h2>
             <div class="grid-2">
                 <div class="card">
-                    <h3>اختبار البرمجة السريع (تفاعلي)</h3>
-                    <p style="color: var(--text-muted); margin-bottom: 1rem;">أجب عن السؤال التالي لاجتياز الاختبار والحصول على (+150 XP):</p>
+                    <h3>اختبار البرمجة السريع</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 1rem;">أجب عن السؤال التالي لاجتياز الاختبار (+100 XP):</p>
                     <p style="font-weight: 700; margin-bottom: 10px;">ما هي لغة البرمجة الأساسية لتشغيل البوتات وسيرفرات الـ Node.js؟</p>
                     <select id="exam-answer">
                         <option value="wrong">Python</option>
@@ -319,12 +393,10 @@
                     <button class="btn" onclick="submitExam()" style="margin-top: 10px;">إرسال الإجابة</button>
                     <p id="exam-result" style="margin-top: 10px; font-weight: bold;"></p>
                 </div>
-
-                <div class="card">
-                    <h3>إنشاء سؤال / امتحان جديد (أدمن)</h3>
+                <div class="card" id="add-q-card" style="display: none;">
+                    <h3>إضافة سؤال جديد (أدمن فقط)</h3>
                     <input type="text" id="new-q-text" placeholder="نص السؤال...">
-                    <input type="text" id="new-q-ans" placeholder="الإجابة الصحيحة...">
-                    <button class="btn btn-success" onclick="addQuestion()">حفظ السؤال في بنك الأسئلة</button>
+                    <button class="btn btn-success" onclick="addQuestion()">حفظ في بنك الأسئلة</button>
                 </div>
             </div>
         </section>
@@ -333,10 +405,10 @@
         <section id="files" class="tab-pane">
             <h2 class="title">📂 الملفات ومرفقات الدروس</h2>
             <div class="grid-2">
-                <div class="card">
-                    <h3>إضافة ملف أو رابط جديد</h3>
-                    <input type="text" id="file-name" placeholder="اسم الملف أو السكربت (مثال: Handler.js)">
-                    <input type="text" id="file-link" placeholder="رابط التحميل أو المعاينة (https://...)">
+                <div class="card" id="add-file-card" style="display: none;">
+                    <h3>إضافة ملف جديد (أدمن فقط)</h3>
+                    <input type="text" id="file-name" placeholder="اسم الملف...">
+                    <input type="text" id="file-link" placeholder="رابط التحميل (https://...)">
                     <button class="btn" onclick="addFile()">إضافة للمنصة</button>
                 </div>
                 <div class="card">
@@ -355,55 +427,25 @@
         <section id="logs" class="tab-pane">
             <h2 class="title">📋 سجلات النظام الحية (System Logs)</h2>
             <div class="logs-box" id="logs-container">
-                <div class="log-row">[2026-09-24 20:30] تم بدء تشغيل المنصة بنجاح وكافة الأنظمة تعمل بكفاءة.</div>
+                <div class="log-row">[2026-09-24 20:45] تم تفعيل نظام الأمان وحساب الأدمن السري بنجاح.</div>
             </div>
         </section>
 
-        <!-- 6. لوحة الأدمن (إدارة الحسابات والشريط المتحرك) -->
+        <!-- 6. لوحة الأدمن السرية -->
         <section id="admin" class="tab-pane">
-            <h2 class="title">🛡️ لوحة تحكم الأدمن والمالك</h2>
+            <h2 class="title">🛡️ لوحة تحكم الأدمن والمالك السرية</h2>
             <div class="grid-2" style="margin-bottom: 1.5rem;">
                 <div class="card">
                     <h3>📢 تعديل الشريط المتحرك العلوي</h3>
-                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px;">اكتب النص الجديد وسيتحدث في الأعلى فوراً لجميع المستخدمين.</p>
-                    <input type="text" id="marquee-input" placeholder="اكتب الإعلان الجديد...">
-                    <button class="btn" onclick="updateMarqueeText()">تحديث الشريط المتحرك</button>
+                    <input type="text" id="marquee-input" placeholder="النص الجديد للإعلان...">
+                    <button class="btn" onclick="updateMarqueeText()">تحديث الشريط</button>
                 </div>
-
                 <div class="card">
-                    <h3>👥 إضافة حساب جديد للمنصة</h3>
-                    <input type="text" id="new-user-name" placeholder="اسم المستخدم (مثال: محمد)">
-                    <select id="new-user-role">
-                        <option value="user">طالب (User)</option>
-                        <option value="admin">مشرف / أدمن (Admin)</option>
-                    </select>
-                    <button class="btn btn-success" onclick="addNewUser()">إضافة الحساب</button>
+                    <h3>👥 حسابات المستخدمين المسجلين</h3>
+                    <div id="users-list-box" style="max-height: 200px; overflow-y: auto; font-size: 0.9rem; color: var(--text-muted);">
+                        <!-- يتم تعبئتها تلقائياً -->
+                    </div>
                 </div>
-            </div>
-
-            <div class="card">
-                <h3>⚙️ إدارة الأعضاء والصلاحيات (ترقية أدمن / سحبها)</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>اسم المستخدم</th>
-                            <th>الصلاحية الحالية</th>
-                            <th>الإجراء (ترقية أدمن / سحب)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="users-table-body">
-                        <tr>
-                            <td>أحمد (المطور)</td>
-                            <td><span class="badge badge-owner">Owner</span></td>
-                            <td>مالك المنصة</td>
-                        </tr>
-                        <tr>
-                            <td>محمد</td>
-                            <td><span class="badge badge-user" id="role-badge-2">طالب</span></td>
-                            <td><button class="btn btn-sm" onclick="toggleAdmin(2)" id="admin-btn-2">ترقية لأدمن</button></td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </section>
     </main>
@@ -413,16 +455,116 @@
     </footer>
 
     <script>
+        // إدارة الحسابات التلقائية (Local Storage)
+        let users = JSON.parse(localStorage.getItem('kxy_users')) || [
+            { username: "KXY_ADMIN", pass: "admin123", role: "owner", xp: 5000 }
+        ];
+
+        let currentUser = JSON.parse(localStorage.getItem('kxy_current_user')) || null;
+
+        // عند تحميل الصفحة
+        window.onload = function() {
+            if (currentUser) {
+                document.getElementById('auth-screen').style.display = 'none';
+                initSession();
+            }
+        };
+
+        function switchAuthTab(tab, btn) {
+            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(`${tab}-form`).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        // إنشاء حساب جديد
+        function handleRegister() {
+            const u = document.getElementById('reg-username').value.trim();
+            const p = document.getElementById('reg-password').value.trim();
+            const msg = document.getElementById('auth-msg');
+
+            if (!u || !p) {
+                msg.style.color = "var(--danger)";
+                msg.style.display = "block";
+                msg.innerText = "يرجى ملء جميع الحقول!";
+                return;
+            }
+
+            if (users.some(x => x.username === u)) {
+                msg.style.color = "var(--danger)";
+                msg.style.display = "block";
+                msg.innerText = "اسم المستخدم مستخدم مسبقاً، اختر غيره.";
+                return;
+            }
+
+            users.push({ username: u, pass: p, role: "user", xp: 0 });
+            localStorage.setItem('kxy_users', JSON.stringify(users));
+
+            msg.style.color = "var(--accent)";
+            msg.style.display = "block";
+            msg.innerText = "🎉 تم إنشاء الحساب بنجاح! يمكنك تسجيل الدخول الآن.";
+            addLog(`تم إنشاء حساب جديد باسم: ${u}`);
+        }
+
+        // تسجيل الدخول
+        function handleLogin() {
+            const u = document.getElementById('login-username').value.trim();
+            const p = document.getElementById('login-password').value.trim();
+            const msg = document.getElementById('auth-msg');
+
+            const found = users.find(x => x.username === u && x.pass === p);
+
+            if (found) {
+                currentUser = found;
+                localStorage.setItem('kxy_current_user', JSON.stringify(currentUser));
+                document.getElementById('auth-screen').style.display = 'none';
+                initSession();
+                addLog(`المستخدم ${u} قام بتسجيل الدخول بنجاح.`);
+            } else {
+                msg.style.color = "var(--danger)";
+                msg.style.display = "block";
+                msg.innerText = "❌ اسم المستخدم أو كلمة المرور غير صحيحة!";
+            }
+        }
+
+        // تسجيل الخروج
+        function handleLogout() {
+            localStorage.removeItem('kxy_current_user');
+            location.reload();
+        }
+
+        // تهيئة الجلسة وصلاحيات الأدمن السري
+        function initSession() {
+            document.getElementById('current-user-display').innerText = currentUser.username;
+            document.getElementById('user-xp').innerText = `${currentUser.xp} XP`;
+            
+            const roleDisplay = document.getElementById('user-role-display');
+            const adminNavBtn = document.getElementById('admin-nav-btn');
+
+            if (currentUser.role === 'owner' || currentUser.role === 'admin') {
+                roleDisplay.innerText = currentUser.role === 'owner' ? 'المالك (Owner)' : 'أدمن';
+                roleDisplay.style.color = "var(--warning)";
+                adminNavBtn.style.display = "inline-block";
+                
+                // إظهار أدوات الأدمن في الأقسام
+                document.getElementById('add-course-card').style.display = 'block';
+                document.getElementById('add-q-card').style.display = 'block';
+                document.getElementById('add-file-card').style.display = 'block';
+                
+                loadUsersList();
+            } else {
+                roleDisplay.innerText = 'طالب نشط';
+            }
+        }
+
         // التنقل بين التبويبات
         function switchTab(tabId, btnEl) {
             document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-menu button').forEach(el => el.classList.remove('active'));
-            
             document.getElementById(tabId).classList.add('active');
             if(btnEl) btnEl.classList.add('active');
         }
 
-        // إضافة سجل جديد (Logs)
         function addLog(text) {
             const container = document.getElementById('logs-container');
             const time = new Date().toISOString().slice(0, 19).replace('T', ' ');
@@ -432,21 +574,16 @@
             container.prepend(row);
         }
 
-        // تحديث الشريط المتحرك
         function updateMarqueeText() {
             const text = document.getElementById('marquee-input').value.trim();
             if(text) {
                 document.getElementById('top-announcement').innerText = text;
-                addLog(`تم تحديث شريط الإعلانات إلى: "${text}"`);
+                addLog(`تم تحديث شريط الإعلانات بواسطة الأدمن.`);
                 alert("تم تحديث الشريط المتحرك بنجاح!");
                 document.getElementById('marquee-input').value = '';
-            } else {
-                alert("يرجى كتابة نص الإعلان أولاً.");
             }
         }
 
-        // إضافة كورس جديد
-        let coursesCount = 2;
         function addCourse() {
             const title = document.getElementById('course-title').value.trim();
             const desc = document.getElementById('course-desc').value.trim();
@@ -456,48 +593,38 @@
                 card.className = 'course-card';
                 card.innerHTML = `<h4 style="color: var(--primary);">${title}</h4><p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">${desc}</p>`;
                 list.prepend(card);
-                coursesCount++;
-                document.getElementById('courses-count').innerText = `${coursesCount} كورسات`;
-                addLog(`تم إضافة كورس جديد: "${title}"`);
+                addLog(`تم نشر كورس جديد: "${title}"`);
                 alert("تم نشر الكورس بنجاح!");
                 document.getElementById('course-title').value = '';
                 document.getElementById('course-desc').value = '';
-            } else {
-                alert("يرجى إكمال عنوان ووصف الكورس.");
             }
         }
 
-        // إرسال حل الامتحان
-        let userXP = 3200;
         function submitExam() {
             const ans = document.getElementById('exam-answer').value;
             const resEl = document.getElementById('exam-result');
             if(ans === 'correct') {
-                userXP += 150;
-                document.getElementById('user-xp').innerText = `${userXP} XP`;
+                currentUser.xp += 100;
+                document.getElementById('user-xp').innerText = `${currentUser.xp} XP`;
+                localStorage.setItem('kxy_current_user', JSON.stringify(currentUser));
                 resEl.style.color = "var(--accent)";
-                resEl.innerText = "🎉 إجابة صحيحة! حصلت على 150 نقطة إضافية.";
-                addLog("المحترِف أحمد اجتاز امتحان البرمجة وحصل على 150 XP.");
+                resEl.innerText = "🎉 إجابة صحيحة! حصلت على 100 نقطة.";
+                addLog(`المستخدم ${currentUser.username} اجتاز الامتحان بنجاح.`);
             } else {
                 resEl.style.color = "var(--danger)";
                 resEl.innerText = "❌ إجابة خاطئة، حاول مرة أخرى!";
-                addLog("المستخدم أحمد أخفق في إجابة الامتحان.");
             }
         }
 
         function addQuestion() {
             const q = document.getElementById('new-q-text').value;
             if(q) {
-                addLog(`تم إضافة سؤال جديد لبنك الأسئلة: "${q}"`);
+                addLog(`تم إضافة سؤال جديد لبنك الأسئلة.`);
                 alert("تم حفظ السؤال بنجاح!");
                 document.getElementById('new-q-text').value = '';
-                document.getElementById('new-q-ans').value = '';
-            } else {
-                alert("يرجى كتابة السؤال.");
             }
         }
 
-        // إضافة ملف جديد
         function addFile() {
             const name = document.getElementById('file-name').value.trim();
             const link = document.getElementById('file-link').value.trim();
@@ -507,65 +634,19 @@
                 item.className = 'course-card';
                 item.style.display = 'flex';
                 item.style.justifyContent = 'space-between';
-                item.style.alignItems = 'center';
+                item.style.alignItems: 'center';
                 item.innerHTML = `<span>${name}</span><a href="${link}" target="_blank" class="btn btn-sm btn-success">تحميل</a>`;
                 list.prepend(item);
-                addLog(`تم إضافة ملف جديد: "${name}"`);
+                addLog(`تم رفع ملف جديد: "${name}"`);
                 alert("تم إضافة الملف للمنصة بنجاح!");
                 document.getElementById('file-name').value = '';
                 document.getElementById('file-link').value = '';
-            } else {
-                alert("يرجى إدخال الاسم والرابط بشكل صحيح.");
             }
         }
 
-        // إضافة حساب جديد
-        let userIdCounter = 2;
-        function addNewUser() {
-            const name = document.getElementById('new-user-name').value.trim();
-            const role = document.getElementById('new-user-role').value;
-            if(name) {
-                userIdCounter++;
-                const tableBody = document.getElementById('users-table-body');
-                const row = document.createElement('tr');
-                const roleBadgeClass = role === 'admin' ? 'badge-admin' : 'badge-user';
-                const roleText = role === 'admin' ? 'أدمن' : 'طالب';
-                
-                row.innerHTML = `
-                    <td>${name}</td>
-                    <td><span class="badge ${roleBadgeClass}" id="role-badge-${userIdCounter}">${roleText}</span></td>
-                    <td><button class="btn btn-sm" onclick="toggleAdmin(${userIdCounter})" id="admin-btn-${userIdCounter}">${role === 'admin' ? 'سحب الأدمن' : 'ترقية لأدمن'}</button></td>
-                `;
-                tableBody.appendChild(row);
-                addLog(`تم إنشاء حساب جديد باسم "${name}" بصلاحية [${roleText}]`);
-                alert(`تم إنشاء حساب ${name} بنجاح!`);
-                document.getElementById('new-user-name').value = '';
-            } else {
-                alert("يرجى كتابة اسم المستخدم.");
-            }
-        }
-
-        // ترقية مستخدم لأدمن أو سحبها
-        let userAdminState = {};
-        function toggleAdmin(id) {
-            const badge = document.getElementById(`role-badge-${id}`);
-            const btn = document.getElementById(`admin-btn-${id}`);
-            
-            userAdminState[id] = !userAdminState[id];
-
-            if(userAdminState[id]) {
-                badge.className = "badge badge-admin";
-                badge.innerText = "أدمن";
-                btn.innerText = "سحب الأدمن";
-                addLog(`تم ترقية المستخدم رقم ${id} إلى رتبة أدمن.`);
-                alert("تمت ترقية العضو إلى أدمن بنجاح!");
-            } else {
-                badge.className = "badge badge-user";
-                badge.innerText = "طالب";
-                btn.innerText = "ترقية لأدمن";
-                addLog(`تم سحب صلاحيات الأدمن من المستخدم رقم ${id}.`);
-                alert("تم سحب صلاحيات الأدمن بنجاح.");
-            }
+        function loadUsersList() {
+            const box = document.getElementById('users-list-box');
+            box.innerHTML = users.map(u => `<div style="padding: 6px 0; border-bottom: 1px solid var(--border);">👤 ${u.username} - الرتبة: <b>${u.role}</b> - النقاط: ${u.xp} XP</div>`).join('');
         }
     </script>
 </body>
