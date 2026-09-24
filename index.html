@@ -1,879 +1,305 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" data-theme="dark" style="--primary: #8b5cf6; --bg-color: #030712; --card-bg: #0b0f19; --font-family: 'Tajawal', sans-serif;">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KXY Academy - المنصة الأسطورية المحدثة</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;900&family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>KXY Academy | المنصة التعليمية الذكية</title>
     <style>
         :root {
-            --bg-color: #030712;
-            --sidebar-bg: #080d1a;
-            --card-bg: #0b0f19;
-            --card-hover: #111827;
-            --text-main: #f9fafb;
-            --text-muted: #9ca3af;
-            --primary: #8b5cf6;
-            --primary-hover: #7c3aed;
-            --accent: #06b6d4;
-            --danger: #f43f5e;
-            --border: #1f2937;
-            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
-            --radius: 20px;
-            --font-family: 'Tajawal', sans-serif;
-        }
-
-        [data-theme="light"] {
-            --bg-color: #f8fafc;
-            --sidebar-bg: #ffffff;
-            --card-bg: #ffffff;
-            --card-hover: #f1f5f9;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #10b981;
+            --border: #334155;
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: var(--font-family);
-            transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
             background-color: var(--bg-color);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            overflow-x: hidden;
+            color: var(--text-color);
+            line-height: 1.6;
         }
 
-        /* القائمة الجانبية بـ 3 شرط وخالية من الإيموجي تماماً */
-        aside {
-            width: 280px;
-            background-color: var(--sidebar-bg);
-            border-left: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 1.8rem 1.2rem;
-            position: fixed;
-            height: 100vh;
-            z-index: 100;
-        }
-
-        aside.collapsed { width: 90px; }
-        aside.collapsed .logo-text,
-        aside.collapsed .nav-links span,
-        aside.collapsed .sidebar-footer span { display: none; }
-
-        .sidebar-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 2.5rem;
-            padding: 0 0.5rem;
-        }
-
-        .logo-area {
-            font-size: 1.6rem;
-            font-weight: 900;
-            color: var(--text-main);
-            letter-spacing: -0.5px;
-        }
-        .logo-area span { color: var(--primary); }
-
-        .menu-toggle-btn {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            color: var(--text-main);
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 1.3rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .menu-toggle-btn:hover { border-color: var(--primary); }
-
-        .nav-links {
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-            flex: 1;
-            overflow-y: auto;
-        }
-
-        .nav-links button {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            text-align: right;
-            padding: 1rem 1.1rem;
-            border-radius: 14px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            width: 100%;
-        }
-
-        .nav-links button:hover, .nav-links button.active {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(6, 182, 212, 0.05));
-            color: var(--primary);
-            font-weight: 700;
-            border: 1px solid rgba(139, 92, 246, 0.2);
-        }
-
-        .sidebar-footer {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            border-top: 1px solid var(--border);
-            padding-top: 1.2rem;
-        }
-
-        .sidebar-footer button {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            color: var(--text-main);
-            padding: 0.9rem;
-            border-radius: 14px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            font-weight: 600;
-        }
-        .sidebar-footer button:hover { border-color: var(--primary); }
-
-        /* المحتوى الرئيسي */
-        main {
-            flex: 1;
-            margin-right: 280px;
-            padding: 3rem;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        main.expanded { margin-right: 90px; }
-
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2.5rem;
-            background-color: var(--card-bg);
-            padding: 1.5rem 2.5rem;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-        }
-
-        .section { display: none; }
-        .section.active { display: block; animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 2.2rem;
-            margin-bottom: 1.8rem;
-            box-shadow: var(--shadow);
-        }
-        .card:hover { border-color: rgba(139, 92, 246, 0.3); }
-
-        h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 1.2rem; letter-spacing: -0.5px; }
-        h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.8rem; }
-        p { color: var(--text-muted); font-size: 1rem; line-height: 1.8; }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 1.1rem 1.2rem;
-            margin-bottom: 1.2rem;
-            background-color: var(--bg-color);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            color: var(--text-main);
-            font-size: 1rem;
-            outline: none;
-        }
-        input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15); }
-
-        button.btn {
-            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 14px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 700;
-            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
-            transition: all 0.2s ease;
-        }
-        button.btn:hover { opacity: 0.95; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4); }
-        button.btn-danger { background: transparent; border: 1px solid var(--danger); color: var(--danger); box-shadow: none; }
-        button.btn-danger:hover { background: var(--danger); color: white; transform: translateY(-2px); }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 1.8rem;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: 700;
-        }
-        .badge-success { background-color: rgba(6, 182, 212, 0.15); color: var(--accent); border: 1px solid rgba(6, 182, 212, 0.3); }
-        .badge-primary { background-color: rgba(139, 92, 246, 0.15); color: var(--primary); border: 1px solid rgba(139, 92, 246, 0.3); }
-        .badge-danger { background-color: rgba(244, 63, 94, 0.15); color: var(--danger); border: 1px solid rgba(244, 63, 94, 0.3); }
-
-        table { width: 100%; border-collapse: collapse; margin-top: 1.2rem; overflow-x: auto; display: block; }
-        th, td { padding: 1.1rem; text-align: right; border-bottom: 1px solid var(--border); font-size: 0.95rem; white-space: nowrap; }
-        th { color: var(--text-muted); font-weight: 700; }
-
-        .announcement-banner {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.1));
-            border: 1px solid rgba(139, 92, 246, 0.4);
-            padding: 1.4rem 2rem;
-            border-radius: var(--radius);
-            margin-bottom: 2.5rem;
-            box-shadow: var(--shadow);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(3, 7, 18, 0.85);
+        header {
+            background: rgba(30, 41, 59, 0.8);
             backdrop-filter: blur(10px);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 1.5rem;
-        }
-        .modal-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 520px;
-            padding: 2.8rem;
-            box-shadow: var(--shadow);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
         }
 
-        @media (max-width: 900px) {
-            aside { width: 90px; }
-            aside .logo-text, aside .nav-links span, aside .sidebar-footer span { display: none; }
-            main { margin-right: 90px; padding: 1.5rem; }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        .hero {
+            padding: 10rem 2rem 5rem;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #818cf8, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.2s;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .features-section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 12px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .dashboard-preview {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-box {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .stat-box h4 {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-box p {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            margin-top: 5rem;
+        }
+
+        @media(max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            nav ul { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- القائمة الجانبية بـ 3 شرط وخالية تماماً من الإيموجي -->
-    <aside id="sidebar">
-        <div>
-            <div class="sidebar-header">
-                <div class="logo-area">
-                    <span>KXY</span><span class="logo-text"> ACADEMY</span>
-                </div>
-                <button class="menu-toggle-btn" onclick="toggleSidebar()">≡</button>
+    <header>
+        <div class="nav-container">
+            <div class="logo">KXY <span>Academy</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#features">المميزات</a></li>
+                    <li><a href="#dashboard">لوحة التحكم</a></li>
+                    <li><a href="#courses">الدورات</a></li>
+                    <li><a href="#ai-tutor">المساعد الذكي</a></li>
+                </ul>
+            </nav>
+            <a href="#dashboard" class="btn">حسابي</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>منظومة التعليم الذكية المتكاملة</h1>
+        <p>تعلم برمجة البوتات، وتطوير الويب، وتقنيات المستقبل مع أدوات تفاعلية متطورة، تتبع دقيق للتقدم، ومساعد ذكي يرافقك خطوة بخطوة.</p>
+        <a href="#features" class="btn">استكشف المميزات الخيالية</a>
+    </section>
+
+    <section id="features" class="features-section">
+        <h2 class="section-title">مميزات المنصة (رؤية متكاملة)</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>🤖 مساعد ذكي خاص (AI Tutor)</h3>
+                <p>مساعد ذكي مدمج داخل كل درس لشرح الأكواد المعقدة، الرد على الاستفسارات الفورية، وتصحيح أخطاء السكربتات والبرمجة.</p>
             </div>
-            <div class="nav-links">
-                <button onclick="switchTab('home')" class="active" id="nav-home"><span>الرئيسية</span></button>
-                <button onclick="switchTab('tracks')" id="nav-tracks"><span>المسارات والكورسات</span></button>
-                <button onclick="switchTab('projects')" id="nav-projects"><span>مكتبة البروجيكتات (ZIP)</span></button>
-                <button onclick="switchTab('exams')" id="nav-exams"><span>الامتحانات والاختبارات</span></button>
-                <button onclick="switchTab('codes')" id="nav-codes"><span>أكواد الهدايا والخصم</span></button>
-                <button onclick="switchTab('customizer')" id="nav-customizer"><span>تخصيص المظهر</span></button>
-                <button onclick="switchTab('admin')" id="nav-admin" style="display:none; color: var(--accent);"><span>لوحة تحكم الآدمن</span></button>
+            <div class="feature-card">
+                <h3>🎮 نظام التلعيب (Gamification)</h3>
+                <p>اجمع النقاط، احصل على شارات تفاعلية عند إتمام التحديات البرمجية، ونافس المطورين الآخرين في لوحة المتصدرين.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔒 حماية متقدمة للمحتوى</h3>
+                <p>نظام تشفير ومنع تحميل عالي الأداء لحماية الفيديوهات والملفات البرمجية من التسريب وسرقات الحقوق.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📊 لوحة تحكم وإحصاءات دقيقة</h3>
+                <p>تتبع ساعات التعلم، نسبة إتمام المهام، مستواك في كل مسار برمجي، وتقارير أداء فورية ومخصصة.</p>
+            </div>
+            <div class="feature-card">
+                <h3>💳 بوابات دفع واشتراكات آلية</h3>
+                <p>دعم كامل لأنظمة الدفع الإلكتروني، إدارة الاشتراكات الشهرية، وفتح المحتوى تلقائياً بعد تأكيد الدفع.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📜 شهادات إنجاز معتمدة</h3>
+                <p>إصدار شهادات رقمية تلقائية موثقة برمز تحقق فريد فور اجتياز الاختبارات النهائية لكل مسار أو كورس.</p>
             </div>
         </div>
-        <div class="sidebar-footer">
-            <button onclick="toggleTheme()" id="themeBtn"><span>الوضع الفاتح / الداكن</span></button>
-            <button onclick="openAuthModal()" id="authBtn" style="background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: white; border: none;"><span id="authBtnText">تسجيل الدخول</span></button>
+    </section>
+
+    <section id="dashboard" class="dashboard-preview">
+        <div class="dashboard-header">
+            <h3>لوحة تحكم الطالب (مثال حي)</h3>
+            <span style="color: var(--accent);">مرحباً بك، أحمد 👋</span>
         </div>
-    </aside>
-
-    <!-- المحتوى الرئيسي -->
-    <main id="mainContent">
-        <div class="top-bar">
-            <h2 id="pageTitle" style="margin-bottom: 0;">الرئيسية</h2>
-            <p id="userStatusHeader" style="font-size: 0.98rem; margin-bottom: 0; font-weight: 600;">مرحباً بك زائرنا الكريم</p>
-        </div>
-
-        <div id="announcementContainer"></div>
-
-        <!-- الرئيسية -->
-        <section id="home" class="section active">
-            <div class="card" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), var(--card-bg)); border-color: rgba(139, 92, 246, 0.3);">
-                <h2>مرحباً بك في المنصة الأسطورية المحدثة KXY Academy</h2>
-                <p>المنصة الهندسية الأكثر تطوراً لإدارة المسارات، رفع مشاريع السورس كود بصيغة ZIP، حل الامتحانات، وتفعيل أكواد الهدايا الحصرية.</p>
+        <div class="stats-grid">
+            <div class="stat-box">
+                <h4>الدورات المكتملة</h4>
+                <p>12</p>
             </div>
-            <div class="grid">
-                <div class="card" style="text-align: center;">
-                    <h3 style="color: var(--primary); font-size: 2.5rem; font-weight: 900;" id="statTracks">0</h3>
-                    <p>المسارات والكورسات</p>
-                </div>
-                <div class="card" style="text-align: center;">
-                    <h3 style="color: var(--accent); font-size: 2.5rem; font-weight: 900;" id="statProjects">0</h3>
-                    <p>البروجيكتات والملفات (ZIP)</p>
-                </div>
-                <div class="card" style="text-align: center;">
-                    <h3 style="color: var(--danger); font-size: 2.5rem; font-weight: 900;" id="statExams">0</h3>
-                    <p>الامتحانات التفاعلية</p>
-                </div>
+            <div class="stat-box">
+                <h4>ساعات التعلم</h4>
+                <p>48 س</p>
             </div>
-        </section>
-
-        <!-- المسارات والكورسات -->
-        <section id="tracks" class="section">
-            <h2>المسارات والكورسات التعليمية</h2>
-            <div class="grid" id="tracksGrid"></div>
-        </section>
-
-        <!-- مكتبة البروجيكتات (ZIP) -->
-        <section id="projects" class="section">
-            <h2>مكتبة البروجيكتات والملفات (ZIP)</h2>
-            <p style="margin-bottom: 1.5rem;">حمل أرشيف المشاريع وسورس الكود الجاهز المرفوع بواسطة الإدارة.</p>
-            <div class="grid" id="projectsGrid"></div>
-        </section>
-
-        <!-- الامتحانات والاختبارات -->
-        <section id="exams" class="section">
-            <h2>الامتحانات والاختبارات التفاعلية</h2>
-            <div class="grid" id="examsGrid"></div>
-        </section>
-
-        <!-- أكواد الهدايا والخصم -->
-        <section id="codes" class="section">
-            <h2>أكواد الهدايا والخصومات البرمجية</h2>
-            <div class="card">
-                <h3>تفعيل كود الهدية أو الخصم</h3>
-                <p style="margin-bottom: 1.2rem;">أدخل الكود أدناه لفتح المحتويات الحصرية واستلام صلاحيات VIP كاملة فوراً.</p>
-                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <input type="text" id="userPromoInput" placeholder="أدخل الكود (مثال: KXY2026)" style="margin-bottom: 0; flex: 1; min-width: 220px;">
-                    <button class="btn" onclick="redeemPromoCode()">التحقق وتفعيل الكود</button>
-                </div>
+            <div class="stat-box">
+                <h4>النقاط والشارات</h4>
+                <p>1,420 XP</p>
             </div>
-            <div class="card">
-                <h3>قائمة الأكواد الفعالة في المنصة</h3>
-                <div id="activePromoList" style="margin-top: 1rem;"></div>
-            </div>
-        </section>
-
-        <!-- تخصيص المظهر والخطوط -->
-        <section id="customizer" class="section">
-            <h2>استوديو التخصيص البصري</h2>
-            <div class="card">
-                <h3>تخصيص ألوان المنصة والخطوط الأساسية</h3>
-                <p style="margin-bottom: 1.5rem;">تحكم في الهوية البصرية للمنصة حسب رغبتك الشخصية.</p>
-                
-                <label style="display: block; margin-bottom: 0.5rem; font-weight: 700;">اللون الرئيسي للمنصة:</label>
-                <input type="color" id="pickerPrimary" value="#8b5cf6" style="height: 55px; cursor: pointer; padding: 0.3rem;" onchange="applyCustomTheme()">
-
-                <label style="display: block; margin-top: 1.2rem; margin-bottom: 0.5rem; font-weight: 700;">نوع الخط الأساسي:</label>
-                <select id="pickerFont" onchange="applyCustomTheme()">
-                    <option value="'Tajawal', sans-serif">خط تجوال (Tajawal)</option>
-                    <option value="'Cairo', sans-serif">خط كايرو (Cairo)</option>
-                    <option value="'IBM Plex Sans Arabic', sans-serif">خط آي بي إم (IBM Plex)</option>
-                    <option value="'Amiri', serif">خط أميري (Amiri)</option>
-                </select>
-
-                <button class="btn" style="margin-top: 1.5rem;" onclick="resetCustomTheme()">إعادة تعيين الافتراضي</button>
-            </div>
-        </section>
-
-        <!-- لوحة التحكم الإدارية (أحمد) -->
-        <section id="admin" class="section">
-            <h2>لوحة تحكم المسؤول الشاملة (أحمد)</h2>
-            
-            <div class="card">
-                <h3>نشر إعلان عام (Announce) في واجهة المنصة</h3>
-                <input type="text" id="adminAnnounceText" placeholder="اكتب نص الإعلان الهام هنا">
-                <button class="btn" onclick="publishAnnouncement()">نشر الإعلان للجميع</button>
-            </div>
-
-            <div class="card">
-                <h3>سجلات النشاط واللوجات (Logs)</h3>
-                <p style="margin-bottom: 1rem;">تتبع كافة العمليات وحركات التفعيل وتسجيل الدخول في المنصة.</p>
-                <div id="adminLogsTable"></div>
-            </div>
-
-            <div class="card">
-                <h3>إدارة المستخدمين والحظر (Ban System)</h3>
-                <div id="adminUsersTable"></div>
-            </div>
-
-            <div class="card">
-                <h3>رفع بروجيكت جديد (ملف ZIP أو رابط)</h3>
-                <input type="text" id="adminProjectTitle" placeholder="عنوان البروجيكت (مثال: نظام تذاكر ديسكورد)">
-                <textarea id="adminProjectDesc" placeholder="شرح مبسط لمحتويات البروجيكت ومميزاته" rows="2"></textarea>
-                <input type="text" id="adminProjectFile" placeholder="رابط ملف الـ ZIP المباشر">
-                <button class="btn" onclick="addProject()">إضافة البروجيكت للمكتبة</button>
-                <div id="adminProjectsTable"></div>
-            </div>
-
-            <div class="card">
-                <h3>إضافة مسار أو كورس تعليمي جديد</h3>
-                <input type="text" id="adminTrackTitle" placeholder="اسم المسار التعليمي">
-                <textarea id="adminTrackDesc" placeholder="تفاصيل ومحاور الكورس" rows="2"></textarea>
-                <select id="adminTrackType">
-                    <option value="free">متاح لجميع الطلاب</option>
-                    <option value="vip">حصري لأكواد الـ VIP</option>
-                </select>
-                <button class="btn" onclick="addTrack()">إضافة المسار</button>
-                <div id="adminTracksTable"></div>
-            </div>
-
-            <div class="card">
-                <h3>إنشاء امتحان أو اختبار تفاعلي</h3>
-                <input type="text" id="adminExamTitle" placeholder="عنوان الاختبار">
-                <input type="text" id="adminExamQ" placeholder="نص السؤال">
-                <input type="text" id="adminExamOpts" placeholder="الخيارات مفصولة بفواصل (خيار أ, خيار ب, خيار ج)">
-                <input type="text" id="adminExamAns" placeholder="الإجابة الصحيحة تماماً كما كتبتها في الخيارات">
-                <button class="btn" onclick="addExam()">نشر الامتحان</button>
-                <div id="adminExamsTable"></div>
-            </div>
-
-            <div class="card">
-                <h3>إنشاء كود هدايا وخصم جديد</h3>
-                <input type="text" id="adminCodeText" placeholder="رمز الكود (مثال: KXYVIP)">
-                <select id="adminCodeReward">
-                    <option value="all_access">فتح جميع المسارات والحصريات والبروجيكتات بالكامل</option>
-                </select>
-                <button class="btn" onclick="addPromoCode()">إنشاء الكود وتفعيله</button>
-                <div id="adminCodesTable"></div>
-            </div>
-        </section>
-
-        <!-- نافذة تسجيل الدخول -->
-        <div id="authModal" class="modal-overlay">
-            <div class="modal-card">
-                <h3 style="margin-bottom: 1.2rem; text-align: center;">تسجيل الدخول الآمن</h3>
-                <input type="text" id="authUsername" placeholder="اسم المستخدم">
-                <input type="password" id="authPassword" placeholder="كلمة المرور">
-                <button class="btn" style="width: 100%; margin-bottom: 0.8rem;" onclick="handleAuthSubmit()">تسجيل الدخول</button>
-                <button class="btn btn-danger" style="width: 100%;" onclick="closeAuthModal()">إلغاء</button>
+            <div class="stat-box">
+                <h4>نسبة الإنجاز العامة</h4>
+                <p>89%</p>
             </div>
         </div>
+    </section>
 
-        <!-- نافذة الامتحان -->
-        <div id="examModal" class="modal-overlay">
-            <div class="modal-card" style="text-align: center;">
-                <h3 id="modalExamTitle"></h3>
-                <p id="modalExamQText" style="font-size: 1.1rem; margin: 1.2rem 0; font-weight: 600;"></p>
-                <div id="modalExamOptions" style="display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem;"></div>
-                <button class="btn btn-danger" style="width: 100%;" onclick="closeExamModal()">إغلاق الاختبار</button>
-            </div>
-        </div>
-    </main>
+    <footer>
+        <p>جميع الحقوق محفوظة © 2026 KXY Academy - منصة تعليمية برمجية متطورة.</p>
+    </footer>
 
-    <script>
-        let currentUser = JSON.parse(localStorage.getItem('kxy_current_user')) || null;
-        let currentTheme = localStorage.getItem('kxy_theme') || 'dark';
-        let customSettings = JSON.parse(localStorage.getItem('kxy_custom')) || { primary: '#8b5cf6', font: "'Tajawal', sans-serif" };
-
-        let db = JSON.parse(localStorage.getItem('kxy_db')) || {
-            announcement: "مرحباً بكم في التحديث الأسطوري لمنصة KXY Academy! تم إصلاح أكواد الهدايا، وإضافة لوجستيات التتبع وحظر المستخدمين.",
-            tracks: [
-                { id: 1, title: 'احتراف هندسة بوتات ديسكورد', desc: 'بناء وتطوير أنظمة متكاملة باستخدام Node.js و Discord.js.', type: 'free' }
-            ],
-            projects: [
-                { id: 1, title: 'متجر ديسكورد سورس كود (ZIP)', desc: 'أرشيف بروجيكت متكامل لإدارة الطلبات والتذاكر.', file: '#' }
-            ],
-            exams: [
-                { id: 1, title: 'اختبار مهارات جافاسكريبت الأساسية', question: 'كيف تقوم بتعريف متغير ثابت لا يقبل التغيير في جافاسكريبت؟', options: ['var', 'let', 'const'], answer: 'const' }
-            ],
-            promoCodes: [
-                { code: 'KXY2026', reward: 'all_access', used: false }
-            ],
-            users: [],
-            logs: []
-        };
-
-        document.documentElement.setAttribute('data-theme', currentTheme);
-        document.documentElement.style.setProperty('--primary', customSettings.primary);
-        document.documentElement.style.setProperty('--font-family', customSettings.font);
-        document.getElementById('pickerPrimary').value = customSettings.primary;
-        document.getElementById('pickerFont').value = customSettings.font;
-        updateThemeButtonText();
-
-        function addLog(action) {
-            let time = new Date().toLocaleString('ar-EG');
-            db.logs.unshift({ time, action });
-            if (db.logs.length > 50) db.logs.pop(); // الاحتفاظ بأحدث 50 لوغ
-            saveDB();
-        }
-
-        function toggleTheme() {
-            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', currentTheme);
-            localStorage.setItem('kxy_theme', currentTheme);
-            updateThemeButtonText();
-        }
-
-        function updateThemeButtonText() {
-            const btn = document.getElementById('themeBtn');
-            btn.innerHTML = `<span>${currentTheme === 'dark' ? 'الوضع الفاتح' : 'الوضع الداكن'}</span>`;
-        }
-
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('collapsed');
-            document.getElementById('mainContent').classList.toggle('expanded');
-        }
-
-        function applyCustomTheme() {
-            let primary = document.getElementById('pickerPrimary').value;
-            let font = document.getElementById('pickerFont').value;
-            document.documentElement.style.setProperty('--primary', primary);
-            document.documentElement.style.setProperty('--font-family', font);
-            customSettings = { primary, font };
-            localStorage.setItem('kxy_custom', JSON.stringify(customSettings));
-        }
-
-        function resetCustomTheme() {
-            customSettings = { primary: '#8b5cf6', font: "'Tajawal', sans-serif" };
-            localStorage.setItem('kxy_custom', JSON.stringify(customSettings));
-            window.location.reload();
-        }
-
-        function saveDB() {
-            localStorage.setItem('kxy_db', JSON.stringify(db));
-            localStorage.setItem('kxy_current_user', JSON.stringify(currentUser));
-        }
-
-        function switchTab(tabId) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            document.getElementById('nav-' + tabId).classList.add('active');
-            document.getElementById('pageTitle').innerText = document.getElementById('nav-' + tabId).innerText.trim();
-            renderUI();
-        }
-
-        function openAuthModal() {
-            if (currentUser) {
-                if (confirm(`هل تريد تسجيل الخروج من حساب (${currentUser.name})؟`)) {
-                    addLog(`تسجيل خروج المستخدم: ${currentUser.name}`);
-                    currentUser = null;
-                    saveDB();
-                    renderUI();
-                }
-            } else {
-                document.getElementById('authUsername').value = '';
-                document.getElementById('authPassword').value = '';
-                document.getElementById('authModal').style.display = 'flex';
-            }
-        }
-
-        function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
-
-        function handleAuthSubmit() {
-            let u = document.getElementById('authUsername').value.trim();
-            let p = document.getElementById('authPassword').value.trim();
-            if (!u || !p) return alert('يرجى إدخال اسم المستخدم وكلمة المرور');
-
-            if (u.toLowerCase() === 'admin' && p === '1313') {
-                currentUser = { username: 'admin', name: 'أحمد (الآدمن)', isAdmin: true, vipAccess: true, isBanned: false };
-                addLog('تسجيل دخول الآدمن الرئيسي أحمد');
-                saveDB(); closeAuthModal(); renderUI();
-                alert('مرحباً بك يا أحمد في لوحة التحكم الإدارية.');
-                return;
-            }
-
-            let existing = db.users.find(x => x.username.toLowerCase() === u.toLowerCase());
-            if (existing) {
-                if (existing.isBanned) return alert('هذا الحساب محظور من استخدام المنصة!');
-                if (existing.password !== p) return alert('كلمة المرور غير صحيحة');
-                currentUser = existing;
-            } else {
-                let newUser = { username: u, name: u, password: p, isAdmin: false, vipAccess: false, isBanned: false };
-                db.users.push(newUser);
-                currentUser = newUser;
-                addLog(`تسجيل حساب جديد للمستخدم: ${u}`);
-            }
-            saveDB(); closeAuthModal(); renderUI();
-        }
-
-        function renderUI() {
-            // التحقق إذا تم حظور المستخدم الحالي
-            if (currentUser && !currentUser.isAdmin) {
-                let userInDb = db.users.find(x => x.username.toLowerCase() === currentUser.username.toLowerCase());
-                if (userInDb && userInDb.isBanned) {
-                    alert('تم حظر حسابك من قبل إدارة المنصة!');
-                    currentUser = null;
-                    saveDB();
-                }
-            }
-
-            const authBtnText = document.getElementById('authBtnText');
-            const adminNav = document.getElementById('nav-admin');
-            const userStatusHeader = document.getElementById('userStatusHeader');
-            const announcementContainer = document.getElementById('announcementContainer');
-
-            if (db.announcement) {
-                announcementContainer.innerHTML = `
-                    <div class="announcement-banner">
-                        <div><strong>إعلان المنصة:</strong> ${db.announcement}</div>
-                        ${currentUser && currentUser.isAdmin ? '<button class="btn btn-danger" style="padding:0.4rem 0.8rem; font-size:0.8rem;" onclick="removeAnnouncement()">إزالة الإعلان</button>' : ''}
-                    </div>`;
-            } else {
-                announcementContainer.innerHTML = '';
-            }
-
-            if (currentUser) {
-                authBtnText.innerText = currentUser.name;
-                adminNav.style.display = currentUser.isAdmin ? 'flex' : 'none';
-                userStatusHeader.innerText = `مرحباً بك، ${currentUser.name}`;
-            } else {
-                authBtnText.innerText = 'تسجيل الدخول';
-                adminNav.style.display = 'none';
-                userStatusHeader.innerText = 'مرحباً بك زائرنا الكريم';
-            }
-
-            document.getElementById('statTracks').innerText = db.tracks.length;
-            document.getElementById('statProjects').innerText = db.projects.length;
-            document.getElementById('statExams').innerText = db.exams.length;
-
-            // عرض المسارات
-            document.getElementById('tracksGrid').innerHTML = db.tracks.map(t => `
-                <div class="card">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem;">
-                        <h3>${t.title}</h3>
-                        <span class="badge ${t.type === 'free' ? 'badge-success' : 'badge-primary'}">${t.type === 'free' ? 'متاح للجميع' : 'حصري VIP'}</span>
-                    </div>
-                    <p style="margin-bottom:1.5rem;">${t.desc}</p>
-                    <button class="btn" style="width:100%;" onclick="openTrack('${t.title}', '${t.type}')">الانتقال للمسار</button>
-                </div>
-            `).join('');
-
-            // عرض البروجيكتات
-            document.getElementById('projectsGrid').innerHTML = db.projects.map(pr => `
-                <div class="card">
-                    <h3>${pr.title}</h3>
-                    <p style="margin-bottom:1.5rem;">${pr.desc}</p>
-                    <a href="${pr.file}" target="_blank" class="btn" style="display:block; text-align:center; text-decoration:none;" onclick="addLog('تحميل بروجيكت: ${pr.title}')">تحميل ملف البروجيكت (ZIP)</a>
-                </div>
-            `).join('');
-
-            // عرض الامتحانات
-            document.getElementById('examsGrid').innerHTML = db.exams.map(e => `
-                <div class="card">
-                    <h3>${e.title}</h3>
-                    <p style="margin-bottom:1.5rem;">اختبر معلوماتك وقدرتك على البرمجة الآن في هذا الاختبار.</p>
-                    <button class="btn" style="width:100%;" onclick="startExam(${e.id})">بدء الاختبار التفاعلي</button>
-                </div>
-            `).join('');
-
-            // عرض الأكواد المتاحة في قسم الأكواد
-            document.getElementById('activePromoList').innerHTML = db.promoCodes.map(c => `
-                <div style="display:flex; justify-content:space-between; align-items:center; padding:1rem; background:var(--bg-color); border:1px solid var(--border); border-radius:12px; margin-bottom:0.8rem;">
-                    <div><strong style="color:var(--primary); font-size:1.1rem; letter-spacing:1px;">${c.code}</strong> - <span style="font-size:0.9rem; color:var(--text-muted);">يمنح صلاحيات كاملة وفتح الكورسات</span></div>
-                    <span class="badge ${c.used ? 'badge-primary' : 'badge-success'}">${c.used ? 'مستعمل مسبقاً' : 'نشط وجاهز'}</span>
-                </div>
-            `).join('');
-
-            if (currentUser && currentUser.isAdmin) renderAdminTables();
-        }
-
-        function openTrack(title, type) {
-            if (type === 'vip' && (!currentUser || !currentUser.vipAccess)) {
-                return alert('هذا المحتوى حصري! يرجى إدخال كود هدايا وخصم صحيح في قسم الأكواد لفتح كافة محتويات المنصة.');
-            }
-            addLog(`دخول المسار: ${title}`);
-            alert(`جاري فتح محتوى الكورس: ${title}`);
-        }
-
-        function startExam(id) {
-            let ex = db.exams.find(x => x.id === id);
-            if (!ex) return;
-            document.getElementById('modalExamTitle').innerText = ex.title;
-            document.getElementById('modalExamQText').innerText = ex.question;
-            document.getElementById('modalExamOptions').innerHTML = ex.options.map(opt => `
-                <button class="btn" style="background:var(--bg-color); border:1px solid var(--border); color:var(--text-main);" onclick="checkAnswer('${opt.trim()}', '${ex.answer.trim()}')">${opt}</button>
-            `).join('');
-            document.getElementById('examModal').style.display = 'flex';
-        }
-
-        function checkAnswer(selected, correct) {
-            if (selected === correct) {
-                addLog('اجتياز امتحان بنجاح');
-                alert('إجابة صحيحة تماماً وأنت مبدع!');
-            } else {
-                addLog('إجابة خاطئة في امتحان');
-                alert(`إجابة خاطئة! الإجابة الصحيحة هي: ${correct}`);
-            }
-            closeExamModal();
-        }
-
-        function closeExamModal() { document.getElementById('examModal').style.display = 'none'; }
-
-        // نظام تفعيل أكواد الهدايا المصلح والمنضبط بالكامل
-        function redeemPromoCode() {
-            if (!currentUser) return alert('يرجى تسجيل الدخول أولاً قبل تفعيل الأكواد');
-            let codeInput = document.getElementById('userPromoInput').value.trim();
-            if (!codeInput) return alert('يرجى كتابة الكود أولاً');
-
-            let found = db.promoCodes.find(c => c.code.toLowerCase() === codeInput.toLowerCase());
-
-            if (!found) return alert('هذا الكود غير صحيح أو غير موجود!');
-            if (found.used) return alert('تم استخدام هذا الكود مسبقاً ولا يمكن استخدامه مرة أخرى!');
-
-            // تفعيل الصلاحيات للمستخدم الحالي وللحساب داخل قاعدة البيانات
-            currentUser.vipAccess = true;
-            found.used = true;
-
-            let userInDb = db.users.find(x => x.username.toLowerCase() === currentUser.username.toLowerCase());
-            if (userInDb) userInDb.vipAccess = true;
-
-            addLog(`تفعيل كود هدية بنجاح: ${found.code} بواسطة ${currentUser.name}`);
-            saveDB();
-            document.getElementById('userPromoInput').value = '';
-            renderUI();
-            alert('تم تفعيل الكود بنجاح واستلام هدية صلاحيات الـ VIP وفتح جميع البروجيكتات والحصريات!');
-        }
-
-        // إزالة الإعلان
-        function removeAnnouncement() {
-            db.announcement = "";
-            addLog('تمت إزالة الإعلان العام');
-            saveDB();
-            renderUI();
-            alert('تمت إزالة الإعلان بنجاح!');
-        }
-
-        // دوال الآدمن
-        function publishAnnouncement() {
-            let text = document.getElementById('adminAnnounceText').value.trim();
-            if (!text) return alert('اكتب نص الإعلان');
-            db.announcement = text;
-            addLog(`نشر إعلان جديد: ${text}`);
-            saveDB();
-            document.getElementById('adminAnnounceText').value = '';
-            renderUI();
-            alert('تم نشر الإعلان في المنصة بنجاح!');
-        }
-
-        function addProject() {
-            let title = document.getElementById('adminProjectTitle').value.trim();
-            let desc = document.getElementById('adminProjectDesc').value.trim();
-            let file = document.getElementById('adminProjectFile').value.trim() || '#';
-            if (!title || !desc) return alert('أدخل بيانات البروجيكت الكاملة');
-            db.projects.push({ id: Date.now(), title, desc, file });
-            addLog(`إضافة بروجيكت جديد: ${title}`);
-            saveDB();
-            document.getElementById('adminProjectTitle').value = '';
-            document.getElementById('adminProjectDesc').value = '';
-            document.getElementById('adminProjectFile').value = '';
-            renderUI();
-            alert('تم إضافة البروجيكت للمكتبة بنجاح!');
-        }
-
-        function addTrack() {
-            let title = document.getElementById('adminTrackTitle').value.trim();
-            let desc = document.getElementById('adminTrackDesc').value.trim();
-            let type = document.getElementById('adminTrackType').value;
-            if (!title || !desc) return alert('أدخل تفاصيل الكورس');
-            db.tracks.push({ id: Date.now(), title, desc, type });
-            addLog(`إضافة كورس جديد: ${title}`);
-            saveDB();
-            document.getElementById('adminTrackTitle').value = '';
-            document.getElementById('adminTrackDesc').value = '';
-            renderUI();
-            alert('تم إضافة الكورس للمنصة بنجاح!');
-        }
-
-        function addExam() {
-            let title = document.getElementById('adminExamTitle').value.trim();
-            let question = document.getElementById('adminExamQ').value.trim();
-            let optsStr = document.getElementById('adminExamOpts').value.trim();
-            let answer = document.getElementById('adminExamAns').value.trim();
-            if (!title || !question || !optsStr || !answer) return alert('أدخل بيانات الامتحان كاملة');
-            let options = optsStr.split(',').map(s => s.trim());
-            db.exams.push({ id: Date.now(), title, question, options, answer });
-            addLog(`إضافة امتحان جديد: ${title}`);
-            saveDB();
-            document.getElementById('adminExamTitle').value = '';
-            document.getElementById('adminExamQ').value = '';
-            document.getElementById('adminExamOpts').value = '';
-            document.getElementById('adminExamAns').value = '';
-            renderUI();
-            alert('تم نشر الامتحان للطلاب بنجاح!');
-        }
-
-        function addPromoCode() {
-            let code = document.getElementById('adminCodeText').value.trim();
-            let reward = document.getElementById('adminCodeReward').value;
-            if (!code) return alert('أدخل رمز الكود');
-            
-            if (db.promoCodes.some(c => c.code.toLowerCase() === code.toLowerCase())) {
-                return alert('هذا الكود موجود مسبقاً!');
-            }
-
-            db.promoCodes.push({ code, reward, used: false });
-            addLog(`إنشاء كود هدايا جديد: ${code}`);
-            saveDB();
-            document.getElementById('adminCodeText').value = '';
-            renderUI();
-            alert('تم إنشاء كود الهدايا بنجاح وأصبح جاهزاً للاستخدام!');
-        }
-
-        function toggleBanUser(username) {
-            let user = db.users.find(x => x.username.toLowerCase() === username.toLowerCase());
-            if (user) {
-                user.isBanned = !user.isBanned;
-                addLog(`تحديث حالة الحظر للمستخدم ${username}: ${user.isBanned ? 'محظور' : 'غير محظور'}`);
-                saveDB();
-                renderUI();
-                alert(`تم ${user.isBanned ? 'حظر' : 'إلغاء حظر'} المستخدم ${username} بنجاح.`);
-            }
-        }
-
-        function renderAdminTables() {
-            document.getElementById('adminLogsTable').innerHTML = `<table><tr><th>الوقت</th><th>الحدث / النشاط</th></tr>` +
-                db.logs.map(l => `<tr><td>${l.time}</td><td>${l.action}</td></tr>`).join('') + `</table>`;
-
-            document.getElementById('adminUsersTable').innerHTML = `<table><tr><th>المستخدم</th><th>الحالة</th><th>إجراء</th></tr>` +
-                (db.users.length === 0 ? `<tr><td colspan="3" style="text-align:center;">لا يوجد مستخدمين مسجلين بعد</td></tr>` : 
-                db.users.map(u => `<tr><td>${u.username}</td><td><span class="badge ${u.isBanned ? 'badge-danger' : 'badge-success'}">${u.isBanned ? 'محظور' : 'نشط'}</span></td><td><button class="btn btn-danger" style="padding:0.3rem 0.8rem; font-size:0.85rem;" onclick="toggleBanUser('${u.username}')">${u.isBanned ? 'إلغاء الحظر' : 'حظر المستخدم'}</button></td></tr>`).join('')) + `</table>`;
-
-            document.getElementById('adminProjectsTable').innerHTML = `<table><tr><th>البروجيكت</th><th>إجراء</th></tr>` +
-                db.projects.map((pr, idx) => `<tr><td>${pr.title}</td><td><button class="btn btn-danger" style="padding:0.3rem 0.8rem; font-size:0.85rem;" onclick="db.projects.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
-
-            document.getElementById('adminTracksTable').innerHTML = `<table><tr><th>المسار</th><th>النوع</th><th>إجراء</th></tr>` +
-                db.tracks.map((t, idx) => `<tr><td>${t.title}</td><td>${t.type}</td><td><button class="btn btn-danger" style="padding:0.3rem 0.8rem; font-size:0.85rem;" onclick="db.tracks.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
-
-            document.getElementById('adminExamsTable').innerHTML = `<table><tr><th>الامتحان</th><th>السؤال</th><th>إجراء</th></tr>` +
-                db.exams.map((e, idx) => `<tr><td>${e.title}</td><td>${e.question}</td><td><button class="btn btn-danger" style="padding:0.3rem 0.8rem; font-size:0.85rem;" onclick="db.exams.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
-
-            document.getElementById('adminCodesTable').innerHTML = `<table><tr><th>الكود</th><th>الحالة</th><th>إجراء</th></tr>` +
-                db.promoCodes.map((c, idx) => `<tr><td>${c.code}</td><td>${c.used ? 'مستعمل' : 'نشط'}</td><td><button class="btn btn-danger" style="padding:0.3rem 0.8rem; font-size:0.85rem;" onclick="db.promoCodes.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
-        }
-
-        window.onload = () => { renderUI(); };
-    </script>
 </body>
 </html>
