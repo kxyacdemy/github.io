@@ -1,47 +1,45 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" data-theme="light">
+<html lang="ar" dir="rtl" data-theme="dark" style="--primary: #8b5cf6; --bg-color: #030712; --card-bg: #0b0f19; --font-family: 'Tajawal', sans-serif;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KXY Academy - المنصة الاحترافية</title>
-    <!-- استدعاء خط Tajawal الاحترافي -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>KXY Academy - المنصة الأسطورية المحدثة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;900&family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
+            --bg-color: #030712;
+            --sidebar-bg: #080d1a;
+            --card-bg: #0b0f19;
+            --card-hover: #111827;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --accent: #06b6d4;
+            --danger: #f43f5e;
+            --border: #1f2937;
+            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+            --radius: 20px;
+            --font-family: 'Tajawal', sans-serif;
+        }
+
+        [data-theme="light"] {
             --bg-color: #f8fafc;
             --sidebar-bg: #ffffff;
             --card-bg: #ffffff;
+            --card-hover: #f1f5f9;
             --text-main: #0f172a;
             --text-muted: #64748b;
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --accent: #059669;
-            --danger: #dc2626;
             --border: #e2e8f0;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            --radius: 12px;
-        }
-
-        [data-theme="dark"] {
-            --bg-color: #07090e;
-            --sidebar-bg: #0f1420;
-            --card-bg: #0f1420;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
-            --accent: #10b981;
-            --danger: #ef4444;
-            --border: #1e293b;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Tajawal', sans-serif;
-            transition: background-color 0.25s, color 0.25s, border-color 0.25s;
+            font-family: var(--font-family);
+            transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
         }
 
         body {
@@ -52,58 +50,85 @@
             overflow-x: hidden;
         }
 
-        /* الشريط الجانبي */
+        /* القائمة الجانبية بـ 3 شرط وخالية من الإيموجي تماماً */
         aside {
-            width: 260px;
+            width: 280px;
             background-color: var(--sidebar-bg);
             border-left: 1px solid var(--border);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 1.5rem;
+            padding: 1.8rem 1.2rem;
             position: fixed;
             height: 100vh;
             z-index: 100;
         }
 
-        .logo-area {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 2rem;
+        aside.collapsed { width: 90px; }
+        aside.collapsed .logo-text,
+        aside.collapsed .nav-links span,
+        aside.collapsed .sidebar-footer span { display: none; }
+
+        .sidebar-header {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+            padding: 0 0.5rem;
         }
 
+        .logo-area {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
         .logo-area span { color: var(--primary); }
+
+        .menu-toggle-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.3rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .menu-toggle-btn:hover { border-color: var(--primary); }
 
         .nav-links {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.6rem;
             flex: 1;
             overflow-y: auto;
         }
 
         .nav-links button {
-            background: none;
+            background: transparent;
             border: none;
             color: var(--text-muted);
             text-align: right;
-            padding: 0.85rem 1rem;
-            border-radius: var(--radius);
-            font-size: 0.95rem;
+            padding: 1rem 1.1rem;
+            border-radius: 14px;
+            font-size: 1rem;
             font-weight: 500;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            width: 100%;
         }
 
         .nav-links button:hover, .nav-links button.active {
-            background-color: rgba(99, 102, 241, 0.1);
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(6, 182, 212, 0.05));
             color: var(--primary);
+            font-weight: 700;
+            border: 1px solid rgba(139, 92, 246, 0.2);
         }
 
         .sidebar-footer {
@@ -111,36 +136,53 @@
             flex-direction: column;
             gap: 0.8rem;
             border-top: 1px solid var(--border);
-            padding-top: 1rem;
+            padding-top: 1.2rem;
         }
+
+        .sidebar-footer button {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.9rem;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            font-weight: 600;
+        }
+        .sidebar-footer button:hover { border-color: var(--primary); }
 
         /* المحتوى الرئيسي */
         main {
             flex: 1;
-            margin-right: 260px;
-            padding: 2.5rem;
+            margin-right: 280px;
+            padding: 3rem;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
+        main.expanded { margin-right: 90px; }
 
         .top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             background-color: var(--card-bg);
-            padding: 1rem 1.5rem;
+            padding: 1.5rem 2.5rem;
             border-radius: var(--radius);
             border: 1px solid var(--border);
             box-shadow: var(--shadow);
         }
 
         .section { display: none; }
-        .section.active { display: block; animation: fadeIn 0.3s ease; }
+        .section.active { display: block; animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
+            from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -148,310 +190,343 @@
             background-color: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 1.8rem;
-            margin-bottom: 1.5rem;
+            padding: 2.2rem;
+            margin-bottom: 1.8rem;
             box-shadow: var(--shadow);
         }
+        .card:hover { border-color: rgba(139, 92, 246, 0.3); }
 
-        h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.2rem; }
-        h3 { font-size: 1.1rem; font-weight: 500; margin-bottom: 0.8rem; }
-        p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+        h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 1.2rem; letter-spacing: -0.5px; }
+        h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.8rem; }
+        p { color: var(--text-muted); font-size: 1rem; line-height: 1.8; }
 
         input, select, textarea {
             width: 100%;
-            padding: 0.85rem 1rem;
-            margin-bottom: 1rem;
+            padding: 1.1rem 1.2rem;
+            margin-bottom: 1.2rem;
             background-color: var(--bg-color);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 14px;
             color: var(--text-main);
-            font-size: 0.95rem;
+            font-size: 1rem;
             outline: none;
         }
-
-        input:focus, select:focus, textarea:focus { border-color: var(--primary); }
+        input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15); }
 
         button.btn {
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
+            padding: 1rem 2rem;
+            border-radius: 14px;
             cursor: pointer;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: opacity 0.2s;
+            font-size: 1rem;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+            transition: all 0.2s ease;
         }
-
-        button.btn:hover { opacity: 0.9; }
-
-        button.btn-danger {
-            background-color: transparent;
-            border: 1px solid var(--danger);
-            color: var(--danger);
-        }
-
-        button.btn-danger:hover { background-color: var(--danger); color: white; }
+        button.btn:hover { opacity: 0.95; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4); }
+        button.btn-danger { background: transparent; border: 1px solid var(--danger); color: var(--danger); box-shadow: none; }
+        button.btn-danger:hover { background: var(--danger); color: white; transform: translateY(-2px); }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.8rem;
         }
 
         .badge {
             display: inline-block;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
             font-size: 0.8rem;
-            font-weight: 500;
+            font-weight: 700;
         }
-        .badge-success { background-color: rgba(16, 185, 129, 0.15); color: var(--accent); border: 1px solid rgba(16, 185, 129, 0.3); }
-        .badge-primary { background-color: rgba(99, 102, 241, 0.15); color: var(--primary); border: 1px solid rgba(99, 102, 241, 0.3); }
+        .badge-success { background-color: rgba(6, 182, 212, 0.15); color: var(--accent); border: 1px solid rgba(6, 182, 212, 0.3); }
+        .badge-primary { background-color: rgba(139, 92, 246, 0.15); color: var(--primary); border: 1px solid rgba(139, 92, 246, 0.3); }
+        .badge-danger { background-color: rgba(244, 63, 94, 0.15); color: var(--danger); border: 1px solid rgba(244, 63, 94, 0.3); }
 
-        table { width: 100%; border-collapse: collapse; margin-top: 1rem; overflow-x: auto; display: block; }
-        th, td { padding: 0.9rem; text-align: right; border-bottom: 1px solid var(--border); font-size: 0.9rem; white-space: nowrap; }
-        th { color: var(--text-muted); font-weight: 500; }
+        table { width: 100%; border-collapse: collapse; margin-top: 1.2rem; overflow-x: auto; display: block; }
+        th, td { padding: 1.1rem; text-align: right; border-bottom: 1px solid var(--border); font-size: 0.95rem; white-space: nowrap; }
+        th { color: var(--text-muted); font-weight: 700; }
+
+        .announcement-banner {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.1));
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            padding: 1.4rem 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 2.5rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
         .modal-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(10px);
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            padding: 1rem;
+            padding: 1.5rem;
         }
-
         .modal-card {
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: var(--radius);
             width: 100%;
-            max-width: 420px;
-            padding: 2.2rem;
+            max-width: 520px;
+            padding: 2.8rem;
             box-shadow: var(--shadow);
         }
 
         @media (max-width: 900px) {
-            aside { width: 80px; padding: 1rem 0.5rem; }
-            aside .logo-area span, aside .nav-links span, aside .sidebar-footer span { display: none; }
-            main { margin-right: 80px; padding: 1.5rem; }
+            aside { width: 90px; }
+            aside .logo-text, aside .nav-links span, aside .sidebar-footer span { display: none; }
+            main { margin-right: 90px; padding: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- الشريط الجانبي العصري -->
-    <aside>
+    <!-- القائمة الجانبية بـ 3 شرط وخالية تماماً من الإيموجي -->
+    <aside id="sidebar">
         <div>
-            <div class="logo-area">⚡ <span>KXY</span></div>
+            <div class="sidebar-header">
+                <div class="logo-area">
+                    <span>KXY</span><span class="logo-text"> ACADEMY</span>
+                </div>
+                <button class="menu-toggle-btn" onclick="toggleSidebar()">≡</button>
+            </div>
             <div class="nav-links">
-                <button onclick="switchTab('home')" class="active" id="nav-home">🏠 <span>الرئيسية</span></button>
-                <button onclick="switchTab('discord')" id="nav-discord">🤖 <span>مشاريع ديسكورد</span></button>
-                <button onclick="switchTab('courses')" id="nav-courses">📚 <span>الكورسات</span></button>
-                <button onclick="switchTab('wallet')" id="nav-wallet">💳 <span>المحفظة</span></button>
-                <button onclick="switchTab('promo')" id="nav-promo">🎁 <span>أكواد الخصم والهدايا</span></button>
-                <button onclick="switchTab('subscribe')" id="nav-subscribe">⭐ <span>الاشتراكات</span></button>
-                <button onclick="switchTab('admin')" id="nav-admin" style="display:none; color: var(--accent);">🛠️ <span>لوحة التحكم</span></button>
+                <button onclick="switchTab('home')" class="active" id="nav-home"><span>الرئيسية</span></button>
+                <button onclick="switchTab('tracks')" id="nav-tracks"><span>المسارات والكورسات</span></button>
+                <button onclick="switchTab('projects')" id="nav-projects"><span>مكتبة البروجيكتات (ZIP)</span></button>
+                <button onclick="switchTab('exams')" id="nav-exams"><span>الامتحانات والاختبارات</span></button>
+                <button onclick="switchTab('codes')" id="nav-codes"><span>أكواد الهدايا والخصم</span></button>
+                <button onclick="switchTab('customizer')" id="nav-customizer"><span>تخصيص المظهر</span></button>
+                <button onclick="switchTab('admin')" id="nav-admin" style="display:none; color: var(--accent);"><span>لوحة تحكم الآدمن</span></button>
             </div>
         </div>
         <div class="sidebar-footer">
-            <button onclick="toggleTheme()" id="themeBtn">🌙 <span>الوضع الداكن</span></button>
-            <button onclick="openAuthModal()" id="authBtn" style="background: var(--primary); color: white; border-radius: 8px; justify-content: center;">👤 <span id="authBtnText">دخول</span></button>
+            <button onclick="toggleTheme()" id="themeBtn"><span>الوضع الفاتح / الداكن</span></button>
+            <button onclick="openAuthModal()" id="authBtn" style="background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: white; border: none;"><span id="authBtnText">تسجيل الدخول</span></button>
         </div>
     </aside>
 
     <!-- المحتوى الرئيسي -->
-    <main>
+    <main id="mainContent">
         <div class="top-bar">
-            <h2 id="pageTitle" style="margin-bottom: 0;">لوحة المنصة</h2>
-            <p id="userStatusHeader" style="font-size: 0.9rem; margin-bottom: 0;">مرحباً بك زائرنا الكريم</p>
+            <h2 id="pageTitle" style="margin-bottom: 0;">الرئيسية</h2>
+            <p id="userStatusHeader" style="font-size: 0.98rem; margin-bottom: 0; font-weight: 600;">مرحباً بك زائرنا الكريم</p>
         </div>
+
+        <div id="announcementContainer"></div>
 
         <!-- الرئيسية -->
         <section id="home" class="section active">
-            <div class="card">
-                <h2>أهلاً بك في منصة KXY Academy التطويرية</h2>
-                <p>المنصة المتكاملة لإدارة البرمجيات، بوتات ديسكورد، والمحتوى التعليمي بأعلى أداء وشكل متناسق ونظيف.</p>
+            <div class="card" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), var(--card-bg)); border-color: rgba(139, 92, 246, 0.3);">
+                <h2>مرحباً بك في المنصة الأسطورية المحدثة KXY Academy</h2>
+                <p>المنصة الهندسية الأكثر تطوراً لإدارة المسارات، رفع مشاريع السورس كود بصيغة ZIP، حل الامتحانات، وتفعيل أكواد الهدايا الحصرية.</p>
             </div>
             <div class="grid">
                 <div class="card" style="text-align: center;">
-                    <h3 style="color: var(--primary); font-size: 2rem;" id="statProjectsCount">0</h3>
-                    <p>مشروع وبوت ديسكورد متاح</p>
+                    <h3 style="color: var(--primary); font-size: 2.5rem; font-weight: 900;" id="statTracks">0</h3>
+                    <p>المسارات والكورسات</p>
                 </div>
                 <div class="card" style="text-align: center;">
-                    <h3 style="color: var(--accent); font-size: 2rem;" id="statVisitsCount">1</h3>
-                    <p>إجمالي زيارات المنصة</p>
+                    <h3 style="color: var(--accent); font-size: 2.5rem; font-weight: 900;" id="statProjects">0</h3>
+                    <p>البروجيكتات والملفات (ZIP)</p>
                 </div>
-            </div>
-        </section>
-
-        <!-- مشاريع ديسكورد -->
-        <section id="discord" class="section">
-            <h2>مشاريع وملفات بوتات ديسكورد</h2>
-            <div class="card" style="background: linear-gradient(135deg, rgba(88, 101, 242, 0.12), var(--card-bg)); border-color: rgba(88, 101, 242, 0.3);">
-                <h3>سيرفر الدعم الفني الرسمي</h3>
-                <p style="margin-bottom: 1rem;">تحتاج مساعدة برمجية أو استفسار؟ انضم الآن لسيرفر الدعم الفني وتواصل معنا مباشرة.</p>
-                <a href="https://discord.gg/gvvcKEPPqV" target="_blank" class="btn" style="display: inline-block; text-decoration: none; background-color: #5865F2;">الانضمام لسيرفر الدعم (Discord)</a>
-            </div>
-            <h3>قائمة المشاريع والملفات المتاحة</h3>
-            <div class="grid" id="discordProjectsGrid"></div>
-        </section>
-
-        <!-- الكورسات -->
-        <section id="courses" class="section">
-            <h2>المسارات والكورسات البرمجية</h2>
-            <div class="grid" id="coursesGrid"></div>
-        </section>
-
-        <!-- المحفظة -->
-        <section id="wallet" class="section">
-            <h2>محفظة الرصيد الداخلي</h2>
-            <div class="grid">
                 <div class="card" style="text-align: center;">
-                    <h3>رصيدك الحالي</h3>
-                    <p style="font-size: 2.2rem; font-weight: 700; color: var(--accent); margin: 1rem 0;" id="walletBalance">$0.00</p>
-                    <button class="btn" onclick="depositWallet()">شحن رصيد تجريبي (50$)</button>
+                    <h3 style="color: var(--danger); font-size: 2.5rem; font-weight: 900;" id="statExams">0</h3>
+                    <p>الامتحانات التفاعلية</p>
                 </div>
             </div>
         </section>
 
-        <!-- قسم الأكواد والخصومات -->
-        <section id="promo" class="section">
-            <h2>أكواد الخصم والهدايا الترويجية</h2>
+        <!-- المسارات والكورسات -->
+        <section id="tracks" class="section">
+            <h2>المسارات والكورسات التعليمية</h2>
+            <div class="grid" id="tracksGrid"></div>
+        </section>
+
+        <!-- مكتبة البروجيكتات (ZIP) -->
+        <section id="projects" class="section">
+            <h2>مكتبة البروجيكتات والملفات (ZIP)</h2>
+            <p style="margin-bottom: 1.5rem;">حمل أرشيف المشاريع وسورس الكود الجاهز المرفوع بواسطة الإدارة.</p>
+            <div class="grid" id="projectsGrid"></div>
+        </section>
+
+        <!-- الامتحانات والاختبارات -->
+        <section id="exams" class="section">
+            <h2>الامتحانات والاختبارات التفاعلية</h2>
+            <div class="grid" id="examsGrid"></div>
+        </section>
+
+        <!-- أكواد الهدايا والخصم -->
+        <section id="codes" class="section">
+            <h2>أكواد الهدايا والخصومات البرمجية</h2>
             <div class="card">
-                <h3>هل تمتلك كود خصم أو هدية؟</h3>
-                <p style="margin-bottom: 1rem;">أدخل الكود أدناه للحصول على رصيد مجاني، مشروع ديسكورد مدفوع، أو خصم خاص على الاشتراكات.</p>
+                <h3>تفعيل كود الهدية أو الخصم</h3>
+                <p style="margin-bottom: 1.2rem;">أدخل الكود أدناه لفتح المحتويات الحصرية واستلام صلاحيات VIP كاملة فوراً.</p>
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <input type="text" id="userPromoInput" placeholder="أدخل الكود هنا (مثال: KXYFREE)" style="margin-bottom: 0; flex: 1; min-width: 200px;">
-                    <button class="btn" onclick="redeemPromoCode()">تفعيل الكود واستلام الهدية</button>
+                    <input type="text" id="userPromoInput" placeholder="أدخل الكود (مثال: KXY2026)" style="margin-bottom: 0; flex: 1; min-width: 220px;">
+                    <button class="btn" onclick="redeemPromoCode()">التحقق وتفعيل الكود</button>
                 </div>
             </div>
             <div class="card">
-                <h3>الأكواد النشطة المتاحة للاستخدام</h3>
+                <h3>قائمة الأكواد الفعالة في المنصة</h3>
                 <div id="activePromoList" style="margin-top: 1rem;"></div>
             </div>
         </section>
 
-        <!-- الاشتراكات -->
-        <section id="subscribe" class="section">
-            <h2>العضويات وطرق الدفع</h2>
-            <div class="card" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-                <div>
-                    <h3>حالة الحساب</h3>
-                    <p id="subExpiryText" style="margin-top: 0.4rem;">تحقق من حالة اشتراكك.</p>
-                </div>
-                <span id="subStatusBadge" class="badge badge-primary">عضو عادي</span>
-            </div>
+        <!-- تخصيص المظهر والخطوط -->
+        <section id="customizer" class="section">
+            <h2>استوديو التخصيص البصري</h2>
             <div class="card">
-                <h3>طرق الدفع المتاحة في المنصة</h3>
-                <div id="paymentMethodsList" style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;"></div>
-            </div>
-            <div class="grid">
-                <div class="card">
-                    <h3>الباقة الشهريّة</h3>
-                    <p style="font-size: 1.6rem; font-weight: 700; margin: 1rem 0;">$15 <span style="font-size: 0.9rem; color: var(--text-muted);">/ شهرياً</span></p>
-                    <button class="btn" style="width: 100%;" onclick="openCheckout('الاشتراك الشهري', 15)">شراء الاشتراك</button>
-                </div>
+                <h3>تخصيص ألوان المنصة والخطوط الأساسية</h3>
+                <p style="margin-bottom: 1.5rem;">تحكم في الهوية البصرية للمنصة حسب رغبتك الشخصية.</p>
+                
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 700;">اللون الرئيسي للمنصة:</label>
+                <input type="color" id="pickerPrimary" value="#8b5cf6" style="height: 55px; cursor: pointer; padding: 0.3rem;" onchange="applyCustomTheme()">
+
+                <label style="display: block; margin-top: 1.2rem; margin-bottom: 0.5rem; font-weight: 700;">نوع الخط الأساسي:</label>
+                <select id="pickerFont" onchange="applyCustomTheme()">
+                    <option value="'Tajawal', sans-serif">خط تجوال (Tajawal)</option>
+                    <option value="'Cairo', sans-serif">خط كايرو (Cairo)</option>
+                    <option value="'IBM Plex Sans Arabic', sans-serif">خط آي بي إم (IBM Plex)</option>
+                    <option value="'Amiri', serif">خط أميري (Amiri)</option>
+                </select>
+
+                <button class="btn" style="margin-top: 1.5rem;" onclick="resetCustomTheme()">إعادة تعيين الافتراضي</button>
             </div>
         </section>
 
-        <!-- لوحة التحكم (للآدمن فقط - أحمد) -->
+        <!-- لوحة التحكم الإدارية (أحمد) -->
         <section id="admin" class="section">
-            <h2>لوحة تحكم المسؤول (أحمد)</h2>
+            <h2>لوحة تحكم المسؤول الشاملة (أحمد)</h2>
             
-            <!-- إضافة أكواد ترويجية وهدايا -->
             <div class="card">
-                <h3>إنشاء كود خصم أو هدية جديد</h3>
-                <input type="text" id="adminPromoCode" placeholder="كود الخصم (مثال: VIP2026)">
-                <select id="adminPromoType">
-                    <option value="balance">رصيد مالي مجاني ($)</option>
-                    <option value="project">فتح جميع المشاريع المدفوعة مجاناً</option>
-                </select>
-                <input type="number" id="adminPromoValue" placeholder="قيمة الرصيد (اكتب الرقم إذا كان رصيداً)">
-                <button class="btn" onclick="createPromoCode()">إضافة وتفعيل الكود</button>
-                <div id="adminPromoTable"></div>
+                <h3>نشر إعلان عام (Announce) في واجهة المنصة</h3>
+                <input type="text" id="adminAnnounceText" placeholder="اكتب نص الإعلان الهام هنا">
+                <button class="btn" onclick="publishAnnouncement()">نشر الإعلان للجميع</button>
             </div>
 
             <div class="card">
-                <h3>رفع مشروع أو ملف ديسكورد جديد</h3>
-                <input type="text" id="adminProjTitle" placeholder="اسم المشروع أو البوت">
-                <textarea id="adminProjDesc" placeholder="وصف مميزات المشروع" rows="2"></textarea>
-                <select id="adminProjType">
-                    <option value="free">مجاني 🟢</option>
-                    <option value="paid">مدفوع 🔒</option>
-                </select>
-                <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem;">ملف المشروع (ZIP):</label>
-                <input type="file" id="adminProjFile">
-                <button class="btn" onclick="uploadDiscordProject()">رفع المشروع وإضافته</button>
+                <h3>سجلات النشاط واللوجات (Logs)</h3>
+                <p style="margin-bottom: 1rem;">تتبع كافة العمليات وحركات التفعيل وتسجيل الدخول في المنصة.</p>
+                <div id="adminLogsTable"></div>
+            </div>
+
+            <div class="card">
+                <h3>إدارة المستخدمين والحظر (Ban System)</h3>
+                <div id="adminUsersTable"></div>
+            </div>
+
+            <div class="card">
+                <h3>رفع بروجيكت جديد (ملف ZIP أو رابط)</h3>
+                <input type="text" id="adminProjectTitle" placeholder="عنوان البروجيكت (مثال: نظام تذاكر ديسكورد)">
+                <textarea id="adminProjectDesc" placeholder="شرح مبسط لمحتويات البروجيكت ومميزاته" rows="2"></textarea>
+                <input type="text" id="adminProjectFile" placeholder="رابط ملف الـ ZIP المباشر">
+                <button class="btn" onclick="addProject()">إضافة البروجيكت للمكتبة</button>
                 <div id="adminProjectsTable"></div>
             </div>
 
             <div class="card">
-                <h3>إضافة طريقة دفع جديدة</h3>
-                <input type="text" id="adminPaymentName" placeholder="اسم طريقة الدفع (مثل فودافون كاش)">
-                <input type="text" id="adminPaymentDetails" placeholder="التفاصيل أو الرقم">
-                <button class="btn" onclick="addPaymentMethod()">إضافة طريقة الدفع</button>
-                <div id="adminPaymentsTable"></div>
+                <h3>إضافة مسار أو كورس تعليمي جديد</h3>
+                <input type="text" id="adminTrackTitle" placeholder="اسم المسار التعليمي">
+                <textarea id="adminTrackDesc" placeholder="تفاصيل ومحاور الكورس" rows="2"></textarea>
+                <select id="adminTrackType">
+                    <option value="free">متاح لجميع الطلاب</option>
+                    <option value="vip">حصري لأكواد الـ VIP</option>
+                </select>
+                <button class="btn" onclick="addTrack()">إضافة المسار</button>
+                <div id="adminTracksTable"></div>
             </div>
 
             <div class="card">
-                <h3>إدارة الطلاب وأرصدتهم</h3>
-                <input type="text" id="adminTargetUser" placeholder="اسم الطالب">
-                <input type="number" id="adminAddBalanceVal" placeholder="المبلغ المضاف ($)">
-                <button class="btn" onclick="adminGiveBalance()">إضافة رصيد للطالب</button>
-                <div id="adminUsersTable"></div>
+                <h3>إنشاء امتحان أو اختبار تفاعلي</h3>
+                <input type="text" id="adminExamTitle" placeholder="عنوان الاختبار">
+                <input type="text" id="adminExamQ" placeholder="نص السؤال">
+                <input type="text" id="adminExamOpts" placeholder="الخيارات مفصولة بفواصل (خيار أ, خيار ب, خيار ج)">
+                <input type="text" id="adminExamAns" placeholder="الإجابة الصحيحة تماماً كما كتبتها في الخيارات">
+                <button class="btn" onclick="addExam()">نشر الامتحان</button>
+                <div id="adminExamsTable"></div>
+            </div>
+
+            <div class="card">
+                <h3>إنشاء كود هدايا وخصم جديد</h3>
+                <input type="text" id="adminCodeText" placeholder="رمز الكود (مثال: KXYVIP)">
+                <select id="adminCodeReward">
+                    <option value="all_access">فتح جميع المسارات والحصريات والبروجيكتات بالكامل</option>
+                </select>
+                <button class="btn" onclick="addPromoCode()">إنشاء الكود وتفعيله</button>
+                <div id="adminCodesTable"></div>
             </div>
         </section>
 
-        <!-- نافذة الدخول -->
+        <!-- نافذة تسجيل الدخول -->
         <div id="authModal" class="modal-overlay">
             <div class="modal-card">
-                <h3 style="margin-bottom: 0.5rem; text-align: center;">تسجيل الدخول الآمن</h3>
+                <h3 style="margin-bottom: 1.2rem; text-align: center;">تسجيل الدخول الآمن</h3>
                 <input type="text" id="authUsername" placeholder="اسم المستخدم">
                 <input type="password" id="authPassword" placeholder="كلمة المرور">
-                <button class="btn" style="width: 100%; margin-bottom: 0.8rem;" onclick="handleAuthSubmit()">دخول</button>
+                <button class="btn" style="width: 100%; margin-bottom: 0.8rem;" onclick="handleAuthSubmit()">تسجيل الدخول</button>
                 <button class="btn btn-danger" style="width: 100%;" onclick="closeAuthModal()">إلغاء</button>
             </div>
         </div>
 
-        <!-- نافذة تأكيد الشراء -->
-        <div id="checkoutModal" class="modal-overlay">
+        <!-- نافذة الامتحان -->
+        <div id="examModal" class="modal-overlay">
             <div class="modal-card" style="text-align: center;">
-                <h3 id="checkoutTitle"></h3>
-                <p id="checkoutPrice" style="font-size: 1.5rem; font-weight: 700; margin: 1rem 0;"></p>
-                <button class="btn" style="width: 100%; margin-bottom: 0.8rem;" onclick="confirmPurchase()">تأكيد الشراء</button>
-                <button class="btn btn-danger" style="width: 100%;" onclick="closeCheckout()">إلغاء</button>
+                <h3 id="modalExamTitle"></h3>
+                <p id="modalExamQText" style="font-size: 1.1rem; margin: 1.2rem 0; font-weight: 600;"></p>
+                <div id="modalExamOptions" style="display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem;"></div>
+                <button class="btn btn-danger" style="width: 100%;" onclick="closeExamModal()">إغلاق الاختبار</button>
             </div>
         </div>
     </main>
 
     <script>
         let currentUser = JSON.parse(localStorage.getItem('kxy_current_user')) || null;
-        let currentTheme = localStorage.getItem('kxy_theme') || 'light';
+        let currentTheme = localStorage.getItem('kxy_theme') || 'dark';
+        let customSettings = JSON.parse(localStorage.getItem('kxy_custom')) || { primary: '#8b5cf6', font: "'Tajawal', sans-serif" };
+
         let db = JSON.parse(localStorage.getItem('kxy_db')) || {
-            paymentMethods: [
-                { name: 'فودافون كاش', details: '01012345678' }
+            announcement: "مرحباً بكم في التحديث الأسطوري لمنصة KXY Academy! تم إصلاح أكواد الهدايا، وإضافة لوجستيات التتبع وحظر المستخدمين.",
+            tracks: [
+                { id: 1, title: 'احتراف هندسة بوتات ديسكورد', desc: 'بناء وتطوير أنظمة متكاملة باستخدام Node.js و Discord.js.', type: 'free' }
             ],
-            discordProjects: [
-                { id: 1, title: 'بوت تذاكر ديسكورد متطور', desc: 'بوت كامل لإدارة التذاكر مع نظام لوغ.', type: 'free', fileName: 'ticket-bot.zip', fileData: '#' }
+            projects: [
+                { id: 1, title: 'متجر ديسكورد سورس كود (ZIP)', desc: 'أرشيف بروجيكت متكامل لإدارة الطلبات والتذاكر.', file: '#' }
             ],
-            courses: [
-                { id: 1, title: 'تطوير بوتات ديسكورد الاحترافية', desc: 'بناء بوتات متكاملة باستخدام Node.js و discord.js.' }
+            exams: [
+                { id: 1, title: 'اختبار مهارات جافاسكريبت الأساسية', question: 'كيف تقوم بتعريف متغير ثابت لا يقبل التغيير في جافاسكريبت؟', options: ['var', 'let', 'const'], answer: 'const' }
             ],
             promoCodes: [
-                { code: 'KXYFREE', type: 'balance', value: 20, used: false },
-                { code: 'VIPBOTS', type: 'project', value: 0, used: false }
+                { code: 'KXY2026', reward: 'all_access', used: false }
             ],
             users: [],
-            visits: 100
+            logs: []
         };
 
         document.documentElement.setAttribute('data-theme', currentTheme);
+        document.documentElement.style.setProperty('--primary', customSettings.primary);
+        document.documentElement.style.setProperty('--font-family', customSettings.font);
+        document.getElementById('pickerPrimary').value = customSettings.primary;
+        document.getElementById('pickerFont').value = customSettings.font;
         updateThemeButtonText();
+
+        function addLog(action) {
+            let time = new Date().toLocaleString('ar-EG');
+            db.logs.unshift({ time, action });
+            if (db.logs.length > 50) db.logs.pop(); // الاحتفاظ بأحدث 50 لوغ
+            saveDB();
+        }
 
         function toggleTheme() {
             currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -462,7 +537,27 @@
 
         function updateThemeButtonText() {
             const btn = document.getElementById('themeBtn');
-            btn.innerHTML = currentTheme === 'dark' ? '☀️ <span>الوضع الفاتح</span>' : '🌙 <span>الوضع الداكن</span>';
+            btn.innerHTML = `<span>${currentTheme === 'dark' ? 'الوضع الفاتح' : 'الوضع الداكن'}</span>`;
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('collapsed');
+            document.getElementById('mainContent').classList.toggle('expanded');
+        }
+
+        function applyCustomTheme() {
+            let primary = document.getElementById('pickerPrimary').value;
+            let font = document.getElementById('pickerFont').value;
+            document.documentElement.style.setProperty('--primary', primary);
+            document.documentElement.style.setProperty('--font-family', font);
+            customSettings = { primary, font };
+            localStorage.setItem('kxy_custom', JSON.stringify(customSettings));
+        }
+
+        function resetCustomTheme() {
+            customSettings = { primary: '#8b5cf6', font: "'Tajawal', sans-serif" };
+            localStorage.setItem('kxy_custom', JSON.stringify(customSettings));
+            window.location.reload();
         }
 
         function saveDB() {
@@ -481,7 +576,8 @@
 
         function openAuthModal() {
             if (currentUser) {
-                if (confirm(`هل تريد تسجيل الخروج من (${currentUser.name})؟`)) {
+                if (confirm(`هل تريد تسجيل الخروج من حساب (${currentUser.name})؟`)) {
+                    addLog(`تسجيل خروج المستخدم: ${currentUser.name}`);
                     currentUser = null;
                     saveDB();
                     renderUI();
@@ -498,209 +594,286 @@
         function handleAuthSubmit() {
             let u = document.getElementById('authUsername').value.trim();
             let p = document.getElementById('authPassword').value.trim();
-            if (!u || !p) return alert('أدخل البيانات');
+            if (!u || !p) return alert('يرجى إدخال اسم المستخدم وكلمة المرور');
 
             if (u.toLowerCase() === 'admin' && p === '1313') {
-                currentUser = { name: 'أحمد (الآدمن)', isAdmin: true, subscribed: true, expiry: 'دائم', wallet: 1000 };
+                currentUser = { username: 'admin', name: 'أحمد (الآدمن)', isAdmin: true, vipAccess: true, isBanned: false };
+                addLog('تسجيل دخول الآدمن الرئيسي أحمد');
                 saveDB(); closeAuthModal(); renderUI();
                 alert('مرحباً بك يا أحمد في لوحة التحكم الإدارية.');
                 return;
             }
 
-            let existing = db.users.find(x => x.username === u);
+            let existing = db.users.find(x => x.username.toLowerCase() === u.toLowerCase());
             if (existing) {
-                if (existing.password !== p) return alert('كلمة المرور خطأ');
+                if (existing.isBanned) return alert('هذا الحساب محظور من استخدام المنصة!');
+                if (existing.password !== p) return alert('كلمة المرور غير صحيحة');
                 currentUser = existing;
             } else {
-                let newUser = { username: u, name: u, password: p, isAdmin: false, subscribed: false, wallet: 50 };
+                let newUser = { username: u, name: u, password: p, isAdmin: false, vipAccess: false, isBanned: false };
                 db.users.push(newUser);
                 currentUser = newUser;
-                alert('تم إنشاء حسابك بنجاح مع رصيد 50$ هدية ترحيبية!');
+                addLog(`تسجيل حساب جديد للمستخدم: ${u}`);
             }
             saveDB(); closeAuthModal(); renderUI();
         }
 
         function renderUI() {
+            // التحقق إذا تم حظور المستخدم الحالي
+            if (currentUser && !currentUser.isAdmin) {
+                let userInDb = db.users.find(x => x.username.toLowerCase() === currentUser.username.toLowerCase());
+                if (userInDb && userInDb.isBanned) {
+                    alert('تم حظر حسابك من قبل إدارة المنصة!');
+                    currentUser = null;
+                    saveDB();
+                }
+            }
+
             const authBtnText = document.getElementById('authBtnText');
             const adminNav = document.getElementById('nav-admin');
             const userStatusHeader = document.getElementById('userStatusHeader');
+            const announcementContainer = document.getElementById('announcementContainer');
+
+            if (db.announcement) {
+                announcementContainer.innerHTML = `
+                    <div class="announcement-banner">
+                        <div><strong>إعلان المنصة:</strong> ${db.announcement}</div>
+                        ${currentUser && currentUser.isAdmin ? '<button class="btn btn-danger" style="padding:0.4rem 0.8rem; font-size:0.8rem;" onclick="removeAnnouncement()">إزالة الإعلان</button>' : ''}
+                    </div>`;
+            } else {
+                announcementContainer.innerHTML = '';
+            }
 
             if (currentUser) {
                 authBtnText.innerText = currentUser.name;
                 adminNav.style.display = currentUser.isAdmin ? 'flex' : 'none';
-                document.getElementById('walletBalance').innerText = `$${currentUser.wallet.toFixed(2)}`;
-                userStatusHeader.innerText = `مرحباً، ${currentUser.name}`;
+                userStatusHeader.innerText = `مرحباً بك، ${currentUser.name}`;
             } else {
-                authBtnText.innerText = 'دخول';
+                authBtnText.innerText = 'تسجيل الدخول';
                 adminNav.style.display = 'none';
-                document.getElementById('walletBalance').innerText = '$0.00';
                 userStatusHeader.innerText = 'مرحباً بك زائرنا الكريم';
             }
 
-            document.getElementById('statProjectsCount').innerText = db.discordProjects.length;
-            document.getElementById('statVisitsCount').innerText = db.visits;
+            document.getElementById('statTracks').innerText = db.tracks.length;
+            document.getElementById('statProjects').innerText = db.projects.length;
+            document.getElementById('statExams').innerText = db.exams.length;
 
-            // مشاريع ديسكورد
-            document.getElementById('discordProjectsGrid').innerHTML = db.discordProjects.map(p => `
+            // عرض المسارات
+            document.getElementById('tracksGrid').innerHTML = db.tracks.map(t => `
                 <div class="card">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
-                        <h3>${p.title}</h3>
-                        <span class="badge ${p.type === 'free' ? 'badge-success' : 'badge-primary'}">${p.type === 'free' ? 'مجاني 🟢' : 'مدفوع 🔒'}</span>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem;">
+                        <h3>${t.title}</h3>
+                        <span class="badge ${t.type === 'free' ? 'badge-success' : 'badge-primary'}">${t.type === 'free' ? 'متاح للجميع' : 'حصري VIP'}</span>
                     </div>
-                    <p style="margin-bottom:1rem;">${p.desc}</p>
-                    <button class="btn" style="width:100%;" onclick="downloadProject('${p.title}', '${p.fileData}', '${p.type}')">تحميل ملف المشروع 📥</button>
+                    <p style="margin-bottom:1.5rem;">${t.desc}</p>
+                    <button class="btn" style="width:100%;" onclick="openTrack('${t.title}', '${t.type}')">الانتقال للمسار</button>
                 </div>
             `).join('');
 
-            // الأكواد النشطة
-            document.getElementById('activePromoList').innerHTML = db.promoCodes.map(c => `
-                <div style="display:flex; justify-content:space-between; align-items:center; padding:0.8rem; background:var(--bg-color); border:1px solid var(--border); border-radius:8px; margin-bottom:0.5rem;">
-                    <div><strong style="color:var(--primary);">${c.code}</strong> - <span style="font-size:0.85rem;">${c.type === 'balance' ? `رصيد بقيمة $${c.value}` : 'فتح كافة المشاريع المدفوعة'}</span></div>
-                    <span class="badge ${c.used ? 'badge-primary' : 'badge-success'}">${c.used ? 'مستعمل' : 'متاح للاستخدام'}</span>
-                </div>
-            `).join('');
-
-            // الكورسات
-            document.getElementById('coursesGrid').innerHTML = db.courses.map(c => `
+            // عرض البروجيكتات
+            document.getElementById('projectsGrid').innerHTML = db.projects.map(pr => `
                 <div class="card">
-                    <h3>${c.title}</h3>
-                    <p style="margin:0.6rem 0 1.2rem 0;">${c.desc}</p>
-                    <button class="btn" style="width:100%;" onclick="alert('جاري فتح الكورس...')">استعراض المسار</button>
+                    <h3>${pr.title}</h3>
+                    <p style="margin-bottom:1.5rem;">${pr.desc}</p>
+                    <a href="${pr.file}" target="_blank" class="btn" style="display:block; text-align:center; text-decoration:none;" onclick="addLog('تحميل بروجيكت: ${pr.title}')">تحميل ملف البروجيكت (ZIP)</a>
                 </div>
             `).join('');
 
-            // طرق الدفع
-            document.getElementById('paymentMethodsList').innerHTML = db.paymentMethods.map(m => `
-                <div style="background:var(--bg-color); border:1px solid var(--border); padding:0.8rem 1.2rem; border-radius:8px; flex:1; min-width:200px;">
-                    <strong style="color:var(--primary);">${m.name}</strong>
-                    <p style="font-size:0.85rem; margin-top:0.3rem;">${m.details}</p>
+            // عرض الامتحانات
+            document.getElementById('examsGrid').innerHTML = db.exams.map(e => `
+                <div class="card">
+                    <h3>${e.title}</h3>
+                    <p style="margin-bottom:1.5rem;">اختبر معلوماتك وقدرتك على البرمجة الآن في هذا الاختبار.</p>
+                    <button class="btn" style="width:100%;" onclick="startExam(${e.id})">بدء الاختبار التفاعلي</button>
+                </div>
+            `).join('');
+
+            // عرض الأكواد المتاحة في قسم الأكواد
+            document.getElementById('activePromoList').innerHTML = db.promoCodes.map(c => `
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:1rem; background:var(--bg-color); border:1px solid var(--border); border-radius:12px; margin-bottom:0.8rem;">
+                    <div><strong style="color:var(--primary); font-size:1.1rem; letter-spacing:1px;">${c.code}</strong> - <span style="font-size:0.9rem; color:var(--text-muted);">يمنح صلاحيات كاملة وفتح الكورسات</span></div>
+                    <span class="badge ${c.used ? 'badge-primary' : 'badge-success'}">${c.used ? 'مستعمل مسبقاً' : 'نشط وجاهز'}</span>
                 </div>
             `).join('');
 
             if (currentUser && currentUser.isAdmin) renderAdminTables();
         }
 
-        function downloadProject(title, fileData, type) {
-            if (type === 'paid' && (!currentUser || !currentUser.subscribed)) {
-                return alert('هذا المشروع مدفوع! يرجى الاشتراك أو استخدام كود ترويجي لفتحه.');
+        function openTrack(title, type) {
+            if (type === 'vip' && (!currentUser || !currentUser.vipAccess)) {
+                return alert('هذا المحتوى حصري! يرجى إدخال كود هدايا وخصم صحيح في قسم الأكواد لفتح كافة محتويات المنصة.');
             }
-            alert(`جاري تحميل ملف مشروع: ${title}`);
-            if(fileData !== '#') {
-                let a = document.createElement('a');
-                a.href = fileData;
-                a.download = title + '.zip';
-                a.click();
-            }
+            addLog(`دخول المسار: ${title}`);
+            alert(`جاري فتح محتوى الكورس: ${title}`);
         }
 
-        // تفيعل كود الخصم أو الهدية
+        function startExam(id) {
+            let ex = db.exams.find(x => x.id === id);
+            if (!ex) return;
+            document.getElementById('modalExamTitle').innerText = ex.title;
+            document.getElementById('modalExamQText').innerText = ex.question;
+            document.getElementById('modalExamOptions').innerHTML = ex.options.map(opt => `
+                <button class="btn" style="background:var(--bg-color); border:1px solid var(--border); color:var(--text-main);" onclick="checkAnswer('${opt.trim()}', '${ex.answer.trim()}')">${opt}</button>
+            `).join('');
+            document.getElementById('examModal').style.display = 'flex';
+        }
+
+        function checkAnswer(selected, correct) {
+            if (selected === correct) {
+                addLog('اجتياز امتحان بنجاح');
+                alert('إجابة صحيحة تماماً وأنت مبدع!');
+            } else {
+                addLog('إجابة خاطئة في امتحان');
+                alert(`إجابة خاطئة! الإجابة الصحيحة هي: ${correct}`);
+            }
+            closeExamModal();
+        }
+
+        function closeExamModal() { document.getElementById('examModal').style.display = 'none'; }
+
+        // نظام تفعيل أكواد الهدايا المصلح والمنضبط بالكامل
         function redeemPromoCode() {
-            if (!currentUser) return alert('يرجى تسجيل الدخول أولاً لتفعيل الكود');
+            if (!currentUser) return alert('يرجى تسجيل الدخول أولاً قبل تفعيل الأكواد');
             let codeInput = document.getElementById('userPromoInput').value.trim();
+            if (!codeInput) return alert('يرجى كتابة الكود أولاً');
+
             let found = db.promoCodes.find(c => c.code.toLowerCase() === codeInput.toLowerCase());
 
-            if (!found) return alert('الكود غير صحيح أو غير موجود!');
-            if (found.used) return alert('تم استهلاك هذا الكود مسبقاً!');
+            if (!found) return alert('هذا الكود غير صحيح أو غير موجود!');
+            if (found.used) return alert('تم استخدام هذا الكود مسبقاً ولا يمكن استخدامه مرة أخرى!');
 
-            if (found.type === 'balance') {
-                currentUser.wallet += found.value;
-                alert(`مبروك! تمت إضافة $${found.value} إلى رصيد محفظتك بنجاح.`);
-            } else if (found.type === 'project') {
-                currentUser.subscribed = true;
-                alert('مبروك! تم تفعيل اشتراكك الشامل وفتح كافة المشاريع المدفوعة مجاناً.');
-            }
-
+            // تفعيل الصلاحيات للمستخدم الحالي وللحساب داخل قاعدة البيانات
+            currentUser.vipAccess = true;
             found.used = true;
+
+            let userInDb = db.users.find(x => x.username.toLowerCase() === currentUser.username.toLowerCase());
+            if (userInDb) userInDb.vipAccess = true;
+
+            addLog(`تفعيل كود هدية بنجاح: ${found.code} بواسطة ${currentUser.name}`);
             saveDB();
             document.getElementById('userPromoInput').value = '';
             renderUI();
+            alert('تم تفعيل الكود بنجاح واستلام هدية صلاحيات الـ VIP وفتح جميع البروجيكتات والحصريات!');
         }
 
-        let pendingPrice = 0, pendingTitle = '';
-        function openCheckout(title, price) {
-            if (!currentUser) return alert('سجل دخولك أولاً');
-            pendingPrice = price; pendingTitle = title;
-            document.getElementById('checkoutTitle').innerText = title;
-            document.getElementById('checkoutPrice').innerText = `$${price}`;
-            document.getElementById('checkoutModal').style.display = 'flex';
+        // إزالة الإعلان
+        function removeAnnouncement() {
+            db.announcement = "";
+            addLog('تمت إزالة الإعلان العام');
+            saveDB();
+            renderUI();
+            alert('تمت إزالة الإعلان بنجاح!');
         }
-        function confirmPurchase() {
-            if (currentUser.wallet < pendingPrice) return alert('رصيدك غير كافٍ!');
-            currentUser.wallet -= pendingPrice;
-            currentUser.subscribed = true;
-            saveDB(); closeCheckout(); renderUI();
-            alert('تم الشراء بنجاح!');
-        }
-        function closeCheckout() { document.getElementById('checkoutModal').style.display = 'none'; }
-        function depositWallet() { if (!currentUser) return alert('سجل دخولك أولاً'); currentUser.wallet += 50; saveDB(); renderUI(); alert('تم شحن 50$ بنجاح!'); }
 
         // دوال الآدمن
-        function createPromoCode() {
-            let code = document.getElementById('adminPromoCode').value.trim();
-            let type = document.getElementById('adminPromoType').value;
-            let value = parseFloat(document.getElementById('adminPromoValue').value) || 0;
+        function publishAnnouncement() {
+            let text = document.getElementById('adminAnnounceText').value.trim();
+            if (!text) return alert('اكتب نص الإعلان');
+            db.announcement = text;
+            addLog(`نشر إعلان جديد: ${text}`);
+            saveDB();
+            document.getElementById('adminAnnounceText').value = '';
+            renderUI();
+            alert('تم نشر الإعلان في المنصة بنجاح!');
+        }
 
+        function addProject() {
+            let title = document.getElementById('adminProjectTitle').value.trim();
+            let desc = document.getElementById('adminProjectDesc').value.trim();
+            let file = document.getElementById('adminProjectFile').value.trim() || '#';
+            if (!title || !desc) return alert('أدخل بيانات البروجيكت الكاملة');
+            db.projects.push({ id: Date.now(), title, desc, file });
+            addLog(`إضافة بروجيكت جديد: ${title}`);
+            saveDB();
+            document.getElementById('adminProjectTitle').value = '';
+            document.getElementById('adminProjectDesc').value = '';
+            document.getElementById('adminProjectFile').value = '';
+            renderUI();
+            alert('تم إضافة البروجيكت للمكتبة بنجاح!');
+        }
+
+        function addTrack() {
+            let title = document.getElementById('adminTrackTitle').value.trim();
+            let desc = document.getElementById('adminTrackDesc').value.trim();
+            let type = document.getElementById('adminTrackType').value;
+            if (!title || !desc) return alert('أدخل تفاصيل الكورس');
+            db.tracks.push({ id: Date.now(), title, desc, type });
+            addLog(`إضافة كورس جديد: ${title}`);
+            saveDB();
+            document.getElementById('adminTrackTitle').value = '';
+            document.getElementById('adminTrackDesc').value = '';
+            renderUI();
+            alert('تم إضافة الكورس للمنصة بنجاح!');
+        }
+
+        function addExam() {
+            let title = document.getElementById('adminExamTitle').value.trim();
+            let question = document.getElementById('adminExamQ').value.trim();
+            let optsStr = document.getElementById('adminExamOpts').value.trim();
+            let answer = document.getElementById('adminExamAns').value.trim();
+            if (!title || !question || !optsStr || !answer) return alert('أدخل بيانات الامتحان كاملة');
+            let options = optsStr.split(',').map(s => s.trim());
+            db.exams.push({ id: Date.now(), title, question, options, answer });
+            addLog(`إضافة امتحان جديد: ${title}`);
+            saveDB();
+            document.getElementById('adminExamTitle').value = '';
+            document.getElementById('adminExamQ').value = '';
+            document.getElementById('adminExamOpts').value = '';
+            document.getElementById('adminExamAns').value = '';
+            renderUI();
+            alert('تم نشر الامتحان للطلاب بنجاح!');
+        }
+
+        function addPromoCode() {
+            let code = document.getElementById('adminCodeText').value.trim();
+            let reward = document.getElementById('adminCodeReward').value;
             if (!code) return alert('أدخل رمز الكود');
-            db.promoCodes.push({ code, type, value, used: false });
-            saveDB();
-            document.getElementById('adminPromoCode').value = '';
-            document.getElementById('adminPromoValue').value = '';
-            renderUI();
-            alert('تم إنشاء وتفعيل الكود بنجاح!');
-        }
-
-        function uploadDiscordProject() {
-            let title = document.getElementById('adminProjTitle').value.trim();
-            let desc = document.getElementById('adminProjDesc').value.trim();
-            let type = document.getElementById('adminProjType').value;
-            let fileInput = document.getElementById('adminProjFile');
             
-            if (!title || !desc) return alert('أدخل بيانات المشروع');
-            
-            let fileName = fileInput.files.length > 0 ? fileInput.files[0].name : 'code-package.zip';
-            let fileData = fileInput.files.length > 0 ? URL.createObjectURL(fileInput.files[0]) : '#';
+            if (db.promoCodes.some(c => c.code.toLowerCase() === code.toLowerCase())) {
+                return alert('هذا الكود موجود مسبقاً!');
+            }
 
-            db.discordProjects.push({ id: Date.now(), title, desc, type, fileName, fileData });
+            db.promoCodes.push({ code, reward, used: false });
+            addLog(`إنشاء كود هدايا جديد: ${code}`);
             saveDB();
-            document.getElementById('adminProjTitle').value = '';
-            document.getElementById('adminProjDesc').value = '';
-            fileInput.value = '';
+            document.getElementById('adminCodeText').value = '';
             renderUI();
-            alert('تم رفع المشروع بنجاح!');
+            alert('تم إنشاء كود الهدايا بنجاح وأصبح جاهزاً للاستخدام!');
         }
 
-        function addPaymentMethod() {
-            let name = document.getElementById('adminPaymentName').value.trim();
-            let details = document.getElementById('adminPaymentDetails').value.trim();
-            if (!name || !details) return alert('أدخل التفاصيل');
-            db.paymentMethods.push({ name, details });
-            saveDB(); renderUI(); alert('تم إضافة طريقة الدفع');
-        }
-
-        function adminGiveBalance() {
-            let username = document.getElementById('adminTargetUser').value.trim();
-            let amount = parseFloat(document.getElementById('adminAddBalanceVal').value) || 0;
-            let target = db.users.find(u => u.username === username);
-            if (!target) return alert('الطالب غير موجود');
-            target.wallet += amount;
-            saveDB(); renderUI(); alert(`تم إضافة $${amount} للطالب ${username}!`);
+        function toggleBanUser(username) {
+            let user = db.users.find(x => x.username.toLowerCase() === username.toLowerCase());
+            if (user) {
+                user.isBanned = !user.isBanned;
+                addLog(`تحديث حالة الحظر للمستخدم ${username}: ${user.isBanned ? 'محظور' : 'غير محظور'}`);
+                saveDB();
+                renderUI();
+                alert(`تم ${user.isBanned ? 'حظر' : 'إلغاء حظر'} المستخدم ${username} بنجاح.`);
+            }
         }
 
         function renderAdminTables() {
-            document.getElementById('adminPromoTable').innerHTML = `<table><tr><th>الكود</th><th>النوع</th><th>إجراء</th></tr>` +
-                db.promoCodes.map((c, idx) => `<tr><td>${c.code}</td><td>${c.type}</td><td><button class="btn btn-danger" style="padding:0.2rem 0.5rem; font-size:0.8rem;" onclick="db.promoCodes.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
+            document.getElementById('adminLogsTable').innerHTML = `<table><tr><th>الوقت</th><th>الحدث / النشاط</th></tr>` +
+                db.logs.map(l => `<tr><td>${l.time}</td><td>${l.action}</td></tr>`).join('') + `</table>`;
 
-            document.getElementById('adminProjectsTable').innerHTML = `<table><tr><th>المشروع</th><th>الحالة</th><th>إجراء</th></tr>` +
-                db.discordProjects.map((p, idx) => `<tr><td>${p.title}</td><td>${p.type}</td><td><button class="btn btn-danger" style="padding:0.2rem 0.5rem; font-size:0.8rem;" onclick="db.discordProjects.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
+            document.getElementById('adminUsersTable').innerHTML = `<table><tr><th>المستخدم</th><th>الحالة</th><th>إجراء</th></tr>` +
+                (db.users.length === 0 ? `<tr><td colspan="3" style="text-align:center;">لا يوجد مستخدمين مسجلين بعد</td></tr>` : 
+                db.users.map(u => `<tr><td>${u.username}</td><td><span class="badge ${u.isBanned ? 'badge-danger' : 'badge-success'}">${u.isBanned ? 'محظور' : 'نشط'}</span></td><td><button class="btn btn-danger" style="padding:0.3rem 0.8rem; font-size:0.85rem;" onclick="toggleBanUser('${u.username}')">${u.isBanned ? 'إلغاء الحظر' : 'حظر المستخدم'}</button></td></tr>`).join('')) + `</table>`;
 
-            document.getElementById('adminPaymentsTable').innerHTML = `<table><tr><th>الطريقة</th><th>إجراء</th></tr>` +
-                db.paymentMethods.map((m, idx) => `<tr><td>${m.name}</td><td><button class="btn btn-danger" style="padding:0.2rem 0.5rem; font-size:0.8rem;" onclick="db.paymentMethods.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
+            document.getElementById('adminProjectsTable').innerHTML = `<table><tr><th>البروجيكت</th><th>إجراء</th></tr>` +
+                db.projects.map((pr, idx) => `<tr><td>${pr.title}</td><td><button class="btn btn-danger" style="padding:0.3rem 0.8rem; font-size:0.85rem;" onclick="db.projects.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
 
-            document.getElementById('adminUsersTable').innerHTML = `<table><tr><th>الطالب</th><th>الرصيد</th><th>إجراء</th></tr>` +
-                db.users.map((u, idx) => `<tr><td>${u.username}</td><td>$${u.wallet || 0}</td><td><button class="btn btn-danger" style="padding:0.2rem 0.5rem; font-size:0.8rem;" onclick="db.users.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
+            document.getElementById('adminTracksTable').innerHTML = `<table><tr><th>المسار</th><th>النوع</th><th>إجراء</th></tr>` +
+                db.tracks.map((t, idx) => `<tr><td>${t.title}</td><td>${t.type}</td><td><button class="btn btn-danger" style="padding:0.3rem 0.8rem; font-size:0.85rem;" onclick="db.tracks.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
+
+            document.getElementById('adminExamsTable').innerHTML = `<table><tr><th>الامتحان</th><th>السؤال</th><th>إجراء</th></tr>` +
+                db.exams.map((e, idx) => `<tr><td>${e.title}</td><td>${e.question}</td><td><button class="btn btn-danger" style="padding:0.3rem 0.8rem; font-size:0.85rem;" onclick="db.exams.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
+
+            document.getElementById('adminCodesTable').innerHTML = `<table><tr><th>الكود</th><th>الحالة</th><th>إجراء</th></tr>` +
+                db.promoCodes.map((c, idx) => `<tr><td>${c.code}</td><td>${c.used ? 'مستعمل' : 'نشط'}</td><td><button class="btn btn-danger" style="padding:0.3rem 0.8rem; font-size:0.85rem;" onclick="db.promoCodes.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
         }
 
-        window.onload = () => { db.visits++; saveDB(); renderUI(); };
+        window.onload = () => { renderUI(); };
     </script>
 </body>
 </html>
