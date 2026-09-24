@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KXY Academy | المنصة المتكاملة الخارقة</title>
+    <title>KXY Academy | المنصة الشاملة الخارقة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #090d16;
-            --card: #131c2e;
-            --card-hover: #1e293b;
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
+            --bg-main: #0b0f19;
+            --bg-card: #131b2e;
+            --bg-hover: #1e293b;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
             --accent: #10b981;
             --danger: #ef4444;
             --warning: #f59e0b;
-            --text: #f8fafc;
+            --text-main: #f1f5f9;
             --text-muted: #94a3b8;
             --border: #1e293b;
         }
@@ -23,44 +24,39 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Cairo', sans-serif;
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--text);
+            background-color: var(--bg-main);
+            color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* شريط الإعلانات المتحرك العلوي */
-        .announcement-bar {
-            background: linear-gradient(90deg, #6366f1, #10b981, #f59e0b);
-            color: #000;
-            font-weight: bold;
-            padding: 0.5rem 1rem;
-            text-align: center;
-            overflow: hidden;
-            white-space: nowrap;
-            position: relative;
-        }
-        .announcement-bar marquee {
+        /* شريط الإعلانات المتحرك */
+        .marquee-container {
+            background: linear-gradient(90deg, #3b82f6, #6366f1, #10b981);
+            color: #fff;
+            font-weight: 700;
+            padding: 8px 12px;
             font-size: 0.95rem;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
         }
 
         /* النافبار */
         header {
-            background: rgba(19, 28, 46, 0.9);
-            backdrop-filter: blur(12px);
+            background: rgba(19, 27, 46, 0.95);
+            backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
 
-        .nav-container {
-            max-width: 1300px;
+        .nav-wrap {
+            max-width: 1350px;
             margin: 0 auto;
             padding: 1rem 2rem;
             display: flex;
@@ -69,304 +65,342 @@
         }
 
         .logo {
-            font-size: 1.6rem;
-            font-weight: 800;
+            font-size: 1.8rem;
+            font-weight: 900;
             color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            letter-spacing: 0.5px;
         }
         .logo span { color: var(--accent); }
 
-        .nav-links {
+        .nav-menu {
             display: flex;
-            gap: 1.5rem;
+            gap: 10px;
             list-style: none;
         }
 
-        .nav-links button {
-            background: none;
+        .nav-menu button {
+            background: transparent;
             border: none;
             color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 600;
             cursor: pointer;
-            font-size: 1rem;
-            transition: 0.3s;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
         }
 
-        .nav-links button:hover, .nav-links button.active {
-            color: var(--text);
-            background: var(--card-hover);
+        .nav-menu button:hover, .nav-menu button.active {
+            color: var(--text-main);
+            background: var(--bg-hover);
         }
 
-        .admin-badge {
-            background: var(--danger);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: bold;
-        }
-
-        /* المحتوى العام */
+        /* المحتوى الرئيسي */
         main {
-            max-width: 1300px;
+            max-width: 1350px;
             margin: 2rem auto;
             padding: 0 2rem;
             flex: 1;
             width: 100%;
         }
 
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.4s ease-in-out;
-        }
+        .tab-pane { display: none; }
+        .tab-pane.active { display: block; animation: fadeIn 0.3s ease; }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        h2.section-heading {
-            font-size: 1.8rem;
+        h2.title {
+            font-size: 1.6rem;
             margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             border-right: 4px solid var(--primary);
             padding-right: 12px;
         }
 
-        /* الأزرار والعناصر العامة */
-        .btn {
-            background-color: var(--primary);
-            color: white;
-            padding: 0.6rem 1.5rem;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        .btn:hover { background-color: var(--primary-hover); transform: translateY(-2px); }
-        .btn-danger { background-color: var(--danger); }
-        .btn-danger:hover { background-color: #dc2626; }
-        .btn-success { background-color: var(--accent); color: #000; }
-        .btn-success:hover { background-color: #059669; color: #fff; }
-
         /* الكروت والشبكات */
         .grid-2 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 1.5rem;
         }
 
         .card {
-            background-color: var(--card);
+            background-color: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 14px;
             padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
         }
 
-        /* نظام الأكواد والجوائز */
-        .redeem-box, .panel-box {
-            display: flex;
-            gap: 10px;
-            margin-top: 1rem;
-        }
+        .card h3 { margin-bottom: 1rem; color: var(--text-main); font-size: 1.2rem; }
 
-        input, select {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 0.6rem 1rem;
+        /* الأزرار والحقول */
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.7rem 1.4rem;
             border-radius: 8px;
-            flex: 1;
-            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
+        .btn:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
+        .btn-success { background-color: var(--accent); color: #0b0f19; }
+        .btn-danger { background-color: var(--danger); }
+        .btn-sm { padding: 5px 10px; font-size: 0.85rem; }
+
+        input, textarea, select {
+            background: var(--bg-main);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            width: 100%;
+            font-size: 0.95rem;
             outline: none;
+            margin-bottom: 10px;
         }
-        input:focus { border-color: var(--primary); }
+        input:focus, textarea:focus { border-color: var(--primary); }
 
-        /* لوج التوثيق / السجلات (Logs) */
-        .logs-container {
-            background: #05080f;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1rem;
-            height: 250px;
-            overflow-y: auto;
-            font-family: monospace;
-            font-size: 0.9rem;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .log-item {
-            padding: 6px 10px;
-            border-radius: 4px;
-            background: rgba(255, 255, 255, 0.03);
-            border-left: 3px solid var(--primary);
-        }
-        .log-item.ban { border-left-color: var(--danger); color: #fca5a5; }
-        .log-item.reward { border-left-color: var(--accent); color: #6ee7b7; }
-        .log-item.system { border-left-color: var(--warning); color: #fde047; }
-
-        /* جدول الأدمن ونظام البان (Ban/Pancake style) */
+        /* الجداول */
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 1rem;
             text-align: right;
+            font-size: 0.95rem;
         }
-        th, td {
-            padding: 12px;
-            border-bottom: 1px solid var(--border);
-        }
-        th { color: var(--text-muted); font-size: 0.9rem; }
+        th, td { padding: 12px; border-bottom: 1px solid var(--border); }
+        th { color: var(--text-muted); font-weight: 600; }
 
-        .badge-status {
+        .badge {
             padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: bold;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
         }
-        .status-active { background: rgba(16, 185, 129, 0.15); color: var(--accent); }
-        .status-banned { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+        .badge-admin { background: rgba(59, 130, 246, 0.15); color: var(--primary); }
+        .badge-owner { background: rgba(16, 185, 129, 0.15); color: var(--accent); }
+        .badge-user { background: rgba(148, 163, 184, 0.15); color: var(--text-muted); }
+
+        /* الكورسات والامتحانات */
+        .course-card, .quiz-box {
+            background: var(--bg-main);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .logs-box {
+            background: #060911;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem;
+            height: 280px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 0.85rem;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .log-row { padding: 6px 10px; border-radius: 6px; background: rgba(255,255,255,0.02); border-right: 3px solid var(--primary); }
 
         footer {
             text-align: center;
             padding: 2rem;
             border-top: 1px solid var(--border);
             color: var(--text-muted);
-            margin-top: auto;
             font-size: 0.9rem;
+            margin-top: auto;
         }
     </style>
 </head>
 <body>
 
     <!-- شريط الإعلانات المتحرك -->
-    <div class="announcement-bar">
-        <marquee scrollamount="5">🎉 أهلاً بك في منصة KXY Academy! • تم إضافة أكواد جوائز جديدة لشهر سبتمبر • تأكد من مراجعة لوحة التحكم والأدمن • نظام الحماية والبان مفعل بنجاح!</marquee>
+    <div class="marquee-container">
+        <marquee scrollamount="6" id="top-announcement">🚀 أهلاً بك يا أحمد في منصة KXY Academy الشاملة • تم فتح باب إضافة الكورسات، الامتحانات، والتحكم بالأدمن بالكامل!</marquee>
     </div>
 
-    <!-- النافبار -->
+    <!-- النافبار العلوي -->
     <header>
-        <div class="nav-container">
+        <div class="nav-wrap">
             <div class="logo">KXY <span>Academy</span></div>
-            <ul class="nav-links">
-                <li><button class="nav-btn active" onclick="switchTab('home')">الرئيسية</button></li>
-                <li><button class="nav-btn" onclick="switchTab('rewards')">الجوائز والأكواد</button></li>
-                <li><button class="nav-btn" onclick="switchTab('logs')">السجلات (Logs)</button></li>
-                <li><button class="nav-btn" onclick="switchTab('admin')">لوحة الأدمن <span class="admin-badge">VIP</span></button></li>
+            <ul class="nav-menu">
+                <li><button class="active" onclick="switchTab('home', this)">الرئيسية</button></li>
+                <li><button onclick="switchTab('courses', this)">الدورات والشرائح</button></li>
+                <li><button onclick="switchTab('exams', this)">الامتحانات والأسئلة</button></li>
+                <li><button onclick="switchTab('files', this)">الملفات والروابط</button></li>
+                <li><button onclick="switchTab('logs', this)">السجلات (Logs)</button></li>
+                <li><button onclick="switchTab('admin', this)" style="color: var(--warning);">لوحة الأدمن 🛡️</button></li>
             </ul>
         </div>
     </header>
 
     <main>
-        <!-- 1. تبويب الرئيسية -->
-        <section id="home" class="tab-content active">
-            <h2 class="section-heading">🚀 لوحة تحكم المتعلم الذكية</h2>
+        <!-- 1. الرئيسية -->
+        <section id="home" class="tab-pane active">
+            <h2 class="title">🏠 لوحة التحكم الشخصية</h2>
             <div class="grid-2">
                 <div class="card">
-                    <h3>أهلاً بك، أحمد 👋</h3>
-                    <p style="color: var(--text-muted); margin: 0.5rem 0 1.5rem;">أنت الآن تستعرض المنصة بصلاحيات كاملة كمطور ومبرمج لمنظومة KXY.</p>
-                    <div style="display: flex; gap: 1rem; align-items: center;">
-                        <div style="background: var(--bg); padding: 1rem; border-radius: 8px; flex: 1; text-align: center;">
-                            <span style="color: var(--text-muted); font-size: 0.85rem;">النقاط (XP)</span>
-                            <h3 id="user-xp" style="color: var(--accent); font-size: 1.5rem;">2,450</h3>
+                    <h3>مرحباً بك، أحمد 👋</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">أنت تمتلك صلاحيات المالك (Owner) على هذه النسخة التفاعلية بالكامل.</p>
+                    <div style="display: flex; gap: 1rem;">
+                        <div style="background: var(--bg-main); padding: 1rem; border-radius: 8px; flex:1; text-align: center;">
+                            <span style="color: var(--text-muted); font-size: 0.85rem;">نقاطك الكلية</span>
+                            <h3 id="user-xp" style="color: var(--accent); font-size: 1.6rem; margin-top: 5px;">3,200 XP</h3>
                         </div>
-                        <div style="background: var(--bg); padding: 1rem; border-radius: 8px; flex: 1; text-align: center;">
-                            <span style="color: var(--text-muted); font-size: 0.85rem;">الشارات المكتسبة</span>
-                            <h3 style="color: var(--primary); font-size: 1.5rem;">8 شارات</h3>
+                        <div style="background: var(--bg-main); padding: 1rem; border-radius: 8px; flex:1; text-align: center;">
+                            <span style="color: var(--text-muted); font-size: 0.85rem;">الكورسات المتاحة</span>
+                            <h3 id="courses-count" style="color: var(--primary); font-size: 1.6rem; margin-top: 5px;">3 كورسات</h3>
                         </div>
                     </div>
                 </div>
-
                 <div class="card">
-                    <h3>🎁 احصل على مكافأة يومية سريعة</h3>
-                    <p style="color: var(--text-muted); margin: 0.5rem 0 1rem;">اضغط على الزر أدناه للحصول على نقاط مجانية وتسجيلها في السجلات فوراً.</p>
-                    <button class="btn btn-success" onclick="claimDailyReward()" style="width: 100%;">استلام الهدية اليومية (+100 XP)</button>
+                    <h3>💡 مميزات المنصة المفعلة</h3>
+                    <ul style="color: var(--text-muted); padding-right: 1.2rem; display: flex; flex-direction: column; gap: 8px; font-size: 0.95rem;">
+                        <li>تغيير الشريط المتحرك وإعلانات المنصة فوراً.</li>
+                        <li>إضافة حسابات جديدة وترقية أي عضو لأدمن بضغطة زر.</li>
+                        <li>إنشاء كورسات، شرائح تعليمية، وملفات خاصة.</li>
+                        <li>اختبارات تفاعلية فورية تمنح نقاط XP عند النجاح.</li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <!-- 2. تبويب الجوائز والأكواد -->
-        <section id="rewards" class="tab-content">
-            <h2 class="section-heading">🎟️ نظام الأكواد والجوائز (Redeem Codes)</h2>
-            <div class="card" style="max-width: 600px; margin: 0 auto;">
-                <h3>أدخل كود الشحن أو الجائزة</h3>
-                <p style="color: var(--text-muted); margin: 0.5rem 0 1rem;">جرب كتابة الكود التجريبي: <code style="color: var(--warning);">KXY2026</code> أو <code style="color: var(--warning);">VIP-CODE</code></p>
-                <div class="redeem-box">
-                    <input type="text" id="redeem-input" placeholder="مثال: KXY2026">
-                    <button class="btn" onclick="redeemCode()">تفعيل الكود</button>
-                </div>
-                <p id="redeem-msg" style="margin-top: 1rem; font-weight: bold;"></p>
-            </div>
-        </section>
-
-        <!-- 3. تبويب السجلات (Logs) -->
-        <section id="logs" class="tab-content">
-            <h2 class="section-heading">📋 سجلات النظام الحية (System & Mod Logs)</h2>
-            <p style="color: var(--text-muted); margin-bottom: 1rem;">هنا تظهر كافة العمليات (عمليات الحظر، شحن الأكواد، الجوائز، وتنبيهات البانكيك).</p>
-            <div class="logs-container" id="logs-box">
-                <div class="log-item system">[2026-09-24 20:16] تم تشغيل النظام بنجاح وجاهزية الاتصال بقاعدة البيانات.</div>
-                <div class="log-item reward">[2026-09-24 20:18] المستخدم أحمد استلم الهدية اليومية (+100 XP).</div>
-            </div>
-        </section>
-
-        <!-- 4. تبويب لوحة الأدمن (Admin Panel & Ban/Pancake) -->
-        <section id="admin" class="tab-content">
-            <h2 class="section-heading">🛡️ لوحة تحكم الأدمن (نظام الحظر والإدارة)</h2>
-            <div class="grid-2" style="margin-bottom: 2rem;">
+        <!-- 2. الدورات والشرائح التعليمية -->
+        <section id="courses" class="tab-pane">
+            <h2 class="title">📚 الدورات والشرائح التعليمية</h2>
+            <div class="grid-2">
                 <div class="card">
-                    <h3>📢 إرسال إعلان عام للمنصة</h3>
-                    <p style="color: var(--text-muted); margin: 0.5rem 0 1rem;">سيظهر الإعلان فوراً في الشريط المتحرك العلوي لجميع المستخدمين.</p>
-                    <div class="panel-box">
-                        <input type="text" id="announcement-input" placeholder="اكتب نص الإعلان الجديد...">
-                        <button class="btn" onclick="updateAnnouncement()">نشر</button>
+                    <h3>إضافة كورس جديد (أدمن)</h3>
+                    <input type="text" id="course-title" placeholder="عنوان الكورس (مثال: احتراف JavaScript)">
+                    <textarea id="course-desc" placeholder="وصف الكورس والشرائح التعليمية..." rows="3"></textarea>
+                    <button class="btn btn-success" onclick="addCourse()">نشر الكورس في المنصة</button>
+                </div>
+                <div class="card">
+                    <h3>قائمة الكورسات الحالية</h3>
+                    <div id="courses-list" style="display: flex; flex-direction: column; gap: 10px; max-height: 250px; overflow-y: auto;">
+                        <div class="course-card">
+                            <h4 style="color: var(--primary);">برمجة بوتات ديسكورد (Node.js)</h4>
+                            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">شرح أساسيات الـ handlers و slash commands والـ events.</p>
+                        </div>
+                        <div class="course-card">
+                            <h4 style="color: var(--primary);">تطوير واجهات الويب (HTML & CSS)</h4>
+                            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">تصميم المواقع وتنسيق الأزرار واللوحات التفاعلية.</p>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- 3. الامتحانات والأسئلة -->
+        <section id="exams" class="tab-pane">
+            <h2 class="title">📝 الامتحانات والاختبارات الذكية</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>اختبار البرمجة السريع (تفاعلي)</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 1rem;">أجب عن السؤال التالي لاجتياز الاختبار والحصول على (+150 XP):</p>
+                    <p style="font-weight: 700; margin-bottom: 10px;">ما هي لغة البرمجة الأساسية لتشغيل البوتات وسيرفرات الـ Node.js؟</p>
+                    <select id="exam-answer">
+                        <option value="wrong">Python</option>
+                        <option value="correct">JavaScript</option>
+                        <option value="wrong">C++</option>
+                    </select>
+                    <button class="btn" onclick="submitExam()" style="margin-top: 10px;">إرسال الإجابة</button>
+                    <p id="exam-result" style="margin-top: 10px; font-weight: bold;"></p>
+                </div>
 
                 <div class="card">
-                    <h3>⚙️ إضافة كود جائزة جديد</h3>
-                    <p style="color: var(--text-muted); margin: 0.5rem 0 1rem;">أنشئ كود جديد بقيمة نقاط مخصصة.</p>
-                    <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <input type="text" id="new-code-name" placeholder="اسم الكود (مثال: FREE500)">
-                        <input type="number" id="new-code-val" placeholder="قيمة النقاط (مثال: 500)">
-                        <button class="btn btn-success" onclick="addNewCode()">حفظ الكود في النظام</button>
+                    <h3>إنشاء سؤال / امتحان جديد (أدمن)</h3>
+                    <input type="text" id="new-q-text" placeholder="نص السؤال...">
+                    <input type="text" id="new-q-ans" placeholder="الإجابة الصحيحة...">
+                    <button class="btn btn-success" onclick="addQuestion()">حفظ السؤال في بنك الأسئلة</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. الملفات والروابط -->
+        <section id="files" class="tab-pane">
+            <h2 class="title">📂 الملفات ومرفقات الدروس</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>إضافة ملف أو رابط جديد</h3>
+                    <input type="text" id="file-name" placeholder="اسم الملف أو السكربت (مثال: Handler.js)">
+                    <input type="text" id="file-link" placeholder="رابط التحميل أو المعاينة (https://...)">
+                    <button class="btn" onclick="addFile()">إضافة للمنصة</button>
+                </div>
+                <div class="card">
+                    <h3>الملفات المتاحة للتحميل</h3>
+                    <div id="files-list" style="display: flex; flex-direction: column; gap: 8px; max-height: 250px; overflow-y: auto;">
+                        <div class="course-card" style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>قالب بوت ديسكورد الأساسي (ZIP)</span>
+                            <a href="#" class="btn btn-sm btn-success">تحميل</a>
+                        </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. السجلات (Logs) -->
+        <section id="logs" class="tab-pane">
+            <h2 class="title">📋 سجلات النظام الحية (System Logs)</h2>
+            <div class="logs-box" id="logs-container">
+                <div class="log-row">[2026-09-24 20:30] تم بدء تشغيل المنصة بنجاح وكافة الأنظمة تعمل بكفاءة.</div>
+            </div>
+        </section>
+
+        <!-- 6. لوحة الأدمن (إدارة الحسابات والشريط المتحرك) -->
+        <section id="admin" class="tab-pane">
+            <h2 class="title">🛡️ لوحة تحكم الأدمن والمالك</h2>
+            <div class="grid-2" style="margin-bottom: 1.5rem;">
+                <div class="card">
+                    <h3>📢 تعديل الشريط المتحرك العلوي</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px;">اكتب النص الجديد وسيتحدث في الأعلى فوراً لجميع المستخدمين.</p>
+                    <input type="text" id="marquee-input" placeholder="اكتب الإعلان الجديد...">
+                    <button class="btn" onclick="updateMarqueeText()">تحديث الشريط المتحرك</button>
+                </div>
+
+                <div class="card">
+                    <h3>👥 إضافة حساب جديد للمنصة</h3>
+                    <input type="text" id="new-user-name" placeholder="اسم المستخدم (مثال: محمد)">
+                    <select id="new-user-role">
+                        <option value="user">طالب (User)</option>
+                        <option value="admin">مشرف / أدمن (Admin)</option>
+                    </select>
+                    <button class="btn btn-success" onclick="addNewUser()">إضافة الحساب</button>
                 </div>
             </div>
 
             <div class="card">
-                <h3>👥 إدارة الأعضاء (نظام الحظر/البان شبيه بـ Pancake)</h3>
+                <h3>⚙️ إدارة الأعضاء والصلاحيات (ترقية أدمن / سحبها)</h3>
                 <table>
                     <thead>
                         <tr>
                             <th>اسم المستخدم</th>
-                            <th>الصلاحية</th>
-                            <th>الحالة</th>
-                            <th>الإجراء (بان / إلغاء الحظر)</th>
+                            <th>الصلاحية الحالية</th>
+                            <th>الإجراء (ترقية أدمن / سحب)</th>
                         </tr>
                     </thead>
                     <tbody id="users-table-body">
                         <tr>
                             <td>أحمد (المطور)</td>
-                            <td>Owner / Admin</td>
-                            <td><span class="badge-status status-active" id="status-1">نشط</span></td>
-                            <td><button class="btn btn-danger" onclick="toggleBan(1)" id="btn-ban-1">حظر (Ban)</button></td>
+                            <td><span class="badge badge-owner">Owner</span></td>
+                            <td>مالك المنصة</td>
                         </tr>
                         <tr>
-                            <td>محمد (عضو)</td>
-                            <td>Student</td>
-                            <td><span class="badge-status status-active" id="status-2">نشط</span></td>
-                            <td><button class="btn btn-danger" onclick="toggleBan(2)" id="btn-ban-2">حظر (Ban)</button></td>
+                            <td>محمد</td>
+                            <td><span class="badge badge-user" id="role-badge-2">طالب</span></td>
+                            <td><button class="btn btn-sm" onclick="toggleAdmin(2)" id="admin-btn-2">ترقية لأدمن</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -375,118 +409,162 @@
     </main>
 
     <footer>
-        <p>جميع الحقوق محفوظة © 2026 KXY Academy - منصة تعليمية برمجية تفاعلية متكاملة.</p>
+        <p>جميع الحقوق محفوظة © 2026 KXY Academy - المنصة التعليمية المتكاملة.</p>
     </footer>
 
     <script>
-        // نظام التنقل بين التبويبات
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+        // التنقل بين التبويبات
+        function switchTab(tabId, btnEl) {
+            document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-menu button').forEach(el => el.classList.remove('active'));
             
             document.getElementById(tabId).classList.add('active');
-            event.target.classList.add('active');
+            if(btnEl) btnEl.classList.add('active');
         }
 
-        // قاعدة بيانات الأكواد الوهمية
-        let validCodes = {
-            "KXY2026": 250,
-            "VIP-CODE": 1000,
-            "FREE500": 500
-        };
-
-        let userXP = 2450;
-
-        // إضافة سجل جديد (Logs) تلقائياً
-        function addLog(text, type = 'system') {
-            const logsBox = document.getElementById('logs-box');
-            const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
-            const logItem = document.createElement('div');
-            logItem.className = `log-item ${type}`;
-            logItem.innerText = `[${now}] ${text}`;
-            logsBox.prepend(logItem);
+        // إضافة سجل جديد (Logs)
+        function addLog(text) {
+            const container = document.getElementById('logs-container');
+            const time = new Date().toISOString().slice(0, 19).replace('T', ' ');
+            const row = document.createElement('div');
+            row.className = 'log-row';
+            row.innerText = `[${time}] ${text}`;
+            container.prepend(row);
         }
 
-        // استلام الهدية اليومية
-        function claimDailyReward() {
-            userXP += 100;
-            document.getElementById('user-xp').innerText = userXP.toLocaleString();
-            addLog("المستخدم أحمد استلم الهدية اليومية بنجاح (+100 XP).", "reward");
-            alert("تم إضافة 100 نقطة إلى حسابك بنجاح!");
-        }
-
-        // تفعيل كود الجائزة
-        function redeemCode() {
-            const codeInput = document.getElementById('redeem-input').value.trim();
-            const msgEl = document.getElementById('redeem-msg');
-
-            if (validCodes[codeInput]) {
-                const rewardVal = validCodes[codeInput];
-                userXP += rewardVal;
-                document.getElementById('user-xp').innerText = userXP.toLocaleString();
-                msgEl.style.color = "var(--accent)";
-                msgEl.innerText = `🎉 مبروك! تم تفعيل الكود بنجاح وحصلت على ${rewardVal} نقطة.`;
-                addLog(`تم تفعيل الكود (${codeInput}) ومئح الخصم بقيمة ${rewardVal} XP.`, "reward");
-                delete validCodes[codeInput]; // استخدام الكود مرة واحدة
-            } else {
-                msgEl.style.color = "var(--danger)";
-                msgEl.innerText = "❌ الكود غير صحيح، منتهي الصلاحية، أو تم استخدامه مسبقاً!";
-                addLog(`محاولة فاشلة لتفعيل كود غير صالح: (${codeInput})`, "system");
-            }
-        }
-
-        // تحديث الإعلان في الشريط المتحرك
-        function updateAnnouncement() {
-            const text = document.getElementById('announcement-input').value.trim();
-            if (text) {
-                document.querySelector('.announcement-bar marquee').innerText = text;
-                addLog(`تم تحديث شريط الإعلانات العام: "${text}"`, "system");
-                alert("تم نشر الإعلان بنجاح في الشريط العلوي!");
-                document.getElementById('announcement-input').value = '';
+        // تحديث الشريط المتحرك
+        function updateMarqueeText() {
+            const text = document.getElementById('marquee-input').value.trim();
+            if(text) {
+                document.getElementById('top-announcement').innerText = text;
+                addLog(`تم تحديث شريط الإعلانات إلى: "${text}"`);
+                alert("تم تحديث الشريط المتحرك بنجاح!");
+                document.getElementById('marquee-input').value = '';
             } else {
                 alert("يرجى كتابة نص الإعلان أولاً.");
             }
         }
 
-        // إضافة كود جديد من الأدمن
-        function addNewCode() {
-            const codeName = document.getElementById('new-code-name').value.trim();
-            const codeVal = parseInt(document.getElementById('new-code-val').value);
-
-            if (codeName && codeVal) {
-                validCodes[codeName] = codeVal;
-                addLog(`الأدمن قام بإنشاء كود جديد: (${codeName}) بقيمة ${codeVal} XP.`, "system");
-                alert(`تم إنشاء الكود ${codeName} بنجاح وقيمته ${codeVal} نقطة!`);
-                document.getElementById('new-code-name').value = '';
-                document.getElementById('new-code-val').value = '';
+        // إضافة كورس جديد
+        let coursesCount = 2;
+        function addCourse() {
+            const title = document.getElementById('course-title').value.trim();
+            const desc = document.getElementById('course-desc').value.trim();
+            if(title && desc) {
+                const list = document.getElementById('courses-list');
+                const card = document.createElement('div');
+                card.className = 'course-card';
+                card.innerHTML = `<h4 style="color: var(--primary);">${title}</h4><p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">${desc}</p>`;
+                list.prepend(card);
+                coursesCount++;
+                document.getElementById('courses-count').innerText = `${coursesCount} كورسات`;
+                addLog(`تم إضافة كورس جديد: "${title}"`);
+                alert("تم نشر الكورس بنجاح!");
+                document.getElementById('course-title').value = '';
+                document.getElementById('course-desc').value = '';
             } else {
-                alert("يرجى إدخال اسم الكود والقيمة بشكل صحيح.");
+                alert("يرجى إكمال عنوان ووصف الكورس.");
             }
         }
 
-        // نظام الحظر والبان (Ban / Unban)
-        let userBannedStatus = { 1: false, 2: false };
-
-        function toggleBan(userId) {
-            const statusEl = document.getElementById(`status-${userId}`);
-            const btnEl = document.getElementById(`btn-ban-${userId}`);
-
-            userBannedStatus[userId] = !userBannedStatus[userId];
-
-            if (userBannedStatus[userId]) {
-                statusEl.className = "badge-status status-banned";
-                statusEl.innerText = "محظور (Banned)";
-                btnEl.className = "btn btn-success";
-                btnEl.innerText = "إلغاء الحظر (Unban)";
-                addLog(`تم تنفيذ حظر (Ban) على المستخدم رقم ${userId} بواسطة نظام البان.`, "ban");
-                alert(`تم حظر المستخدم رقم ${userId} بنجاح!`);
+        // إرسال حل الامتحان
+        let userXP = 3200;
+        function submitExam() {
+            const ans = document.getElementById('exam-answer').value;
+            const resEl = document.getElementById('exam-result');
+            if(ans === 'correct') {
+                userXP += 150;
+                document.getElementById('user-xp').innerText = `${userXP} XP`;
+                resEl.style.color = "var(--accent)";
+                resEl.innerText = "🎉 إجابة صحيحة! حصلت على 150 نقطة إضافية.";
+                addLog("المحترِف أحمد اجتاز امتحان البرمجة وحصل على 150 XP.");
             } else {
-                statusEl.className = "badge-status status-active";
-                statusEl.innerText = "نشط";
-                btnEl.className = "btn btn-danger";
-                btnEl.innerText = "حظر (Ban)";
-                addLog(`تم رفع الحظر عن المستخدم رقم ${userId}.`, "system");
-                alert(`تم إلغاء حظر المستخدم رقم ${userId}.`);
+                resEl.style.color = "var(--danger)";
+                resEl.innerText = "❌ إجابة خاطئة، حاول مرة أخرى!";
+                addLog("المستخدم أحمد أخفق في إجابة الامتحان.");
+            }
+        }
+
+        function addQuestion() {
+            const q = document.getElementById('new-q-text').value;
+            if(q) {
+                addLog(`تم إضافة سؤال جديد لبنك الأسئلة: "${q}"`);
+                alert("تم حفظ السؤال بنجاح!");
+                document.getElementById('new-q-text').value = '';
+                document.getElementById('new-q-ans').value = '';
+            } else {
+                alert("يرجى كتابة السؤال.");
+            }
+        }
+
+        // إضافة ملف جديد
+        function addFile() {
+            const name = document.getElementById('file-name').value.trim();
+            const link = document.getElementById('file-link').value.trim();
+            if(name && link) {
+                const list = document.getElementById('files-list');
+                const item = document.createElement('div');
+                item.className = 'course-card';
+                item.style.display = 'flex';
+                item.style.justifyContent = 'space-between';
+                item.style.alignItems = 'center';
+                item.innerHTML = `<span>${name}</span><a href="${link}" target="_blank" class="btn btn-sm btn-success">تحميل</a>`;
+                list.prepend(item);
+                addLog(`تم إضافة ملف جديد: "${name}"`);
+                alert("تم إضافة الملف للمنصة بنجاح!");
+                document.getElementById('file-name').value = '';
+                document.getElementById('file-link').value = '';
+            } else {
+                alert("يرجى إدخال الاسم والرابط بشكل صحيح.");
+            }
+        }
+
+        // إضافة حساب جديد
+        let userIdCounter = 2;
+        function addNewUser() {
+            const name = document.getElementById('new-user-name').value.trim();
+            const role = document.getElementById('new-user-role').value;
+            if(name) {
+                userIdCounter++;
+                const tableBody = document.getElementById('users-table-body');
+                const row = document.createElement('tr');
+                const roleBadgeClass = role === 'admin' ? 'badge-admin' : 'badge-user';
+                const roleText = role === 'admin' ? 'أدمن' : 'طالب';
+                
+                row.innerHTML = `
+                    <td>${name}</td>
+                    <td><span class="badge ${roleBadgeClass}" id="role-badge-${userIdCounter}">${roleText}</span></td>
+                    <td><button class="btn btn-sm" onclick="toggleAdmin(${userIdCounter})" id="admin-btn-${userIdCounter}">${role === 'admin' ? 'سحب الأدمن' : 'ترقية لأدمن'}</button></td>
+                `;
+                tableBody.appendChild(row);
+                addLog(`تم إنشاء حساب جديد باسم "${name}" بصلاحية [${roleText}]`);
+                alert(`تم إنشاء حساب ${name} بنجاح!`);
+                document.getElementById('new-user-name').value = '';
+            } else {
+                alert("يرجى كتابة اسم المستخدم.");
+            }
+        }
+
+        // ترقية مستخدم لأدمن أو سحبها
+        let userAdminState = {};
+        function toggleAdmin(id) {
+            const badge = document.getElementById(`role-badge-${id}`);
+            const btn = document.getElementById(`admin-btn-${id}`);
+            
+            userAdminState[id] = !userAdminState[id];
+
+            if(userAdminState[id]) {
+                badge.className = "badge badge-admin";
+                badge.innerText = "أدمن";
+                btn.innerText = "سحب الأدمن";
+                addLog(`تم ترقية المستخدم رقم ${id} إلى رتبة أدمن.`);
+                alert("تمت ترقية العضو إلى أدمن بنجاح!");
+            } else {
+                badge.className = "badge badge-user";
+                badge.innerText = "طالب";
+                btn.innerText = "ترقية لأدمن";
+                addLog(`تم سحب صلاحيات الأدمن من المستخدم رقم ${id}.`);
+                alert("تم سحب صلاحيات الأدمن بنجاح.");
             }
         }
     </script>
