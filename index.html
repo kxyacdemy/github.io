@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KXY Academy  </title>
+    <title>KXY Academy | المنصة التعليمية الذكية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -35,7 +35,7 @@
             flex-direction: column;
         }
 
-        /* صفحة تسجيل الدخول / إنشاء الحساب (Auth Overlay) */
+        /* شاشة تسجيل الدخول / إنشاء الحساب */
         #auth-screen {
             position: fixed;
             top: 0;
@@ -95,7 +95,7 @@
         .auth-form { display: none; }
         .auth-form.active { display: block; }
 
-        /* شريط الإعلانات */
+        /* شريط الإعلانات المتحرك */
         .marquee-container {
             background: linear-gradient(90deg, #3b82f6, #6366f1, #10b981);
             color: #fff;
@@ -277,7 +277,7 @@
 </head>
 <body>
 
-    <!-- شاشة تسجيل الدخول وإنشاء الحساب (الافتراضية عند فتح الموقع) -->
+    <!-- شاشة تسجيل الدخول الخالية من أي إشارة للأدمن -->
     <div id="auth-screen">
         <div class="auth-box">
             <h2>KXY Academy</h2>
@@ -286,15 +286,12 @@
                 <button class="auth-tab" onclick="switchAuthTab('register', this)">حساب جديد</button>
             </div>
 
-            <!-- نموذج تسجيل الدخول -->
             <div id="login-form" class="auth-form active">
                 <input type="text" id="login-username" placeholder="اسم المستخدم">
                 <input type="password" id="login-password" placeholder="كلمة المرور">
                 <button class="btn" onclick="handleLogin()">دخول للمنصة</button>
-                <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 15px;">💡 حساب الأدمن السري الخاص بك: اسم المستخدم <code>KXY_ADMIN</code> وكلمة المرور <code>admin123</code></p>
             </div>
 
-            <!-- نموذج إنشاء حساب -->
             <div id="register-form" class="auth-form">
                 <input type="text" id="reg-username" placeholder="اختر اسم مستخدم جديد">
                 <input type="password" id="reg-password" placeholder="كلمة المرور">
@@ -306,7 +303,7 @@
 
     <!-- شريط الإعلانات المتحرك -->
     <div class="marquee-container">
-        <marquee scrollamount="6" id="top-announcement">🚀 مرحباً بك في منصة KXY Academy الشاملة • تم تفعيل نظام الحسابات الحقيقي والأمان الكامل!</marquee>
+        <marquee scrollamount="6" id="top-announcement">🚀 مرحباً بك في منصة KXY Academy التعليمية المتكاملة!</marquee>
     </div>
 
     <!-- النافبار العلوي -->
@@ -332,7 +329,7 @@
             <div class="grid-2">
                 <div class="card">
                     <h3>أهلاً بك، <span id="current-user-display" style="color: var(--primary);"></span> 👋</h3>
-                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">أنت مسجل حالياً في المنصة بنجاح وحسابك محمّل بكافة الصلاحيات.</p>
+                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">أنت مسجل حالياً في المنصة بنجاح.</p>
                     <div style="display: flex; gap: 1rem;">
                         <div style="background: var(--bg-main); padding: 1rem; border-radius: 8px; flex:1; text-align: center;">
                             <span style="color: var(--text-muted); font-size: 0.85rem;">نقاطك الكلية</span>
@@ -347,9 +344,8 @@
                 <div class="card">
                     <h3>💡 مميزات المنصة المفعلة</h3>
                     <ul style="color: var(--text-muted); padding-right: 1.2rem; display: flex; flex-direction: column; gap: 8px; font-size: 0.95rem;">
-                        <li>تسجيل دخول وحفظ الحسابات تلقائياً عبر المتصفح.</li>
-                        <li>حساب أدمن سري خاص بالمالك بصلاحيات كاملة.</li>
-                        <li>إضافة كورسات، شرائح، وملفات، وامتحانات تفاعلية.</li>
+                        <li>تسجيل دخول وإنشاء حسابات حقيقي.</li>
+                        <li>استعراض الكورسات، الملفات، والامتحانات الذكية.</li>
                     </ul>
                 </div>
             </div>
@@ -427,7 +423,7 @@
         <section id="logs" class="tab-pane">
             <h2 class="title">📋 سجلات النظام الحية (System Logs)</h2>
             <div class="logs-box" id="logs-container">
-                <div class="log-row">[2026-09-24 20:45] تم تفعيل نظام الأمان وحساب الأدمن السري بنجاح.</div>
+                <div class="log-row">[2026-09-24 20:50] تم تشغيل المنصة بنجاح.</div>
             </div>
         </section>
 
@@ -441,10 +437,8 @@
                     <button class="btn" onclick="updateMarqueeText()">تحديث الشريط</button>
                 </div>
                 <div class="card">
-                    <h3>👥 حسابات المستخدمين المسجلين</h3>
-                    <div id="users-list-box" style="max-height: 200px; overflow-y: auto; font-size: 0.9rem; color: var(--text-muted);">
-                        <!-- يتم تعبئتها تلقائياً -->
-                    </div>
+                    <h3>👥 حسابات المستخدمين المسجلين في المنصة</h3>
+                    <div id="users-list-box" style="max-height: 200px; overflow-y: auto; font-size: 0.9rem; color: var(--text-muted);"></div>
                 </div>
             </div>
         </section>
@@ -455,14 +449,13 @@
     </footer>
 
     <script>
-        // إدارة الحسابات التلقائية (Local Storage)
+        // قاعدة بيانات الحسابات (حساب الأدمن مخفي ولا يظهر في واجهات الإنشاء أو القوائم العامة)
         let users = JSON.parse(localStorage.getItem('kxy_users')) || [
             { username: "KXY_ADMIN", pass: "admin123", role: "owner", xp: 5000 }
         ];
 
         let currentUser = JSON.parse(localStorage.getItem('kxy_current_user')) || null;
 
-        // عند تحميل الصفحة
         window.onload = function() {
             if (currentUser) {
                 document.getElementById('auth-screen').style.display = 'none';
@@ -477,7 +470,6 @@
             btn.classList.add('active');
         }
 
-        // إنشاء حساب جديد
         function handleRegister() {
             const u = document.getElementById('reg-username').value.trim();
             const p = document.getElementById('reg-password').value.trim();
@@ -503,10 +495,8 @@
             msg.style.color = "var(--accent)";
             msg.style.display = "block";
             msg.innerText = "🎉 تم إنشاء الحساب بنجاح! يمكنك تسجيل الدخول الآن.";
-            addLog(`تم إنشاء حساب جديد باسم: ${u}`);
         }
 
-        // تسجيل الدخول
         function handleLogin() {
             const u = document.getElementById('login-username').value.trim();
             const p = document.getElementById('login-password').value.trim();
@@ -519,7 +509,7 @@
                 localStorage.setItem('kxy_current_user', JSON.stringify(currentUser));
                 document.getElementById('auth-screen').style.display = 'none';
                 initSession();
-                addLog(`المستخدم ${u} قام بتسجيل الدخول بنجاح.`);
+                addLog(`المستخدم ${u} قام بتسجيل الدخول.`);
             } else {
                 msg.style.color = "var(--danger)";
                 msg.style.display = "block";
@@ -527,13 +517,11 @@
             }
         }
 
-        // تسجيل الخروج
         function handleLogout() {
             localStorage.removeItem('kxy_current_user');
             location.reload();
         }
 
-        // تهيئة الجلسة وصلاحيات الأدمن السري
         function initSession() {
             document.getElementById('current-user-display').innerText = currentUser.username;
             document.getElementById('user-xp').innerText = `${currentUser.xp} XP`;
@@ -546,7 +534,6 @@
                 roleDisplay.style.color = "var(--warning)";
                 adminNavBtn.style.display = "inline-block";
                 
-                // إظهار أدوات الأدمن في الأقسام
                 document.getElementById('add-course-card').style.display = 'block';
                 document.getElementById('add-q-card').style.display = 'block';
                 document.getElementById('add-file-card').style.display = 'block';
@@ -557,7 +544,6 @@
             }
         }
 
-        // التنقل بين التبويبات
         function switchTab(tabId, btnEl) {
             document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-menu button').forEach(el => el.classList.remove('active'));
@@ -609,7 +595,7 @@
                 localStorage.setItem('kxy_current_user', JSON.stringify(currentUser));
                 resEl.style.color = "var(--accent)";
                 resEl.innerText = "🎉 إجابة صحيحة! حصلت على 100 نقطة.";
-                addLog(`المستخدم ${currentUser.username} اجتاز الامتحان بنجاح.`);
+                addLog(`المستخدم ${currentUser.username} اجتاز الامتحان.`);
             } else {
                 resEl.style.color = "var(--danger)";
                 resEl.innerText = "❌ إجابة خاطئة، حاول مرة أخرى!";
@@ -634,7 +620,7 @@
                 item.className = 'course-card';
                 item.style.display = 'flex';
                 item.style.justifyContent = 'space-between';
-                item.style.alignItems: 'center';
+                item.style.alignItems = 'center';
                 item.innerHTML = `<span>${name}</span><a href="${link}" target="_blank" class="btn btn-sm btn-success">تحميل</a>`;
                 list.prepend(item);
                 addLog(`تم رفع ملف جديد: "${name}"`);
@@ -646,7 +632,8 @@
 
         function loadUsersList() {
             const box = document.getElementById('users-list-box');
-            box.innerHTML = users.map(u => `<div style="padding: 6px 0; border-bottom: 1px solid var(--border);">👤 ${u.username} - الرتبة: <b>${u.role}</b> - النقاط: ${u.xp} XP</div>`).join('');
+            // استثناء حساب الأدمن المخفي من القائمة إذا أردت إخفاءه تماماً حتى عن عيون لوحة التحكم، أو عرضه للإدارة
+            box.innerHTML = users.filter(u => u.username !== "KXY_ADMIN").map(u => `<div style="padding: 6px 0; border-bottom: 1px solid var(--border);">👤 ${u.username} - الرتبة: <b>${u.role}</b> - النقاط: ${u.xp} XP</div>`).join('') || '<p>لا توجد حسابات مسجلة بعد.</p>';
         }
     </script>
 </body>
