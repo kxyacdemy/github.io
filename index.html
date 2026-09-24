@@ -409,7 +409,7 @@
 
         <!-- 6. لوحة الأدمن السرية -->
         <section id="admin" class="tab-pane">
-            <h2 class="title">🛡️ لوحة تحكم الأدمن والمالك السرية</h2>
+            <h2 class="title">🛡️ لوحة تحكم الأدمن السرية</h2>
             <div class="grid-2" style="margin-bottom: 1.5rem;">
                 <div class="card">
                     <h3>📢 تعديل الشريط المتحرك العلوي</h3>
@@ -429,9 +429,9 @@
     </footer>
 
     <script>
-        // قاعدة البيانات: تم تضمين حساب الأدمن الجديد بالاسم admin والباسورد 1121 وإخفائه تماماً
+        // قاعدة البيانات: حساب الأدمن برتبة admin واسم admin وباسورد 1121 ومخفي تماماً
         let users = JSON.parse(localStorage.getItem('kxy_users')) || [
-            { username: "admin", pass: "1121", role: "owner", xp: 5000 }
+            { username: "admin", pass: "1121", role: "admin", xp: 5000 }
         ];
 
         let currentUser = JSON.parse(localStorage.getItem('kxy_current_user')) || null;
@@ -509,8 +509,8 @@
             const roleDisplay = document.getElementById('user-role-display');
             const adminNavBtn = document.getElementById('admin-nav-btn');
 
-            if (currentUser.role === 'owner' || currentUser.role === 'admin') {
-                roleDisplay.innerText = currentUser.role === 'owner' ? 'المالك (Owner)' : 'أدمن';
+            if (currentUser.role === 'admin') {
+                roleDisplay.innerText = 'أدمن المنصة';
                 roleDisplay.style.color = "var(--warning)";
                 adminNavBtn.style.display = "inline-block";
                 
