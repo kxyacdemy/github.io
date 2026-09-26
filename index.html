@@ -1,620 +1,873 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-theme="dark" style="--primary: #8b5cf6; --bg-color: #030712; --card-bg: #0b0f19; --font-family: 'Tajawal', sans-serif;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KXY Academy | المنصة التعليمية الذكية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <title>KXY Academy - المنصة الأسطورية المحدثة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;900&family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-main: #0b0f19;
-            --bg-card: #131b2e;
-            --bg-hover: #1e293b;
-            --primary: #3b82f6;
-            --primary-hover: #2563eb;
-            --accent: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --text-main: #f1f5f9;
-            --text-muted: #94a3b8;
-            --border: #1e293b;
+            --bg-color: #030712;
+            --sidebar-bg: #080d1a;
+            --card-bg: #0b0f19;
+            --card-hover: #111827;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --accent: #06b6d4;
+            --danger: #f43f5e;
+            --border: #1f2937;
+            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+            --radius: 20px;
+            --font-family: 'Tajawal', sans-serif;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f8fafc;
+            --sidebar-bg: #ffffff;
+            --card-bg: #ffffff;
+            --card-hover: #f1f5f9;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
+            font-family: var(--font-family);
+            transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
         }
 
         body {
-            background-color: var(--bg-main);
+            background-color: var(--bg-color);
             color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            overflow-x: hidden;
+        }
+
+        /* القائمة الجانبية بـ 3 شرط وخالية من الإيموجي تماماً */
+        aside {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            border-left: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 1.8rem 1.2rem;
+            position: fixed;
+            height: 100vh;
+            z-index: 100;
+        }
+
+        aside.collapsed { width: 90px; }
+        aside.collapsed .logo-text,
+        aside.collapsed .nav-links span,
+        aside.collapsed .sidebar-footer span { display: none; }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+            padding: 0 0.5rem;
+        }
+
+        .logo-area {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+        .logo-area span { color: var(--primary); }
+
+        .menu-toggle-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.3rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .menu-toggle-btn:hover { border-color: var(--primary); }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .nav-links button {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            text-align: right;
+            padding: 1rem 1.1rem;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links button:hover, .nav-links button.active {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(6, 182, 212, 0.05));
+            color: var(--primary);
+            font-weight: 700;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .sidebar-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            border-top: 1px solid var(--border);
+            padding-top: 1.2rem;
+        }
+
+        .sidebar-footer button {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.9rem;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            font-weight: 600;
+        }
+        .sidebar-footer button:hover { border-color: var(--primary); }
+
+        /* المحتوى الرئيسي */
+        main {
+            flex: 1;
+            margin-right: 280px;
+            padding: 3rem;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
+        main.expanded { margin-right: 90px; }
 
-        /* شاشة تسجيل الدخول / إنشاء الحساب */
-        #auth-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(11, 15, 25, 0.95);
-            backdrop-filter: blur(10px);
+        .top-bar {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            z-index: 9999;
-        }
-
-        .auth-box {
-            background: var(--bg-card);
+            margin-bottom: 2.5rem;
+            background-color: var(--card-bg);
+            padding: 1.5rem 2.5rem;
+            border-radius: var(--radius);
             border: 1px solid var(--border);
-            padding: 2.5rem;
-            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .section { display: none; }
+        .section.active { display: block; animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2.2rem;
+            margin-bottom: 1.8rem;
+            box-shadow: var(--shadow);
+        }
+        .card:hover { border-color: rgba(139, 92, 246, 0.3); }
+
+        h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 1.2rem; letter-spacing: -0.5px; }
+        h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.8rem; }
+        p { color: var(--text-muted); font-size: 1rem; line-height: 1.8; }
+
+        input, select, textarea {
             width: 100%;
-            max-width: 420px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            text-align: center;
+            padding: 1.1rem 1.2rem;
+            margin-bottom: 1.2rem;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
         }
+        input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15); }
 
-        .auth-box h2 {
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-            font-size: 1.8rem;
-        }
-
-        .auth-tabs {
-            display: flex;
-            margin-bottom: 1.5rem;
-            background: var(--bg-main);
-            border-radius: 8px;
-            padding: 4px;
-        }
-
-        .auth-tab {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            padding: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            border-radius: 6px;
-            transition: 0.3s;
-        }
-
-        .auth-tab.active {
-            background: var(--primary);
+        button.btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
             color: white;
-        }
-
-        .auth-form { display: none; }
-        .auth-form.active { display: block; }
-
-        /* شريط الإعلانات المتحرك */
-        .marquee-container {
-            background: linear-gradient(90deg, #3b82f6, #6366f1, #10b981);
-            color: #fff;
-            font-weight: 700;
-            padding: 8px 12px;
-            font-size: 0.95rem;
-        }
-
-        /* النافبار */
-        header {
-            background: rgba(19, 27, 46, 0.95);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-wrap {
-            max-width: 1350px;
-            margin: 0 auto;
+            border: none;
             padding: 1rem 2rem;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+            transition: all 0.2s ease;
+        }
+        button.btn:hover { opacity: 0.95; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4); }
+        button.btn-danger { background: transparent; border: 1px solid var(--danger); color: var(--danger); box-shadow: none; }
+        button.btn-danger:hover { background: var(--danger); color: white; transform: translateY(-2px); }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .badge-success { background-color: rgba(6, 182, 212, 0.15); color: var(--accent); border: 1px solid rgba(6, 182, 212, 0.3); }
+        .badge-primary { background-color: rgba(139, 92, 246, 0.15); color: var(--primary); border: 1px solid rgba(139, 92, 246, 0.3); }
+        .badge-danger { background-color: rgba(244, 63, 94, 0.15); color: var(--danger); border: 1px solid rgba(244, 63, 94, 0.3); }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 1.2rem; overflow-x: auto; display: block; }
+        th, td { padding: 1.1rem; text-align: right; border-bottom: 1px solid var(--border); font-size: 0.95rem; white-space: nowrap; }
+        th { color: var(--text-muted); font-weight: 700; }
+
+        .announcement-banner {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.1));
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            padding: 1.4rem 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 2.5rem;
+            box-shadow: var(--shadow);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo { font-size: 1.8rem; font-weight: 900; color: var(--primary); }
-        .logo span { color: var(--accent); }
-
-        .nav-menu {
-            display: flex;
-            gap: 10px;
-            list-style: none;
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(10px);
+            justify-content: center;
             align-items: center;
-        }
-
-        .nav-menu button {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            padding: 8px 16px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-menu button:hover, .nav-menu button.active {
-            color: var(--text-main);
-            background: var(--bg-hover);
-        }
-
-        main {
-            max-width: 1350px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-            flex: 1;
-            width: 100%;
-        }
-
-        .tab-pane { display: none; }
-        .tab-pane.active { display: block; animation: fadeIn 0.3s ease; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h2.title {
-            font-size: 1.6rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-right: 4px solid var(--primary);
-            padding-right: 12px;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
+            z-index: 1000;
             padding: 1.5rem;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
         }
-
-        .card h3 { margin-bottom: 1rem; color: var(--text-main); font-size: 1.2rem; }
-
-        .btn {
-            background-color: var(--primary);
-            color: white;
-            padding: 0.7rem 1.4rem;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.95rem;
-            transition: 0.2s;
+        .modal-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
             width: 100%;
-        }
-        .btn:hover { background-color: var(--primary-hover); }
-        .btn-success { background-color: var(--accent); color: #0b0f19; }
-        .btn-danger { background-color: var(--danger); }
-        .btn-sm { padding: 5px 10px; font-size: 0.85rem; width: auto; }
-
-        input, textarea, select {
-            background: var(--bg-main);
-            border: 1px solid var(--border);
-            color: var(--text-main);
-            padding: 0.7rem 1rem;
-            border-radius: 8px;
-            width: 100%;
-            font-size: 0.95rem;
-            outline: none;
-            margin-bottom: 12px;
-        }
-        input:focus, textarea:focus { border-color: var(--primary); }
-
-        .course-card {
-            background: var(--bg-main);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1.2rem;
-            margin-bottom: 1rem;
+            max-width: 520px;
+            padding: 2.8rem;
+            box-shadow: var(--shadow);
         }
 
-        .logs-box {
-            background: #060911;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1rem;
-            height: 280px;
-            overflow-y: auto;
-            font-family: monospace;
-            font-size: 0.85rem;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .log-row { padding: 6px 10px; border-radius: 6px; background: rgba(255,255,255,0.02); border-right: 3px solid var(--primary); }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: auto;
+        @media (max-width: 900px) {
+            aside { width: 90px; }
+            aside .logo-text, aside .nav-links span, aside .sidebar-footer span { display: none; }
+            main { margin-right: 90px; padding: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- شاشة تسجيل الدخول الخالية من أي إشارة للأدمن -->
-    <div id="auth-screen">
-        <div class="auth-box">
-            <h2>KXY Academy</h2>
-            <div class="auth-tabs">
-                <button class="auth-tab active" onclick="switchAuthTab('login', this)">تسجيل الدخول</button>
-                <button class="auth-tab" onclick="switchAuthTab('register', this)">حساب جديد</button>
+    <!-- القائمة الجانبية بـ 3 شرط وخالية تماماً من الإيموجي -->
+    <aside id="sidebar">
+        <div>
+            <div class="sidebar-header">
+                <div class="logo-area">
+                    <span>KXY</span><span class="logo-text"> ACADEMY</span>
+                </div>
+                <button class="menu-toggle-btn" onclick="toggleSidebar()">≡</button>
             </div>
-
-            <div id="login-form" class="auth-form active">
-                <input type="text" id="login-username" placeholder="اسم المستخدم">
-                <input type="password" id="login-password" placeholder="كلمة المرور">
-                <button class="btn" onclick="handleLogin()">دخول للمنصة</button>
+            <div class="nav-links">
+                <button onclick="switchTab('home')" class="active" id="nav-home"><span>الرئيسية</span></button>
+                <button onclick="switchTab('tracks')" id="nav-tracks"><span>المسارات والكورسات</span></button>
+                <button onclick="switchTab('projects')" id="nav-projects"><span>مكتبة البروجيكتات (ZIP)</span></button>
+                <button onclick="switchTab('exams')" id="nav-exams"><span>الامتحانات والاختبارات</span></button>
+                <button onclick="switchTab('codes')" id="nav-codes"><span>أكواد الهدايا والخصم</span></button>
+                <button onclick="switchTab('customizer')" id="nav-customizer"><span>تخصيص المظهر</span></button>
+                <button onclick="switchTab('admin')" id="nav-admin" style="display:none; color: var(--accent);"><span>لوحة تحكم الآدمن</span></button>
             </div>
-
-            <div id="register-form" class="auth-form">
-                <input type="text" id="reg-username" placeholder="اختر اسم مستخدم جديد">
-                <input type="password" id="reg-password" placeholder="كلمة المرور">
-                <button class="btn btn-success" onclick="handleRegister()">إنشاء الحساب والانضمام</button>
-            </div>
-            <p id="auth-msg" style="margin-top: 1rem; font-weight: bold; font-size: 0.9rem;"></p>
         </div>
-    </div>
-
-    <!-- شريط الإعلانات المتحرك -->
-    <div class="marquee-container">
-        <marquee scrollamount="6" id="top-announcement">🚀 مرحباً بك في منصة KXY Academy التعليمية المتكاملة!</marquee>
-    </div>
-
-    <!-- النافبار العلوي -->
-    <header>
-        <div class="nav-wrap">
-            <div class="logo">KXY <span>Academy</span></div>
-            <ul class="nav-menu">
-                <li><button class="active" onclick="switchTab('home', this)">الرئيسية</button></li>
-                <li><button onclick="switchTab('courses', this)">الدورات والشرائح</button></li>
-                <li><button onclick="switchTab('exams', this)">الامتحانات والأسئلة</button></li>
-                <li><button onclick="switchTab('files', this)">الملفات والروابط</button></li>
-                <li><button onclick="switchTab('logs', this)">السجلات (Logs)</button></li>
-                <li><button onclick="switchTab('admin', this)" id="admin-nav-btn" style="color: var(--warning); display: none;">لوحة الأدمن 🛡️</button></li>
-                <li><button onclick="handleLogout()" style="color: var(--danger);">خروج 🚪</button></li>
-            </ul>
+        <div class="sidebar-footer">
+            <button onclick="toggleTheme()" id="themeBtn"><span>الوضع الفاتح / الداكن</span></button>
+            <button onclick="openAuthModal()" id="authBtn" style="background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: white; border: none;"><span id="authBtnText">تسجيل الدخول</span></button>
         </div>
-    </header>
+    </aside>
 
-    <main>
-        <!-- 1. الرئيسية -->
-        <section id="home" class="tab-pane active">
-            <h2 class="title">🏠 لوحة التحكم الشخصية</h2>
-            <div class="grid-2">
-                <div class="card">
-                    <h3>أهلاً بك، <span id="current-user-display" style="color: var(--primary);"></span> 👋</h3>
-                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">أنت مسجل حالياً في المنصة بنجاح.</p>
-                    <div style="display: flex; gap: 1rem;">
-                        <div style="background: var(--bg-main); padding: 1rem; border-radius: 8px; flex:1; text-align: center;">
-                            <span style="color: var(--text-muted); font-size: 0.85rem;">نقاطك الكلية</span>
-                            <h3 id="user-xp" style="color: var(--accent); font-size: 1.6rem; margin-top: 5px;">0 XP</h3>
-                        </div>
-                        <div style="background: var(--bg-main); padding: 1rem; border-radius: 8px; flex:1; text-align: center;">
-                            <span style="color: var(--text-muted); font-size: 0.85rem;">رتبتك في المنصة</span>
-                            <h3 id="user-role-display" style="color: var(--primary); font-size: 1.4rem; margin-top: 5px;">طالب</h3>
-                        </div>
-                    </div>
+    <!-- المحتوى الرئيسي -->
+    <main id="mainContent">
+        <div class="top-bar">
+            <h2 id="pageTitle" style="margin-bottom: 0;">الرئيسية</h2>
+            <p id="userStatusHeader" style="font-size: 0.98rem; margin-bottom: 0; font-weight: 600;">مرحباً بك زائرنا الكريم</p>
+        </div>
+
+        <div id="announcementContainer"></div>
+
+        <!-- الرئيسية -->
+        <section id="home" class="section active">
+            <div class="card" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), var(--card-bg)); border-color: rgba(139, 92, 246, 0.3);">
+                <h2>مرحباً بك في المنصة الأسطورية المحدثة KXY Academy</h2>
+                <p>المنصة الهندسية الأكثر تطوراً لإدارة المسارات، رفع مشاريع السورس كود بصيغة ZIP، حل الامتحانات، وتفعيل أكواد الهدايا الحصرية.</p>
+            </div>
+            <div class="grid">
+                <div class="card" style="text-align: center;">
+                    <h3 style="color: var(--primary); font-size: 2.5rem; font-weight: 900;" id="statTracks">0</h3>
+                    <p>المسارات والكورسات</p>
                 </div>
-                <div class="card">
-                    <h3>💡 مميزات المنصة المفعلة</h3>
-                    <ul style="color: var(--text-muted); padding-right: 1.2rem; display: flex; flex-direction: column; gap: 8px; font-size: 0.95rem;">
-                        <li>تسجيل دخول وإنشاء حسابات حقيقي.</li>
-                        <li>استعراض الكورسات، الملفات، والامتحانات الذكية.</li>
-                    </ul>
+                <div class="card" style="text-align: center;">
+                    <h3 style="color: var(--accent); font-size: 2.5rem; font-weight: 900;" id="statProjects">0</h3>
+                    <p>البروجيكتات والملفات (ZIP)</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <h3 style="color: var(--danger); font-size: 2.5rem; font-weight: 900;" id="statExams">0</h3>
+                    <p>الامتحانات التفاعلية</p>
                 </div>
             </div>
         </section>
 
-        <!-- 2. الدورات والشرائح التعليمية -->
-        <section id="courses" class="tab-pane">
-            <h2 class="title">📚 الدورات والشرائح التعليمية</h2>
-            <div class="grid-2">
-                <div class="card" id="add-course-card" style="display: none;">
-                    <h3>إضافة كورس جديد (أدمن فقط)</h3>
-                    <input type="text" id="course-title" placeholder="عنوان الكورس...">
-                    <textarea id="course-desc" placeholder="وصف الكورس والشرائح..." rows="3"></textarea>
-                    <button class="btn btn-success" onclick="addCourse()">نشر الكورس</button>
+        <!-- المسارات والكورسات -->
+        <section id="tracks" class="section">
+            <h2>المسارات والكورسات التعليمية</h2>
+            <div class="grid" id="tracksGrid"></div>
+        </section>
+
+        <!-- مكتبة البروجيكتات (ZIP) -->
+        <section id="projects" class="section">
+            <h2>مكتبة البروجيكتات والملفات (ZIP)</h2>
+            <p style="margin-bottom: 1.5rem;">حمل أرشيف المشاريع وسورس الكود الجاهز المرفوع بواسطة الإدارة.</p>
+            <div class="grid" id="projectsGrid"></div>
+        </section>
+
+        <!-- الامتحانات والاختبارات -->
+        <section id="exams" class="section">
+            <h2>الامتحانات والاختبارات التفاعلية</h2>
+            <div class="grid" id="examsGrid"></div>
+        </section>
+
+        <!-- أكواد الهدايا والخصم -->
+        <section id="codes" class="section">
+            <h2>أكواد الهدايا والخصومات البرمجية</h2>
+            <div class="card">
+                <h3>تفعيل كود الهدية أو الخصم</h3>
+                <p style="margin-bottom: 1.2rem;">أدخل الكود أدناه لفتح المحتويات الحصرية واستلام صلاحيات VIP كاملة فوراً.</p>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <input type="text" id="userPromoInput" placeholder="أدخل الكود (مثال: KXY2026)" style="margin-bottom: 0; flex: 1; min-width: 220px;">
+                    <button class="btn" onclick="redeemPromoCode()">التحقق وتفعيل الكود</button>
                 </div>
-                <div class="card">
-                    <h3>قائمة الكورسات الحالية</h3>
-                    <div id="courses-list" style="display: flex; flex-direction: column; gap: 10px; max-height: 250px; overflow-y: auto;">
-                        <div class="course-card">
-                            <h4 style="color: var(--primary);">برمجة بوتات ديسكورد (Node.js)</h4>
-                            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">شرح أساسيات الـ handlers و slash commands والـ events.</p>
-                        </div>
-                    </div>
-                </div>
+            </div>
+            <div class="card">
+                <h3>قائمة الأكواد الفعالة في المنصة</h3>
+                <div id="activePromoList" style="margin-top: 1rem;"></div>
             </div>
         </section>
 
-        <!-- 3. الامتحانات والأسئلة -->
-        <section id="exams" class="tab-pane">
-            <h2 class="title">📝 الامتحانات والاختبارات الذكية</h2>
-            <div class="grid-2">
-                <div class="card">
-                    <h3>اختبار البرمجة السريع</h3>
-                    <p style="color: var(--text-muted); margin-bottom: 1rem;">أجب عن السؤال التالي لاجتياز الاختبار (+100 XP):</p>
-                    <p style="font-weight: 700; margin-bottom: 10px;">ما هي لغة البرمجة الأساسية لتشغيل البوتات وسيرفرات الـ Node.js؟</p>
-                    <select id="exam-answer">
-                        <option value="wrong">Python</option>
-                        <option value="correct">JavaScript</option>
-                        <option value="wrong">C++</option>
-                    </select>
-                    <button class="btn" onclick="submitExam()" style="margin-top: 10px;">إرسال الإجابة</button>
-                    <p id="exam-result" style="margin-top: 10px; font-weight: bold;"></p>
-                </div>
-                <div class="card" id="add-q-card" style="display: none;">
-                    <h3>إضافة سؤال جديد (أدمن فقط)</h3>
-                    <input type="text" id="new-q-text" placeholder="نص السؤال...">
-                    <button class="btn btn-success" onclick="addQuestion()">حفظ في بنك الأسئلة</button>
-                </div>
+        <!-- تخصيص المظهر والخطوط -->
+        <section id="customizer" class="section">
+            <h2>استوديو التخصيص البصري</h2>
+            <div class="card">
+                <h3>تخصيص ألوان المنصة والخطوط الأساسية</h3>
+                <p style="margin-bottom: 1.5rem;">تحكم في الهوية البصرية للمنصة حسب رغبتك الشخصية.</p>
+                
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 700;">اللون الرئيسي للمنصة:</label>
+                <input type="color" id="pickerPrimary" value="#8b5cf6" style="height: 55px; cursor: pointer; padding: 0.3rem;" onchange="applyCustomTheme()">
+
+                <label style="display: block; margin-top: 1.2rem; margin-bottom: 0.5rem; font-weight: 700;">نوع الخط الأساسي:</label>
+                <select id="pickerFont" onchange="applyCustomTheme()">
+                    <option value="'Tajawal', sans-serif">خط تجوال (Tajawal)</option>
+                    <option value="'Cairo', sans-serif">خط كايرو (Cairo)</option>
+                    <option value="'IBM Plex Sans Arabic', sans-serif">خط آي بي إم (IBM Plex)</option>
+                    <option value="'Amiri', serif">خط أميري (Amiri)</option>
+                </select>
+
+                <button class="btn" style="margin-top: 1.5rem;" onclick="resetCustomTheme()">إعادة تعيين الافتراضي</button>
             </div>
         </section>
 
-        <!-- 4. الملفات والروابط -->
-        <section id="files" class="tab-pane">
-            <h2 class="title">📂 الملفات ومرفقات الدروس</h2>
-            <div class="grid-2">
-                <div class="card" id="add-file-card" style="display: none;">
-                    <h3>إضافة ملف جديد (أدمن فقط)</h3>
-                    <input type="text" id="file-name" placeholder="اسم الملف...">
-                    <input type="text" id="file-link" placeholder="رابط التحميل (https://...)">
-                    <button class="btn" onclick="addFile()">إضافة للمنصة</button>
-                </div>
-                <div class="card">
-                    <h3>الملفات المتاحة للتحميل</h3>
-                    <div id="files-list" style="display: flex; flex-direction: column; gap: 8px; max-height: 250px; overflow-y: auto;">
-                        <div class="course-card" style="display: flex; justify-content: space-between; align-items: center;">
-                            <span>قالب بوت ديسكورد الأساسي (ZIP)</span>
-                            <a href="#" class="btn btn-sm btn-success">تحميل</a>
-                        </div>
-                    </div>
-                </div>
+        <!-- لوحة التحكم الإدارية (أحمد) -->
+        <section id="admin" class="section">
+            <h2>لوحة تحكم المسؤول الشاملة (أحمد)</h2>
+            
+            <div class="card">
+                <h3>نشر إعلان عام (Announce) في واجهة المنصة</h3>
+                <input type="text" id="adminAnnounceText" placeholder="اكتب نص الإعلان الهام هنا">
+                <button class="btn" onclick="publishAnnouncement()">نشر الإعلان للجميع</button>
+            </div>
+
+            <div class="card">
+                <h3>سجلات النشاط واللوجات (Logs)</h3>
+                <p style="margin-bottom: 1rem;">تتبع كافة العمليات وحركات التفعيل وتسجيل الدخول في المنصة.</p>
+                <div id="adminLogsTable"></div>
+            </div>
+
+            <div class="card">
+                <h3>إدارة المستخدمين والحظر (Ban System)</h3>
+                <div id="adminUsersTable"></div>
+            </div>
+
+            <div class="card">
+                <h3>رفع بروجيكت جديد (ملف ZIP أو رابط)</h3>
+                <input type="text" id="adminProjectTitle" placeholder="عنوان البروجيكت (مثال: نظام تذاكر ديسكورد)">
+                <textarea id="adminProjectDesc" placeholder="شرح مبسط لمحتويات البروجيكت ومميزاته" rows="2"></textarea>
+                <input type="text" id="adminProjectFile" placeholder="رابط ملف الـ ZIP المباشر">
+                <button class="btn" onclick="addProject()">إضافة البروجيكت للمكتبة</button>
+                <div id="adminProjectsTable"></div>
+            </div>
+
+            <div class="card">
+                <h3>إضافة مسار أو كورس تعليمي جديد</h3>
+                <input type="text" id="adminTrackTitle" placeholder="اسم المسار التعليمي">
+                <textarea id="adminTrackDesc" placeholder="تفاصيل ومحاور الكورس" rows="2"></textarea>
+                <select id="adminTrackType">
+                    <option value="free">متاح لجميع الطلاب</option>
+                    <option value="vip">حصري لأكواد الـ VIP</option>
+                </select>
+                <button class="btn" onclick="addTrack()">إضافة المسار</button>
+                <div id="adminTracksTable"></div>
+            </div>
+
+            <div class="card">
+                <h3>إنشاء امتحان أو اختبار تفاعلي</h3>
+                <input type="text" id="adminExamTitle" placeholder="عنوان الاختبار">
+                <input type="text" id="adminExamQ" placeholder="نص السؤال">
+                <input type="text" id="adminExamOpts" placeholder="الخيارات مفصولة بفواصل (خيار أ, خيار ب, خيار ج)">
+                <input type="text" id="adminExamAns" placeholder="الإجابة الصحيحة تماماً كما كتبتها في الخيارات">
+                <button class="btn" onclick="addExam()">نشر الامتحان</button>
+                <div id="adminExamsTable"></div>
+            </div>
+
+            <div class="card">
+                <h3>إنشاء كود هدايا وخصم جديد</h3>
+                <input type="text" id="adminCodeText" placeholder="رمز الكود (مثال: KXYVIP)">
+                <select id="adminCodeReward">
+                    <option value="all_access">فتح جميع المسارات والحصريات والبروجيكتات بالكامل</option>
+                </select>
+                <button class="btn" onclick="addPromoCode()">إنشاء الكود وتفعيله</button>
+                <div id="adminCodesTable"></div>
             </div>
         </section>
 
-        <!-- 5. السجلات (Logs) -->
-        <section id="logs" class="tab-pane">
-            <h2 class="title">📋 سجلات النظام الحية (System Logs)</h2>
-            <div class="logs-box" id="logs-container">
-                <div class="log-row">[2026-09-24 20:55] تم تشغيل المنصة بنجاح.</div>
+        <!-- نافذة تسجيل الدخول -->
+        <div id="authModal" class="modal-overlay">
+            <div class="modal-card">
+                <h3 style="margin-bottom: 1.2rem; text-align: center;">تسجيل الدخول الآمن</h3>
+                <input type="text" id="authUsername" placeholder="اسم المستخدم">
+                <input type="password" id="authPassword" placeholder="كلمة المرور">
+                <button class="btn" style="width: 100%; margin-bottom: 0.8rem;" onclick="handleAuthSubmit()">تسجيل الدخول</button>
+                <button class="btn btn-danger" style="width: 100%;" onclick="closeAuthModal()">إلغاء</button>
             </div>
-        </section>
+        </div>
 
-        <!-- 6. لوحة الأدمن السرية -->
-        <section id="admin" class="tab-pane">
-            <h2 class="title">🛡️ لوحة تحكم الأدمن السرية</h2>
-            <div class="grid-2" style="margin-bottom: 1.5rem;">
-                <div class="card">
-                    <h3>📢 تعديل الشريط المتحرك العلوي</h3>
-                    <input type="text" id="marquee-input" placeholder="النص الجديد للإعلان...">
-                    <button class="btn" onclick="updateMarqueeText()">تحديث الشريط</button>
-                </div>
-                <div class="card">
-                    <h3>👥 حسابات المستخدمين المسجلين في المنصة</h3>
-                    <div id="users-list-box" style="max-height: 200px; overflow-y: auto; font-size: 0.9rem; color: var(--text-muted);"></div>
-                </div>
+        <!-- نافذة الامتحان -->
+        <div id="examModal" class="modal-overlay">
+            <div class="modal-card" style="text-align: center;">
+                <h3 id="modalExamTitle"></h3>
+                <p id="modalExamQText" style="font-size: 1.1rem; margin: 1.2rem 0; font-weight: 600;"></p>
+                <div id="modalExamOptions" style="display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem;"></div>
+                <button class="btn btn-danger" style="width: 100%;" onclick="closeExamModal()">إغلاق الاختبار</button>
             </div>
-        </section>
+        </div>
     </main>
 
-    <footer>
-        <p>جميع الحقوق محفوظة © 2026 KXY Academy - المنصة التعليمية المتكاملة.</p>
-    </footer>
-
     <script>
-        // قاعدة البيانات: حساب الأدمن برتبة admin واسم admin وباسورد 1121 ومخفي تماماً
-        let users = JSON.parse(localStorage.getItem('kxy_users')) || [
-            { username: "admin", pass: "1121", role: "admin", xp: 5000 }
-        ];
-
         let currentUser = JSON.parse(localStorage.getItem('kxy_current_user')) || null;
+        let currentTheme = localStorage.getItem('kxy_theme') || 'dark';
+        let customSettings = JSON.parse(localStorage.getItem('kxy_custom')) || { primary: '#8b5cf6', font: "'Tajawal', sans-serif" };
 
-        window.onload = function() {
-            if (currentUser) {
-                document.getElementById('auth-screen').style.display = 'none';
-                initSession();
-            }
+        let db = JSON.parse(localStorage.getItem('kxy_db')) || {
+            announcement: "مرحباً بكم في التحديث الأسطوري لمنصة KXY Academy! تم إصلاح أكواد الهدايا، وإضافة لوجستيات التتبع وحظر المستخدمين.",
+            tracks: [
+                { id: 1, title: 'احتراف هندسة بوتات ديسكورد', desc: 'بناء وتطوير أنظمة متكاملة باستخدام Node.js و Discord.js.', type: 'free' }
+            ],
+            projects: [
+                { id: 1, title: 'متجر ديسكورد سورس كود (ZIP)', desc: 'أرشيف بروجيكت متكامل لإدارة الطلبات والتذاكر.', file: '#' }
+            ],
+            exams: [
+                { id: 1, title: 'اختبار مهارات جافاسكريبت الأساسية', question: 'كيف تقوم بتعريف متغير ثابت لا يقبل التغيير في جافاسكريبت؟', options: ['var', 'let', 'const'], answer: 'const' }
+            ],
+            promoCodes: [
+                { code: 'KXY2026', reward: 'all_access', used: false }
+            ],
+            users: [],
+            logs: []
         };
 
-        function switchAuthTab(tab, btn) {
-            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
-            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(`${tab}-form`).classList.add('active');
-            btn.classList.add('active');
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        document.documentElement.style.setProperty('--primary', customSettings.primary);
+        document.documentElement.style.setProperty('--font-family', customSettings.font);
+        document.getElementById('pickerPrimary').value = customSettings.primary;
+        document.getElementById('pickerFont').value = customSettings.font;
+        updateThemeButtonText();
+
+        function addLog(action) {
+            let time = new Date().toLocaleString('ar-EG');
+            db.logs.unshift({ time, action });
+            if (db.logs.length > 50) db.logs.pop();
+            saveDB();
         }
 
-        function handleRegister() {
-            const u = document.getElementById('reg-username').value.trim();
-            const p = document.getElementById('reg-password').value.trim();
-            const msg = document.getElementById('auth-msg');
-
-            if (!u || !p) {
-                msg.style.color = "var(--danger)";
-                msg.style.display = "block";
-                msg.innerText = "يرجى ملء جميع الحقول!";
-                return;
-            }
-
-            if (users.some(x => x.username === u)) {
-                msg.style.color = "var(--danger)";
-                msg.style.display = "block";
-                msg.innerText = "اسم المستخدم مستخدم مسبقاً، اختر غيره.";
-                return;
-            }
-
-            users.push({ username: u, pass: p, role: "user", xp: 0 });
-            localStorage.setItem('kxy_users', JSON.stringify(users));
-
-            msg.style.color = "var(--accent)";
-            msg.style.display = "block";
-            msg.innerText = "🎉 تم إنشاء الحساب بنجاح! يمكنك تسجيل الدخول الآن.";
+        function toggleTheme() {
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            localStorage.setItem('kxy_theme', currentTheme);
+            updateThemeButtonText();
         }
 
-        function handleLogin() {
-            const u = document.getElementById('login-username').value.trim();
-            const p = document.getElementById('login-password').value.trim();
-            const msg = document.getElementById('auth-msg');
-
-            const found = users.find(x => x.username === u && x.pass === p);
-
-            if (found) {
-                currentUser = found;
-                localStorage.setItem('kxy_current_user', JSON.stringify(currentUser));
-                document.getElementById('auth-screen').style.display = 'none';
-                initSession();
-                addLog(`المستخدم ${u} قام بتسجيل الدخول.`);
-            } else {
-                msg.style.color = "var(--danger)";
-                msg.style.display = "block";
-                msg.innerText = "❌ اسم المستخدم أو كلمة المرور غير صحيحة!";
-            }
+        function updateThemeButtonText() {
+            const btn = document.getElementById('themeBtn');
+            btn.innerHTML = `<span>${currentTheme === 'dark' ? 'الوضع الفاتح' : 'الوضع الداكن'}</span>`;
         }
 
-        function handleLogout() {
-            localStorage.removeItem('kxy_current_user');
-            location.reload();
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('collapsed');
+            document.getElementById('mainContent').classList.toggle('expanded');
         }
 
-        function initSession() {
-            document.getElementById('current-user-display').innerText = currentUser.username;
-            document.getElementById('user-xp').innerText = `${currentUser.xp} XP`;
-            
-            const roleDisplay = document.getElementById('user-role-display');
-            const adminNavBtn = document.getElementById('admin-nav-btn');
-
-            if (currentUser.role === 'admin') {
-                roleDisplay.innerText = 'أدمن المنصة';
-                roleDisplay.style.color = "var(--warning)";
-                adminNavBtn.style.display = "inline-block";
-                
-                document.getElementById('add-course-card').style.display = 'block';
-                document.getElementById('add-q-card').style.display = 'block';
-                document.getElementById('add-file-card').style.display = 'block';
-                
-                loadUsersList();
-            } else {
-                roleDisplay.innerText = 'طالب نشط';
-            }
+        function applyCustomTheme() {
+            let primary = document.getElementById('pickerPrimary').value;
+            let font = document.getElementById('pickerFont').value;
+            document.documentElement.style.setProperty('--primary', primary);
+            document.documentElement.style.setProperty('--font-family', font);
+            customSettings = { primary, font };
+            localStorage.setItem('kxy_custom', JSON.stringify(customSettings));
         }
 
-        function switchTab(tabId, btnEl) {
-            document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-menu button').forEach(el => el.classList.remove('active'));
+        function resetCustomTheme() {
+            customSettings = { primary: '#8b5cf6', font: "'Tajawal', sans-serif" };
+            localStorage.setItem('kxy_custom', JSON.stringify(customSettings));
+            window.location.reload();
+        }
+
+        function saveDB() {
+            localStorage.setItem('kxy_db', JSON.stringify(db));
+            localStorage.setItem('kxy_current_user', JSON.stringify(currentUser));
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
-            if(btnEl) btnEl.classList.add('active');
+            document.getElementById('nav-' + tabId).classList.add('active');
+            document.getElementById('pageTitle').innerText = document.getElementById('nav-' + tabId).innerText.trim();
+            renderUI();
         }
 
-        function addLog(text) {
-            const container = document.getElementById('logs-container');
-            const time = new Date().toISOString().slice(0, 19).replace('T', ' ');
-            const row = document.createElement('div');
-            row.className = 'log-row';
-            row.innerText = `[${time}] ${text}`;
-            container.prepend(row);
-        }
-
-        function updateMarqueeText() {
-            const text = document.getElementById('marquee-input').value.trim();
-            if(text) {
-                document.getElementById('top-announcement').innerText = text;
-                addLog(`تم تحديث شريط الإعلانات بواسطة الأدمن.`);
-                alert("تم تحديث الشريط المتحرك بنجاح!");
-                document.getElementById('marquee-input').value = '';
-            }
-        }
-
-        function addCourse() {
-            const title = document.getElementById('course-title').value.trim();
-            const desc = document.getElementById('course-desc').value.trim();
-            if(title && desc) {
-                const list = document.getElementById('courses-list');
-                const card = document.createElement('div');
-                card.className = 'course-card';
-                card.innerHTML = `<h4 style="color: var(--primary);">${title}</h4><p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">${desc}</p>`;
-                list.prepend(card);
-                addLog(`تم نشر كورس جديد: "${title}"`);
-                alert("تم نشر الكورس بنجاح!");
-                document.getElementById('course-title').value = '';
-                document.getElementById('course-desc').value = '';
-            }
-        }
-
-        function submitExam() {
-            const ans = document.getElementById('exam-answer').value;
-            const resEl = document.getElementById('exam-result');
-            if(ans === 'correct') {
-                currentUser.xp += 100;
-                document.getElementById('user-xp').innerText = `${currentUser.xp} XP`;
-                localStorage.setItem('kxy_current_user', JSON.stringify(currentUser));
-                resEl.style.color = "var(--accent)";
-                resEl.innerText = "🎉 إجابة صحيحة! حصلت على 100 نقطة.";
-                addLog(`المستخدم ${currentUser.username} اجتاز الامتحان.`);
+        function openAuthModal() {
+            if (currentUser) {
+                if (confirm(`هل تريد تسجيل الخروج من حساب (${currentUser.name})؟`)) {
+                    addLog(`تسجيل خروج المستخدم: ${currentUser.name}`);
+                    currentUser = null;
+                    saveDB();
+                    renderUI();
+                }
             } else {
-                resEl.style.color = "var(--danger)";
-                resEl.innerText = "❌ إجابة خاطئة، حاول مرة أخرى!";
+                document.getElementById('authUsername').value = '';
+                document.getElementById('authPassword').value = '';
+                document.getElementById('authModal').style.display = 'flex';
             }
         }
 
-        function addQuestion() {
-            const q = document.getElementById('new-q-text').value;
-            if(q) {
-                addLog(`تم إضافة سؤال جديد لبنك الأسئلة.`);
-                alert("تم حفظ السؤال بنجاح!");
-                document.getElementById('new-q-text').value = '';
+        function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
+
+        function handleAuthSubmit() {
+            let u = document.getElementById('authUsername').value.trim();
+            let p = document.getElementById('authPassword').value.trim();
+            if (!u || !p) return alert('يرجى إدخال اسم المستخدم وكلمة المرور');
+
+            // التحقق من الآدمن بدقة بغض النظر عن حالة الأحرف
+            if (u.toLowerCase() === 'admin' && p === '1313') {
+                currentUser = { username: 'admin', name: 'أحمد (الآدمن)', isAdmin: true, vipAccess: true, isBanned: false };
+                addLog('تسجيل دخول الآدمن الرئيسي أحمد');
+                saveDB(); 
+                closeAuthModal(); 
+                renderUI();
+                alert('مرحباً بك يا أحمد في لوحة التحكم الإدارية.');
+                return;
+            }
+
+            let existing = db.users.find(x => x.username.toLowerCase() === u.toLowerCase());
+            if (existing) {
+                if (existing.isBanned) return alert('هذا الحساب محظور من استخدام المنصة!');
+                if (existing.password !== p) return alert('كلمة المرور غير صحيحة');
+                currentUser = existing;
+            } else {
+                let newUser = { username: u, name: u, password: p, isAdmin: false, vipAccess: false, isBanned: false };
+                db.users.push(newUser);
+                currentUser = newUser;
+                addLog(`تسجيل حساب جديد للمستخدم: ${u}`);
+            }
+            saveDB(); closeAuthModal(); renderUI();
+        }
+
+        function renderUI() {
+            if (currentUser && !currentUser.isAdmin) {
+                let userInDb = db.users.find(x => x.username.toLowerCase() === currentUser.username.toLowerCase());
+                if (userInDb && userInDb.isBanned) {
+                    alert('تم حظر حسابك من قبل إدارة المنصة!');
+                    currentUser = null;
+                    saveDB();
+                }
+            }
+
+            const authBtnText = document.getElementById('authBtnText');
+            const adminNav = document.getElementById('nav-admin');
+            const userStatusHeader = document.getElementById('userStatusHeader');
+            const announcementContainer = document.getElementById('announcementContainer');
+
+            if (db.announcement) {
+                announcementContainer.innerHTML = `
+                    <div class="announcement-banner">
+                        <div><strong>إعلان المنصة:</strong> ${db.announcement}</div>
+                        ${currentUser && currentUser.isAdmin ? '<button class="btn btn-danger" style="padding:0.4rem 0.8rem; font-size:0.8rem;" onclick="removeAnnouncement()">إزالة الإعلان</button>' : ''}
+                    </div>`;
+            } else {
+                announcementContainer.innerHTML = '';
+            }
+
+            if (currentUser) {
+                authBtnText.innerText = currentUser.name;
+                adminNav.style.display = currentUser.isAdmin ? 'flex' : 'none';
+                userStatusHeader.innerText = `مرحباً بك، ${currentUser.name}`;
+            } else {
+                authBtnText.innerText = 'تسجيل الدخول';
+                adminNav.style.display = 'none';
+                userStatusHeader.innerText = 'مرحباً بك زائرنا الكريم';
+            }
+
+            document.getElementById('statTracks').innerText = db.tracks.length;
+            document.getElementById('statProjects').innerText = db.projects.length;
+            document.getElementById('statExams').innerText = db.exams.length;
+
+            document.getElementById('tracksGrid').innerHTML = db.tracks.map(t => `
+                <div class="card">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem;">
+                        <h3>${t.title}</h3>
+                        <span class="badge ${t.type === 'free' ? 'badge-success' : 'badge-primary'}">${t.type === 'free' ? 'متاح للجميع' : 'حصري VIP'}</span>
+                    </div>
+                    <p style="margin-bottom:1.5rem;">${t.desc}</p>
+                    <button class="btn" style="width:100%;" onclick="openTrack('${t.title}', '${t.type}')">الانتقال للمسار</button>
+                </div>
+            `).join('');
+
+            document.getElementById('projectsGrid').innerHTML = db.projects.map(pr => `
+                <div class="card">
+                    <h3>${pr.title}</h3>
+                    <p style="margin-bottom:1.5rem;">${pr.desc}</p>
+                    <a href="${pr.file}" target="_blank" class="btn" style="display:block; text-align:center; text-decoration:none;" onclick="addLog('تحميل بروجيكت: ${pr.title}')">تحميل ملف البروجيكت (ZIP)</a>
+                </div>
+            `).join('');
+
+            document.getElementById('examsGrid').innerHTML = db.exams.map(e => `
+                <div class="card">
+                    <h3>${e.title}</h3>
+                    <p style="margin-bottom:1.5rem;">اختبر معلوماتك وقدرتك على البرمجة الآن في هذا الاختبار.</p>
+                    <button class="btn" style="width:100%;" onclick="startExam(${e.id})">بدء الاختبار التفاعلي</button>
+                </div>
+            `).join('');
+
+            document.getElementById('activePromoList').innerHTML = db.promoCodes.map(c => `
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:1rem; background:var(--bg-color); border:1px solid var(--border); border-radius:12px; margin-bottom:0.8rem;">
+                    <div><strong style="color:var(--primary); font-size:1.1rem; letter-spacing:1px;">${c.code}</strong> - <span style="font-size:0.9rem; color:var(--text-muted);">يمنح صلاحيات كاملة وفتح الكورسات</span></div>
+                    <span class="badge ${c.used ? 'badge-primary' : 'badge-success'}">${c.used ? 'مستعمل مسبقاً' : 'نشط وجاهز'}</span>
+                </div>
+            `).join('');
+
+            if (currentUser && currentUser.isAdmin) renderAdminTables();
+        }
+
+        function openTrack(title, type) {
+            if (type === 'vip' && (!currentUser || !currentUser.vipAccess)) {
+                return alert('هذا المحتوى حصري! يرجى إدخال كود هدايا وخصم صحيح في قسم الأكواد لفتح كافة محتويات المنصة.');
+            }
+            addLog(`دخول المسار: ${title}`);
+            alert(`جاري فتح محتوى الكورس: ${title}`);
+        }
+
+        function startExam(id) {
+            let ex = db.exams.find(x => x.id === id);
+            if (!ex) return;
+            document.getElementById('modalExamTitle').innerText = ex.title;
+            document.getElementById('modalExamQText').innerText = ex.question;
+            document.getElementById('modalExamOptions').innerHTML = ex.options.map(opt => `
+                <button class="btn" style="background:var(--bg-color); border:1px solid var(--border); color:var(--text-main);" onclick="checkAnswer('${opt.trim()}', '${ex.answer.trim()}')">${opt}</button>
+            `).join('');
+            document.getElementById('examModal').style.display = 'flex';
+        }
+
+        function checkAnswer(selected, correct) {
+            if (selected === correct) {
+                addLog('اجتياز امتحان بنجاح');
+                alert('إجابة صحيحة تماماً وأنت مبدع!');
+            } else {
+                addLog('إجابة خاطئة في امتحان');
+                alert(`إجابة خاطئة! الإجابة الصحيحة هي: ${correct}`);
+            }
+            closeExamModal();
+        }
+
+        function closeExamModal() { document.getElementById('examModal').style.display = 'none'; }
+
+        function redeemPromoCode() {
+            if (!currentUser) return alert('يرجى تسجيل الدخول أولاً قبل تفعيل الأكواد');
+            let codeInput = document.getElementById('userPromoInput').value.trim();
+            if (!codeInput) return alert('يرجى كتابة الكود أولاً');
+
+            let found = db.promoCodes.find(c => c.code.toLowerCase() === codeInput.toLowerCase());
+
+            if (!found) return alert('هذا الكود غير صحيح أو غير موجود!');
+            if (found.used) return alert('تم استخدام هذا الكود مسبقاً ولا يمكن استخدامه مرة أخرى!');
+
+            currentUser.vipAccess = true;
+            found.used = true;
+
+            let userInDb = db.users.find(x => x.username.toLowerCase() === currentUser.username.toLowerCase());
+            if (userInDb) userInDb.vipAccess = true;
+
+            addLog(`تفعيل كود هدية بنجاح: ${found.code} بواسطة ${currentUser.name}`);
+            saveDB();
+            document.getElementById('userPromoInput').value = '';
+            renderUI();
+            alert('تم تفعيل الكود بنجاح واستلام هدية صلاحيات الـ VIP وفتح جميع البروجيكتات والحصريات!');
+        }
+
+        function removeAnnouncement() {
+            db.announcement = "";
+            addLog('تمت إزالة الإعلان العام');
+            saveDB();
+            renderUI();
+            alert('تمت إزالة الإعلان بنجاح!');
+        }
+
+        function publishAnnouncement() {
+            let text = document.getElementById('adminAnnounceText').value.trim();
+            if (!text) return alert('اكتب نص الإعلان');
+            db.announcement = text;
+            addLog(`نشر إعلان جديد: ${text}`);
+            saveDB();
+            document.getElementById('adminAnnounceText').value = '';
+            renderUI();
+            alert('تم نشر الإعلان في المنصة بنجاح!');
+        }
+
+        function addProject() {
+            let title = document.getElementById('adminProjectTitle').value.trim();
+            let desc = document.getElementById('adminProjectDesc').value.trim();
+            let file = document.getElementById('adminProjectFile').value.trim() || '#';
+            if (!title || !desc) return alert('أدخل بيانات البروجيكت الكاملة');
+            db.projects.push({ id: Date.now(), title, desc, file });
+            addLog(`إضافة بروجيكت جديد: ${title}`);
+            saveDB();
+            document.getElementById('adminProjectTitle').value = '';
+            document.getElementById('adminProjectDesc').value = '';
+            document.getElementById('adminProjectFile').value = '';
+            renderUI();
+            alert('تم إضافة البروجيكت للمكتبة بنجاح!');
+        }
+
+        function addTrack() {
+            let title = document.getElementById('adminTrackTitle').value.trim();
+            let desc = document.getElementById('adminTrackDesc').value.trim();
+            let type = document.getElementById('adminTrackType').value;
+            if (!title || !desc) return alert('أدخل تفاصيل الكورس');
+            db.tracks.push({ id: Date.now(), title, desc, type });
+            addLog(`إضافة كورس جديد: ${title}`);
+            saveDB();
+            document.getElementById('adminTrackTitle').value = '';
+            document.getElementById('adminTrackDesc').value = '';
+            renderUI();
+            alert('تم إضافة الكورس للمنصة بنجاح!');
+        }
+
+        function addExam() {
+            let title = document.getElementById('adminExamTitle').value.trim();
+            let question = document.getElementById('adminExamQ').value.trim();
+            let optsStr = document.getElementById('adminExamOpts').value.trim();
+            let answer = document.getElementById('adminExamAns').value.trim();
+            if (!title || !question || !optsStr || !answer) return alert('أدخل بيانات الامتحان كاملة');
+            let options = optsStr.split(',').map(s => s.trim());
+            db.exams.push({ id: Date.now(), title, question, options, answer });
+            addLog(`إضافة امتحان جديد: ${title}`);
+            saveDB();
+            document.getElementById('adminExamTitle').value = '';
+            document.getElementById('adminExamQ').value = '';
+            document.getElementById('adminExamOpts').value = '';
+            document.getElementById('adminExamAns').value = '';
+            renderUI();
+            alert('تم نشر الامتحان للطلاب بنجاح!');
+        }
+
+        function addPromoCode() {
+            let code = document.getElementById('adminCodeText').value.trim();
+            let reward = document.getElementById('adminCodeReward').value;
+            if (!code) return alert('أدخل رمز الكود');
+            
+            if (db.promoCodes.some(c => c.code.toLowerCase() === code.toLowerCase())) {
+                return alert('هذا الكود موجود مسبقاً!');
+            }
+
+            db.promoCodes.push({ code, reward, used: false });
+            addLog(`إنشاء كود هدايا جديد: ${code}`);
+            saveDB();
+            document.getElementById('adminCodeText').value = '';
+            renderUI();
+            alert('تم إنشاء كود الهدايا بنجاح وأصبح جاهزاً للاستخدام!');
+        }
+
+        function toggleBanUser(username) {
+            let user = db.users.find(x => x.username.toLowerCase() === username.toLowerCase());
+            if (user) {
+                user.isBanned = !user.isBanned;
+                addLog(`تحديث حالة الحظر للمستخدم ${username}: ${user.isBanned ? 'محظور' : 'غير محظور'}`);
+                saveDB();
+                renderUI();
+                alert(`تم ${user.isBanned ? 'حظر' : 'إلغاء حظر'} المستخدم ${username} بنجاح.`);
             }
         }
 
-        function addFile() {
-            const name = document.getElementById('file-name').value.trim();
-            const link = document.getElementById('file-link').value.trim();
-            if(name && link) {
-                const list = document.getElementById('files-list');
-                const item = document.createElement('div');
-                item.className = 'course-card';
-                item.style.display = 'flex';
-                item.style.justifyContent = 'space-between';
-                item.style.alignItems = 'center';
-                item.innerHTML = `<span>${name}</span><a href="${link}" target="_blank" class="btn btn-sm btn-success">تحميل</a>`;
-                list.prepend(item);
-                addLog(`تم رفع ملف جديد: "${name}"`);
-                alert("تم إضافة الملف للمنصة بنجاح!");
-                document.getElementById('file-name').value = '';
-                document.getElementById('file-link').value = '';
-            }
+        function renderAdminTables() {
+            document.getElementById('adminLogsTable').innerHTML = `<table><tr><th>الوقت</th><th>الحدث / النشاط</th></tr>` +
+                db.logs.map(l => `<tr><td>${l.time}</td><td>${l.action}</td></tr>`).join('') + `</table>`;
+
+            document.getElementById('adminUsersTable').innerHTML = `<table><tr><th>المستخدم</th><th>الحالة</th><th>إجراء</th></tr>` +
+                (db.users.length === 0 ? `<tr><td colspan="3" style="text-align:center;">لا يوجد مستخدمين مسجلين بعد</td></tr>` : 
+                db.users.map(u => `<tr><td>${u.username}</td><td><span class="badge ${u.isBanned ? 'badge-danger' : 'badge-success'}">${u.isBanned ? 'محظور' : 'نشط'}</span></td><td><button class="btn btn-danger" style="padding:0.3rem 0.8rem; font-size:0.85rem;" onclick="toggleBanUser('${u.username}')">${u.isBanned ? 'إلغاء الحظر' : 'حظر المستخدم'}</button></td></tr>`).join('')) + `</table>`;
+
+            document.getElementById('adminProjectsTable').innerHTML = `<table><tr><th>البروجيكت</th><th>إجراء</th></tr>` +
+                db.projects.map((pr, idx) => `<tr><td>${pr.title}</td><td><button class="btn btn-danger" style="padding:0.3rem 0.8rem; font-size:0.85rem;" onclick="db.projects.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
+
+            document.getElementById('adminTracksTable').innerHTML = `<table><tr><th>المسار</th><th>النوع</th><th>إجراء</th></tr>` +
+                db.tracks.map((t, idx) => `<tr><td>${t.title}</td><td>${t.type}</td><td><button class="btn btn-danger" style="padding:0.3rem 0.8rem; font-size:0.85rem;" onclick="db.tracks.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
+
+            document.getElementById('adminExamsTable').innerHTML = `<table><tr><th>الامتحان</th><th>السؤال</th><th>إجراء</th></tr>` +
+                db.exams.map((e, idx) => `<tr><td>${e.title}</td><td>${e.question}</td><td><button class="btn btn-danger" style="padding:0.3rem 0.8rem; font-size:0.85rem;" onclick="db.exams.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
+
+            document.getElementById('adminCodesTable').innerHTML = `<table><tr><th>الكود</th><th>الحالة</th><th>إجراء</th></tr>` +
+                db.promoCodes.map((c, idx) => `<tr><td>${c.code}</td><td>${c.used ? 'مستعمل' : 'نشط'}</td><td><button class="btn btn-danger" style="padding:0.3rem 0.8rem; font-size:0.85rem;" onclick="db.promoCodes.splice(${idx},1);saveDB();renderUI();">حذف</button></td></tr>`).join('') + `</table>`;
         }
 
-        function loadUsersList() {
-            const box = document.getElementById('users-list-box');
-            // استثناء حساب الأدمن المخفي من القائمة
-            box.innerHTML = users.filter(u => u.username !== "admin").map(u => `<div style="padding: 6px 0; border-bottom: 1px solid var(--border);">👤 ${u.username} - الرتبة: <b>${u.role}</b> - النقاط: ${u.xp} XP</div>`).join('') || '<p>لا توجد حسابات مسجلة بعد.</p>';
-        }
+        window.onload = () => { renderUI(); };
     </script>
 </body>
 </html>
